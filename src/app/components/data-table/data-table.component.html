@@ -1,0 +1,31 @@
+
+<p-dataTable [value]="transactions" [paginator]="true" [rows]="10" 
+             [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" #dt>
+             
+  <p-column field="date" header="Date" 
+            [sortable]="true"
+            [filter]="true">
+      <ng-template let-col let-transaction="rowData" pTemplate="body">
+              {{formatDate(transaction[col.field])}}
+      </ng-template>
+  </p-column>
+
+  <p-column field="label" header="Label" 
+            [sortable]="true"
+            [filter]="true"></p-column>
+
+  <p-column field="amount" header="Amount" 
+            [sortable]="true"
+            [filter]="true"></p-column>
+
+  <p-column field="category" header="Category" 
+            [filter]="true" [sortable]="true" filterMatchMode="equals">
+    <ng-template pTemplate="filter" let-col>
+      <p-dropdown [options]="categories" [style]="{'width':'100%'}" 
+                  (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" 
+                  styleClass="ui-column-filter">
+      </p-dropdown>
+    </ng-template>
+  </p-column>          
+
+</p-dataTable>

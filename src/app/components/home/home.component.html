@@ -1,0 +1,166 @@
+<!--<div class="row">
+  <div class="col-md-12 text-right">   
+    <button (click)="logout()"
+            class="btn btn-outline-primary"
+            type="button" name="button">
+      Salir
+    </button>
+  </div>
+</div>
+<br>-->
+
+<!--  <div class="row">
+      <div class="col-xl-3 col-lg-6">
+          <app-stat [bgClass]="'primary'" 
+                    [icon]="'fa-comments'" 
+                    [count]="26" 
+                    [label]="'New Comments!'" ></app-stat>
+      </div>
+      <div class="col-xl-3 col-lg-6">
+          <app-stat [bgClass]="'warning'" 
+                    [icon]="'fa-tasks'" 
+                    [count]="12" 
+                    [label]="'New task!'" ></app-stat>
+      </div>
+      <div class="col-xl-3 col-lg-6">
+          <app-stat [bgClass]="'success'" 
+                    [icon]="'fa-shopping-cart'" 
+                    [count]="124" 
+                    [label]="'New Orders!'" ></app-stat>
+      </div>
+      <div class="col-xl-3 col-lg-6">
+          <app-stat [bgClass]="'danger'" 
+                    [icon]="'fa-support'" 
+                    [count]="13" 
+                    [label]="'New Tickets!'"></app-stat>
+      </div>
+  </div>
+  <br>
+
+  <div class="row">
+    <h1> </h1>
+  </div> -->
+
+  <div class="row">
+      <div class="col-xl-2 col-lg-6"></div>
+      <div class="col-xl-3 col-lg-6">
+          <app-stat [bgClass]="'primary'" 
+                    [icon]="'fa-comments'" 
+                    [count]="28" 
+                    [label]="regularizedCard" ></app-stat>
+      </div>
+      <div class="col-xl-3 col-lg-6">
+          <app-stat [bgClass]="'warning'" 
+                    [icon]="'fa-tasks'" 
+                    [count]="9" 
+                    [label]="refusedCard" ></app-stat>
+      </div>
+      <div class="col-xl-3 col-lg-6">
+          <app-stat [bgClass]="'success'" 
+                    [icon]="'fa-shopping-cart'" 
+                    [count]="47" 
+                    [label]="pendingCard" ></app-stat>
+      </div>
+      <div class="col-xl-1 col-lg-6"></div>
+    <!--  <div class="col-xl-3 col-lg-6">
+          <app-stat [bgClass]="'danger'" 
+                    [icon]="'fa-support'" 
+                    [count]="13" 
+                    [label]="'New Tickets!'"></app-stat>
+      </div> -->
+  </div>
+  <br>
+
+  <div class="row">
+    <h1> </h1>
+  </div>
+
+<div class="row">
+
+  <div class="col col-md-3">
+
+  </div>
+
+  <div class="col col-md-6">
+    <div class="card">    
+        <div class="card-header">
+            Distribución mensual de procesos
+        </div>
+        <div class="card-body">
+          <!--  <canvas baseChart height="150px"   mb-3
+            (chartHover)="chartHovered($event)" 
+            (chartClick)="chartClicked($event)">
+            </canvas>-->
+            <canvas
+            baseChart
+            [chartType]="'pie'"
+            [datasets]="pieChartData"
+            [labels]="pieChartLabels"
+            [options]="pieChartOptions"
+            [legend]="true"
+            [colors]="pieChartColor"
+            (chartClick)="onChartClick($event)">
+            </canvas>
+            
+        </div>
+    </div>
+  </div>
+
+</div>
+<!-- <form  id="form-login" novalidate>
+  [data]="pieChartData"
+  [labels]="pieChartLabels"
+  [chartType]="pieChartType"
+  
+    <div>
+
+          -- <div id="logo-login">
+                  <img src="../../../assets/img/logo.png"width="140" height="140">
+          </div> -- 
+    <div class="input-group mb-3">
+          <div class="input-group-prepend ">
+                  <span class="input-group-text color-group" id="basic-addon1" id="group-user"><i class="fa fa-user" id="us-icon"></i></span>
+                </div>
+          --<input type="text"  class="form-control" name="username" placeholder="Username" ngModel required> -->
+      <!--    <h3> Bienvenido {{ loggedUsername }} </h3> -->
+        <!--  <div  class="invalid-feedback">Este campo es requerido</div> --
+  </div>
+  <div class="input-group" *ngIf="checkATag[0]">
+          <div class="input-group-prepend ">
+                  <span class="input-group-text color-group" id="basic-addon1"><i class="fa fa-search"></i></span>
+                </div>
+          <a *ngIf="checkATag[0]"
+             [routerLink]=""
+             (click)="goBrowsePage()">BUSQUEDA ORDENES VENTA</a>
+          
+        !--  <a *ngIf="checkATag[1]"
+             [routerLink]=""
+             (click)="goComissionPage()">REPORTE DE COMISIONES</a> -->
+ 
+          <!--<input type="password" class="form-control" name="password" placeholder="Password" ngModel required > -->
+         <!-- <div  class="invalid-feedback">Este campo es requerido</div>  --> 
+  <!-- </div>
+  <div class="input-group" *ngIf="checkATag[1]">
+    <div class="input-group-prepend ">
+            <span class="input-group-text color-group" id="basic-addon1"><i class="fa fa-search"></i></span>
+          </div>
+          <br>
+          <br>           
+          <a *ngIf="checkATag[1]"
+             [routerLink]=""
+             (click)="goComissionPage()">REPORTE DE COMISIONES</a>
+  </div>
+  <div class="input-group" *ngIf="checkATag[2]">
+      <div class="input-group-prepend ">
+              <span class="input-group-text color-group" id="basic-addon1"><i class="fa fa-search"></i></span>
+            </div>
+            <br>
+            <br>           
+          <a *ngIf="checkATag[2]"
+              [routerLink]=""
+              (click)="goBatchPage()">REGULARIZACION DE ORDENES</a>
+  </div>
+
+  </div>
+
+</form> -->

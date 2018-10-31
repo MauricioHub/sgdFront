@@ -1,0 +1,44 @@
+<div>
+	<div class="jumbotron-n">
+	  <h3>Order Processing System</h3>
+    <div class="notification">
+      <div class="activeItem" *ngIf="order.status!=='Processed'">Currently processing Order # {{order.id}}</div>
+      <div class="success" *ngIf="order.status==='Processed'">Order Processed</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-5 info-col">
+        <div class="col-xs-5 info-label">Order #</div>
+        <div class="col-xs-7 info-value">{{order.id}}</div>
+      </div>
+      <div class="col-xs-7 info-col">
+        <div class="col-xs-5 info-label">Order Date</div>
+        <div class="col-xs-7 info-value">{{order.date}}</div>
+      </div>
+    </div>
+    
+    
+    <div class="orderitems" style="padding-bottom:5px;">
+      <h5> Order Items</h5>
+      <ul class="list-group">
+        <li class="list-group-item" 
+            [class.active]="item.status==='In Process'" 
+            *ngFor="let item of order.items">
+          <span class="glyphicon glyphicon-ok" aria-hidden="true" *ngIf="item.status==='Processed'"></span>
+          <span class="badge">{{ item.quantity }}</span>
+          {{ item.name }}
+        </li>
+      </ul>
+    </div>
+    
+    <div class="orderitems" style="padding-bottom:0">
+      <button type="button" class="btn btn-success"  (click)="processNextOrCompleteOrder()">Start Processing Order Items</button>
+    </div>
+	</div> 
+	
+	
+	<div class="itemDetailsContainer">
+    <item-details [item]="itemSelected" *ngIf="itemSelected"
+          [notifyItemProcessed]="processOrderItems" ></item-details>
+  </div>
+  
+</div>

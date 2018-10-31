@@ -1,0 +1,21 @@
+<app-header *ngIf="global.disableRoot"></app-header>
+<div class="container-fluid bg-1">
+    <div class="container">
+
+        <router-outlet></router-outlet>    
+      
+    </div> 
+</div>
+<div class="container-fluid bg-2">
+        <h1></h1>
+
+</div>
+<div class="container-fluid bg-3">
+        <h1></h1>
+
+</div>
+<div class="container-fluid bg-4">
+        <h1></h1>
+
+</div>
+<app-footer *ngIf="global.disableRoot"></app-footer>

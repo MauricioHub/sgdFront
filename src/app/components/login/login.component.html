@@ -1,0 +1,37 @@
+<div  class="container" id="form-login2">
+            <div id="logo">
+                  <!-- <img src="../../../assets/img/claro.png"  width="450" height="216"> -->
+                  <img src="../../../assets/img/claro.png" id="img-logo">
+            </div>
+            <form (ngSubmit)="login(formu)" #formu="ngForm"  class="container {{class}}" id="form-login" novalidate>
+                  <div>
+                        <!-- <div id="logo-login">
+                              <img src="../../../assets/img/logo.png"width="140" height="140">
+                        </div> --> 
+                  <div class="input-group mb-3">
+                        <div class="input-group-prepend ">
+                              <span class="input-group-text color-group" id="basic-addon1" id="group-user"><i class="fa fa-user" id="us-icon"></i></span>
+                              </div>
+                        <input type="text"  class="form-control" name="username" placeholder="Username" ngModel required>
+                  <!--  <div  class="invalid-feedback">Este campo es requerido</div> -->
+            </div>
+            <div class="input-group">
+                        <div class="input-group-prepend ">
+                              <span class="input-group-text color-group" id="basic-addon1"><i class="fa fa-key"></i></span>
+                              </div>
+                        <input type="password" class="form-control" name="password" placeholder="Password" ngModel required >
+                        <!-- <div  class="invalid-feedback">Este campo es requerido</div>  --> 
+            </div>
+            <div class="form-group row" id="btn-login" >
+                  <div class="input-group col-md-12">
+                        <button type="submit" [disabled]="!formu.valid" id="btn-login" class="btn btn-danger btn-lg btn-block">Login</button>
+                  </div>
+            </div>
+            </div>
+            </form>
+            <div class="container" id="logo">
+                  <!-- <img src="../../../assets/img/claro.png"  width="450" height="216"> -->
+                  <img src="" id="img-logo">
+            </div>
+      </div>
+<!-- <img src="../../../assets/img/logo.png" id="logo2"> -->

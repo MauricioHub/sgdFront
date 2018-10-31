@@ -1,0 +1,25 @@
+/*.container, .back-app {
+    background-color: white
+} */
+
+/*.margin {margin-bottom: 45px;} */
+.bg-1 { 
+   /* background-color: #ffffcc;   */
+   background-color: white;
+}
+.bg-2 { 
+   /* background-color: #ffffcc; /*  */
+   background-color: white;
+}
+.bg-3 { 
+    /* background-color: #ffffcc; /*  */
+    background-color: white;
+}
+.bg-4 { 
+  /*  background-color: #ffffcc; /*  */
+    background-color: white;
+}
+.container-fluid {
+    padding-top: 30px;
+    padding-bottom: 70px;
+}

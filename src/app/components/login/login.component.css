@@ -1,0 +1,61 @@
+#btn-login{
+    margin-top: 30px;
+}
+
+#form-login{
+    border:1px solid  #ced4da  !important;
+    border-radius: 1em;
+    /* width: 25em; */
+    width:75%;
+    margin-top: 1em;
+    padding-top: 3em;
+    padding-left:3em; 
+    padding-right:3em; 
+}
+
+#form-login2{
+    border:1px solid  #ced4da  !important;
+    border-radius: 1em;
+    /* width: 25em; */
+    width:40%;
+    margin-top: 1em;
+    padding-top: 3em;
+    padding-left:3em; 
+    padding-right:3em; 
+}
+
+#logo{
+    margin-left: 35%;
+}
+
+#img-logo{
+    width: 100%;
+    max-width: 100%;
+}
+
+#logo2{
+    margin-left: 76em;
+    margin-top: -15em !important ;
+}
+
+#group-user{
+    width: 42px;
+}
+
+#us-icon{
+    width: 100px;
+}
+
+.color-group{
+    color: #EF3829;
+}
+
+#logo-login{
+    margin-top: -2em;
+    margin-bottom: 2em;
+    margin-left: 5em;
+}
+
+#login-btn{
+    background-color: #EF3829;
+}

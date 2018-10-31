@@ -1,0 +1,45 @@
+<div class="itemDetails">
+    <h4> Selected Item : {{item.name}} </h4>
+    
+    <div class="row">
+        <div class="col-xs-12 info-col-d">
+          <div class="col-xs-3 info-label-val">Product # {{item.id}}</div>
+          <div class="col-xs-3 info-label-val">Quantity: {{item.quantity || ' '}}</div>
+          <div class="col-xs-3 info-label-val">Unit Price ${{item.unitPrice || ' '}}</div>
+          <div class="col-xs-3 info-label-val">UPC {{item.upc}}</div>
+        </div>
+    </div>
+  
+      
+    <div class="row" style="padding-top:10px;">
+      <div class="col-xs-6 info-label"><span id="item-barcode-label">Enter Scanned UPC #</span></div>
+      <div class="col-xs-6 info-value-i">
+        <input type="text" class="form-control" id="item-barcode" 
+                [(ngModel)]="scannedUPC"
+                aria-describedby="item-barcode-label">
+      </div>
+    </div>
+    <div class="row" style="padding-top:10px;">
+      <div class="col-xs-6 info-label">
+        <span id="item-quantity-label">Quantity to be added to supply Cart</span>
+      </div>
+      <div class="col-xs-6 info-value-i">
+        <input type="number" class="form-control" id="item-quantity"  name="item-quantity"
+          aria-describedby="item-quantity-label" [(ngModel)]="suppliedQuantity">
+      </div>
+    </div>
+    
+     <div class="row" style="padding-top:10px;">
+      <div class="col-xs-12">
+        <div class="div-button" (click)="processItem()">Process Item</div>
+      </div>
+      
+    </div>
+    <div class="div-row-10">
+       <div class="app-alert-danger"  *ngFor="let err of errors" >{{err}}</div>
+    </div>
+    
+    
+   
+  
+  </div>

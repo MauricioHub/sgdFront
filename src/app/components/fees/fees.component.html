@@ -1,0 +1,247 @@
+<div class="row">    
+   <div class="col-lg-9">            
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <i class="fa fa-home" aria-hidden="true"></i>                    
+                    <a [routerLink]="" (click)="goHome()"> Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                        <i class="fa fa-usd" aria-hidden="true"></i>
+                        Comisiones</li>
+            </ol>
+        </nav>
+   </div>
+   <div class="col-lg-3">
+        <button (click)="exportToExcel()"
+                class="btn btn-outline-danger float-right"
+                type="button" name="button">
+                <i class="fa fa-file-excel-o fa-lg"></i>
+        </button>
+        <button (click)="downloadPDF()"
+                class="btn btn-outline-danger float-right"
+                type="button" name="button">
+                <i class="fa fa-file-pdf-o fa-lg"></i>
+        </button>
+        <button (click)="browseWhitoutParameters()"
+                class="btn btn-outline-danger float-right"
+                type="button" name="button">
+                <i class="fa fa-search"></i>
+        </button>
+        <button (click)="showThing()"
+                class="btn btn-outline-danger float-right"
+                type="button" name="button">
+                <i class="fa fa-angle-double-left fa-lg"></i>
+        </button> 
+    </div>
+</div>
+
+    <div *ngIf="cardFlag" class="card container">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">                     
+                    <div class="input-group mb-3">                        
+
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Canal</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect01"
+                            [(ngModel)]="selectedChannel" 
+                            name="selectedC"
+                            (change)="browseParameters()">
+                        <option *ngFor="let c of channels" 
+                                [ngValue]="c">{{c.description}}</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect02">Vendedor</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect02"
+                            [(ngModel)]="selectedSeller" 
+                            name="selectedSe"
+                            (change)="browseParameters()">
+                        <option *ngFor="let s of sellers" 
+                                [ngValue]="s">{{s.sellerName}}</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect03">Penalidad</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect03"
+                            [(ngModel)]="selectedPenalty" 
+                            name="selectedPe"
+                            (change)="browseParameters()">
+                        <option *ngFor="let p of penalties" 
+                                [ngValue]="p">{{p.description}}</option>
+                    </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="input-group mb-3">                        
+                        <div class="input-group-prepend">
+                            <label class="input-group-text">F Activ Ini</label>
+                        </div>
+                        <input class="form-control" placeholder="yyyy-mm-dd"
+                                name="dp2" [(ngModel)]="startDate"
+                                (ngModelChange)="startDateBrowse($event)" 
+                                ngbDatepicker #d2="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button">
+                                <i class="fa fa-calendar fa-lg" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>    
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">                        
+                        <div class="input-group-prepend">
+                            <label class="input-group-text">F Activ Fin</label>
+                        </div>
+                        <input class="form-control" placeholder="yyyy-mm-dd"
+                                name="dp1" [(ngModel)]="endDate"
+                                (ngModelChange)="endDateBrowse($event)" 
+                                ngbDatepicker #d1="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button">
+                                <i class="fa fa-calendar fa-lg" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>                      
+                </div>
+                <div class="col">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+<div class="table-responsive" id="tablefee">
+<p>{{v_records}} registros</p> 
+  <!--<p-dataTable [value]="fees" [sortField]="sortField" [sortOrder]="sortOrder"
+        [paginator]="true" [rows]="10" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" #dt> -->
+  <p-dataTable [value]="fees" [sortField]="sortField" [sortOrder]="sortOrder"
+               [paginator]="true" [rows]="5" [pageLinks]="3" 
+               [rowsPerPageOptions]="[5,10,15]" expandableRows="true" class="tableng" #dt>
+
+          <p-column expander="true" styleClass="col-icon" [style]="{width:'1px'}">
+            <ng-template let-in="rowIndex" pTemplate type="body">
+              {{ in+1 }}
+            </ng-template>
+          </p-column>
+
+        <!--  <p-column header="Signature ??" field="claroSignature" 
+                    [style]="{width:'1px'}">
+            <ng-template let-rowsig="rowData" pTemplate type="body">
+                {{ rowsig.claroSignature === ''? '': (rowsig.claroSignature === 'S'? 'SI': 'NO') }}
+            </ng-template>          
+                </p-column> -->
+          <p-column header="Firma del Cliente" field="claroSignature" 
+                    [sortable]="true" [style]="{width:'1px'}">
+               </p-column>      
+          <p-column header="Carta Autoriza" field="signatureFirstTime" 
+                    [style]="{width:'1px'}">
+            <ng-template let-rowsig="rowData" pTemplate type="body">
+                {{ rowsig.signatureFirstTime === ''? '': (rowsig.signatureFirstTime === 'S'? 'SI': 'NO') }}
+            </ng-template>      
+                </p-column>
+          <p-column header="Vendedor" field="sellerName" 
+                    [sortable]="true" [style]="{width:'35px'}">
+                  </p-column>
+          <p-column header="Cliente" field="customerName" 
+                    [sortable]="true" [style]="{width:'35px'}">
+                  </p-column>
+          <p-column header="Plan" field="plan" [sortable]="true" 
+                    [style]="{width:'35px'}">
+                  </p-column>
+          <p-column header="Equipo" field="device" 
+                    [sortable]="true" [style]="{width:'35px'}">
+                  </p-column>
+          <p-column header="F.Activación" field="activationDate" 
+                    [sortable]="true" [style]="{width:'20px'}">
+            <ng-template let-fee="rowData" let-in="rowIndex" pTemplate type="body">
+                {{ formatDate(fee.activationDate) }}
+            </ng-template>        
+                  </p-column>
+          <p-column header="Comision" field="penalty" 
+                    [sortable]="true" [style]="{width:'20px'}">
+                  </p-column>
+          <p-column header="Multa" field="comissionValue" 
+                    [sortable]="true" [style]="{width:'20px'}">
+                  </p-column>
+
+          <ng-template let-fee pTemplate="rowexpansion">
+            <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-3" style="text-align:center">
+                    </div>
+                    <div class="ui-grid-col-9">
+                        <div class="ui-grid ui-grid-responsive ui-grid-pad">
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2 label">Ubicación: </div>
+                                <div class="ui-grid-col-10">{{fee.locationId}}</div>
+                            </div>
+                            <div class="ui-grid-row">
+                              <div class="ui-grid-col-2 label">Número Orden: </div>
+                              <div class="ui-grid-col-10">{{fee.idOrder}}</div>
+                            </div>
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2 label">Ced. Vendedor: </div>
+                                <div class="ui-grid-col-10">{{fee.sellerId}}</div>
+                            </div>
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2 label">Ced. Cliente: </div>
+                                <div class="ui-grid-col-10">{{fee.customerId}}</div>
+                            </div>
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2 label">Cuenta: </div>
+                                <div class="ui-grid-col-10">{{fee.account}}</div>
+                            </div>
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2 label">F. Registro: </div>
+                                <div class="ui-grid-col-10">{{fee.registerDate}}</div>
+                            </div>
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2 label">Usuario Regularización: </div>
+                                <div class="ui-grid-col-10">{{fee.regularizationUser}}</div>
+                            </div>   
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2 label">Fecha Regularización: </div>
+                                <div class="ui-grid-col-10">{{fee.regularizationDate}}</div>
+                            </div>
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2 label">Usuario Inconsistencia: </div>
+                                <div class="ui-grid-col-10">{{fee.inconsistencyUser}}</div>
+                            </div>   
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2 label">Fecha Inconsistencia: </div>
+                                <div class="ui-grid-col-10">{{fee.inconsistencyDate}}</div>
+                            </div>
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2 label">Cantidad Teléfonos: </div>
+                                <div class="ui-grid-col-10">{{fee.quantity}}</div>
+                            </div>   
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2 label">Penalidad: </div>
+                                <div class="ui-grid-col-10">{{fee.penaltyValue}}</div>
+                            </div>
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2 label">Multa Calculada: </div>
+                                <div class="ui-grid-col-10">{{fee.subComission}}</div>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>       
+  </p-dataTable> 
+</div>   

@@ -1,0 +1,122 @@
+<div class="row">
+    <div class="col-md-1 text-left">
+        <button (click)="browseParameters()"
+        class="btn btn-outline-danger"
+        type="button" name="button">
+          Buscar
+        </button>
+    </div>
+  <div class="col-md-11 text-right">
+    <!--<button (click)="goHome()"
+            class="btn btn-outline-primary"
+            type="button" name="button">
+      HOME
+    </button> -->   
+    <button (click)="logout()"
+            class="btn btn-outline-danger"
+            type="button" name="button">
+      Salir
+    </button>
+  </div>
+</div>
+<br>
+
+<div class="row animated fadeIn fast" [style.background-color]="'#ffff99'">
+  <div class="col-md-4" [style.background-color]="'#ffff99'">
+
+    <form #forma="ngForm">
+
+      <div class="form-group">
+          <label>Fecha Activacion Inicio</label>
+          <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd"
+                    name="dp1" [(ngModel)]="firstDate1" ngbDatepicker #d1="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"></button>
+            </div>
+          </div>
+      </div>
+
+      <div class="form-group">
+          <label>Fecha Activacion Fin</label>
+          <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd"
+                    name="dp2" [(ngModel)]="lastDate1" ngbDatepicker #d2="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
+            </div>
+          </div>
+      </div>
+
+      <div class="form-group">
+        <label>No. (#) Lote</label>
+        <input [(ngModel)]="lotId"
+              name="lotIden"
+              type="text"
+              class="form-control"
+              placeholder="Número de Lote">
+      </div>
+
+      <div class="form-group">
+          <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01">Canal</label>
+          </div>
+          <select class="custom-select" id="inputGroupSelect01"
+                  [(ngModel)]="selectedChannel" 
+                  name="selectedC"
+                  (change)="onSelectionChange(selectedChannel)">
+            <option *ngFor="let c of channels" 
+                    [ngValue]="c">{{c.description}}</option>
+          </select>
+      </div>    
+      <!--  <label for="inputState">Canal</label>
+        <select [(ngModel)]="selectedChannel" 
+                name="selectedC"
+                (change)="onSelectionChange(selectedChannel)">
+            <option *ngFor="let c of channels" 
+            [ngValue]="c">{{c.description}}</option>
+            
+        <label for="inputState">Oficina</label>
+        <select [(ngModel)]="selectedOficina" name="selectedO">
+            <option *ngFor="let o of oficinas" 
+            [ngValue]="o">{{o.officeName}}</option>
+        </select> 
+        <label for="inputState">Estado</label>
+          <select [(ngModel)]="selectedEstado" name="selectedSt">
+              <option *ngFor="let s of estados" 
+              [ngValue]="s">{{s.status}}</option>
+          </select>    
+      </div>
+        </select>-->
+      <div class="form-group">
+          <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect02">Oficina</label>
+          </div>
+          <select class="custom-select" id="inputGroupSelect02"
+                  [(ngModel)]="selectedOficina" name="selectedO">
+            <option *ngFor="let o of oficinas" 
+                    [ngValue]="o">{{o.officeName}}</option>
+          </select>    
+      </div>
+
+      <div class="form-group">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect03">Estado</label>
+        </div>
+        <select class="custom-select" id="inputGroupSelect03"
+                [(ngModel)]="selectedEstado" name="selectedSt">
+          <option *ngFor="let s of estados" 
+                  [ngValue]="s">{{s.status}}</option>
+        </select>    
+      </div>
+
+    <!--  <div class="form-group">
+        <button [disabled]="!forma.valid"
+                type="submit" class="btn btn-outline-primary">
+          Buscar
+        </button>
+
+      </div>-->
+    </form>
+  </div>
+</div>
