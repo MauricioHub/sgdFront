@@ -157,7 +157,7 @@
           <p-column header="Vendedor" field="sellerName" 
                     [sortable]="true" [style]="{width:'35px'}">
                   </p-column>
-          <p-column header="Cliente" field="customerName" 
+          <p-column header="Nombre del Cliente" field="customerName" 
                     [sortable]="true" [style]="{width:'35px'}">
                   </p-column>
           <p-column header="Plan" field="plan" [sortable]="true" 
@@ -166,7 +166,7 @@
           <p-column header="Equipo" field="device" 
                     [sortable]="true" [style]="{width:'35px'}">
                   </p-column>
-          <p-column header="F.Activación" field="activationDate" 
+          <p-column header="Fecha de Activación" field="activationDate" 
                     [sortable]="true" [style]="{width:'20px'}">
             <ng-template let-fee="rowData" let-in="rowIndex" pTemplate type="body">
                 {{ formatDate(fee.activationDate) }}
@@ -191,7 +191,7 @@
                                 <div class="ui-grid-col-10">{{fee.locationId}}</div>
                             </div>
                             <div class="ui-grid-row">
-                              <div class="ui-grid-col-2 label">Número Orden: </div>
+                              <div class="ui-grid-col-2 label">Solicitud: </div>
                               <div class="ui-grid-col-10">{{fee.idOrder}}</div>
                             </div>
                             <div class="ui-grid-row">
@@ -199,7 +199,7 @@
                                 <div class="ui-grid-col-10">{{fee.sellerId}}</div>
                             </div>
                             <div class="ui-grid-row">
-                                <div class="ui-grid-col-2 label">Ced. Cliente: </div>
+                                <div class="ui-grid-col-2 label">Número Identificacion: </div>
                                 <div class="ui-grid-col-10">{{fee.customerId}}</div>
                             </div>
                             <div class="ui-grid-row">
@@ -207,7 +207,7 @@
                                 <div class="ui-grid-col-10">{{fee.account}}</div>
                             </div>
                             <div class="ui-grid-row">
-                                <div class="ui-grid-col-2 label">F. Registro: </div>
+                                <div class="ui-grid-col-2 label">Fecha Registro: </div>
                                 <div class="ui-grid-col-10">{{fee.registerDate}}</div>
                             </div>
                             <div class="ui-grid-row">

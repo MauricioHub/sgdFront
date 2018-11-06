@@ -169,6 +169,9 @@
                   [rowsPerPageOptions]="[5,10,15]" expandableRows="true" class="tableng" #dt>
   
             <p-column expander="true" styleClass="col-icon" [style]="{width:'1px'}">
+              <ng-template pTemplate="header">
+                    Sec
+              </ng-template>  
               <ng-template let-in="rowIndex" pTemplate type="body">
                 {{ in+1 }}
               </ng-template>
@@ -205,7 +208,7 @@
                     {{ rowsig.signatureFirstTime === ''? '': (rowsig.signatureFirstTime === 'S'? 'SI': 'NO') }}
                 </ng-template>      
                     </p-column>       
-            <p-column header="No. Orden" field="orderId" 
+            <p-column header="Solicitud" field="orderId" 
                       [sortable]="true" [style]="{width:'20px'}">
                     </p-column>
             <p-column header="No. Lote" field="lotId" 
@@ -267,7 +270,7 @@
                       <div class="ui-grid-col-9">
                           <div class="ui-grid ui-grid-responsive ui-grid-pad">
                               <div class="ui-grid-row">
-                                  <div class="ui-grid-col-2 label">Ced. Cliente: </div>
+                                  <div class="ui-grid-col-2 label">Número Identificación: </div>
                                   <div class="ui-grid-col-10">{{batch.customerId}}</div>
                               </div>
                               <div class="ui-grid-row">
@@ -275,7 +278,7 @@
                                 <div class="ui-grid-col-10">{{batch.officceId}}</div>
                               </div>
                               <div class="ui-grid-row">
-                                  <div class="ui-grid-col-2 label">Tipo Pago: </div>
+                                  <div class="ui-grid-col-2 label">Forma Pago: </div>
                                   <div class="ui-grid-col-10">{{batch.paymentType}}</div>
                               </div>
                               <div class="ui-grid-row">
@@ -283,11 +286,11 @@
                                   <div class="ui-grid-col-10">{{batch.financialInstitution}}</div>
                               </div>
                               <div class="ui-grid-row">
-                                  <div class="ui-grid-col-2 label">Usuario Ingreso: </div>
+                                  <div class="ui-grid-col-2 label">Usuario Ingreso Solicitud: </div>
                                   <div class="ui-grid-col-10">{{batch.loggedUser}}</div>
                               </div>
                               <div class="ui-grid-row">
-                                  <div class="ui-grid-col-2 label">Cant. dias: </div>
+                                  <div class="ui-grid-col-2 label">Cantidad dias: </div>
                                   <div class="ui-grid-col-10">{{batch.days}}</div>
                               </div>                            
                           </div>

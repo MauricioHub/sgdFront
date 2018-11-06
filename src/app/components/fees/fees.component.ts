@@ -368,7 +368,6 @@ export class FeesComponent implements OnInit {
     ];
     this.rows = [];
 
-
     for(p=0; p<lenFees; p++){
         let records = [
           this.fees[p].claroSignature === ''? '': (this.fees[p].claroSignature === 'S'? 'SI': 'NO'),
