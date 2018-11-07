@@ -14,6 +14,9 @@ import { FeeComponent } from "./components/fees/fee.component";
 import { ItemDetails } from './components/item-details/item-details';
 import { OrderComponent } from './components/order/order';
 import { StatComponent } from './components/stat/stat.component';
+import { RoleguardService } from './services/roleguard.service';
+import { AuthguardService } from './services/authguard.service';
+
 
 //import { BrowseComponentd } from './components/home/browse.component';
 /*
@@ -25,23 +28,23 @@ import { StatComponent } from './components/stat/stat.component';
 const APP_ROUTES: Routes = [
 //  { path: 'heroes', component: HeroesComponent },
 //  { path: 'heroe/:id', component: HeroeComponent },
-  { path: 'approot', component: AppComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'approot', component: AppComponent,	canActivate: [ AuthguardService ] },
+  { path: 'home', component: HomeComponent,	canActivate: [ AuthguardService ] },
   { path: 'login', component: LoginComponent },
   { path: 'browse', component: BrowseComponent },
   { path: 'browseBatch', component: BrowsebatchComponent },
   { path: 'datatable', component: DataTableComponent },
-  { path: 'sales', component: SalesComponent },
-  { path: 'batches', component: BatchesComponent },
-  { path: 'fees', component: FeesComponent },
+  { path: 'sales', component: SalesComponent,	canActivate: [ RoleguardService ],data:{rol:['43','81','89','42']} },
+{ path: 'batches', component: BatchesComponent,	canActivate: [ RoleguardService ],data:{rol:['81','89','42']} },
+{ path: 'fees', component: FeesComponent,	canActivate: [ RoleguardService ],data:{rol:['102','81','89','42']} },
   { path: 'fee', component: FeeComponent },
   { path: 'itemd', component: ItemDetails },
   { path: 'orderd', component: OrderComponent },
   { path: 'statc', component: StatComponent },
   //{ path: 'dpicker', component: BrowseComponentd },
 
-  /*{ 
-  	path: 'protegida', 
+  /*{
+  	path: 'protegida',
   	component: ProtegidaComponent,
   	canActivate: [ AuthGuardService ]
   }, */
