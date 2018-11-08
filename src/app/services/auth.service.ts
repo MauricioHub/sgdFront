@@ -32,6 +32,7 @@ export class AuthService {
 
   userOptionResult:any[] = [];
   optionResult:any[] = [];
+  objIdRol=0;
 
   //apiLogin:string = 'http://localhost:8088/login/authenticate';
 
@@ -75,6 +76,7 @@ export class AuthService {
       .pipe(
         map((res:any) => {
           this.sessionRoot = res;
+          this.objIdRol = res.rolID;
         //  this.setSession(this.sessionRoot);
           console.log('SOY PIPE: ');
           console.log(this.sessionRoot);
@@ -164,6 +166,8 @@ export class AuthService {
     localStorage.setItem('expires_at', '' + expiresAt);
     localStorage.setItem('logged_username', '' + this.username);
     localStorage.setItem('disableRoot', 'true');
+    localStorage.setItem('objIdRol', '' + this.objIdRol);
+    //objIdRol
     this.disableRt.disableRoot = true;
     this.router.navigate(['/home']); 
   }
