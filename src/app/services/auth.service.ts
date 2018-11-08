@@ -33,7 +33,6 @@ export class AuthService {
 
   userOptionResult:any[] = [];
   optionResult:any[] = [];
-  objIdRol=0;
 
   //apiLogin:string = 'http://localhost:8088/login/authenticate';
 
