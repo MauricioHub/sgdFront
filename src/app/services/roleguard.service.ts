@@ -12,8 +12,15 @@ export class RoleguardService implements CanActivate {
     canActivate(next:ActivatedRouteSnapshot,state:RouterStateSnapshot) {
   console.log(next);
   const rol = next.data.rol;
-      if ( ((localStorage.getItem('logged_username')!=null) &&
-      (localStorage.getItem('logged_username')!='')) && (localStorage.getItem('objIdRol')==rol)) {
+  const vend = next.data.vend;
+  const jefecac = next.data.jefecac;
+  const cac = next.data.cac;
+  const comi = next.data.comi;
+
+
+      if (  ((localStorage.getItem('logged_username')!=null) &&(localStorage.getItem('logged_username')!=''))&&
+      ((localStorage.getItem('objIdRol')==rol)||(localStorage.getItem('objIdRol')==vend))||
+      ((localStorage.getItem('objIdRol')==cac)||(localStorage.getItem('objIdRol')==jefecac))||((localStorage.getItem('objIdRol')==comi))) {
 
    console.log("paso el centinela");
     return true;

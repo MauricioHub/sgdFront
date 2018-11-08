@@ -34,9 +34,27 @@ const APP_ROUTES: Routes = [
   { path: 'browse', component: BrowseComponent },
   { path: 'browseBatch', component: BrowsebatchComponent },
   { path: 'datatable', component: DataTableComponent },
-  { path: 'sales', component: SalesComponent,	canActivate: [ RoleguardService ],data:{rol:['43','81','89','42']} },
-{ path: 'batches', component: BatchesComponent,	canActivate: [ RoleguardService ],data:{rol:['81','89','42']} },
-{ path: 'fees', component: FeesComponent,	canActivate: [ RoleguardService ],data:{rol:['102','81','89','42']} },
+  { path: 'sales', component: SalesComponent,	canActivate: [RoleguardService],data:{
+      rol:'42',
+      vend:'43',
+      jefecac:'89',
+      cac:'81',
+     }
+     },
+    { path: 'batches', component: BatchesComponent,	canActivate: [ RoleguardService ],data:{
+      rol:'42',
+      jefecac:'89',
+      cac:'81',
+
+     }
+     },
+    { path: 'fees', component: FeesComponent,	canActivate: [ RoleguardService ],data:{
+      rol:'42',
+      jefecac:'89',
+      cac:'81',
+      comi:'102'
+     }
+      },
   { path: 'fee', component: FeeComponent },
   { path: 'itemd', component: ItemDetails },
   { path: 'orderd', component: OrderComponent },

@@ -29,6 +29,7 @@ export class AuthService {
   sessionRoot:any;
   username:String = '';
   profileUserOption: Profile[] = [];
+  objIdRol=[];
 
   userOptionResult:any[] = [];
   optionResult:any[] = [];
@@ -51,7 +52,7 @@ export class AuthService {
 
     return this.http.get( API_LOGIN + '/' + user );
 
-    /*  .map( res=>{ 
+    /*  .map( res=>{
       console.log(res);
       localStorage.setItem("username",user);
       return res;
@@ -69,9 +70,9 @@ export class AuthService {
       let headers = new HttpHeaders({
          'Accept':'application/json',
          'Content-Type':'application/json',
-         'Access-Control-Allow-Origin':'*'      
-      });    
-   
+         'Access-Control-Allow-Origin':'*'
+      });
+
       return this.http.post( API_LOGIN, body, { headers }  )
       .pipe(
         map((res:any) => {
@@ -90,7 +91,7 @@ export class AuthService {
         //  console.log('ESTOY VALIDADO !!');
         //  console.log(res);
         //  if(res.code == 200)
-         // this.handleAuthentication(res,true);          
+         // this.handleAuthentication(res,true);
         } /*, (err:HttpErrorResponse) => {
           this.showAlert('CREDENCIALES INCORRECTAS!');
           console.log('SOY PIPE error RESPONSE-');
@@ -106,7 +107,7 @@ export class AuthService {
       /*  console.log('SOY AUTH SERVICE RES: ');
         console.log(res);
         console.log('SOY AUTH SERVICE session: '); */
-        //this.setSession(this.sessionRoot); 
+        //this.setSession(this.sessionRoot);
       }, (err:HttpErrorResponse) => {
         if(err.status == 401)
           this.showAlert('CREDENCIALES INCORRECTAS!');
@@ -147,7 +148,7 @@ export class AuthService {
 
   private setSession(): void {
     var authResult = this.sessionRoot;
-    const expiresAt = new Date(authResult.fechaExpiracion).getTime();    
+    const expiresAt = new Date(authResult.fechaExpiracion).getTime();
     /*console.log(authResult.token + ', ');
     console.log(expiresAt + ', ');
     console.log(authResult.userID + ', ');
@@ -155,7 +156,7 @@ export class AuthService {
     console.log(this.username); */
 
   /*  authResult.token
-    authResult.fechaExpiracion //Date TO lLONG 
+    authResult.fechaExpiracion //Date TO lLONG
     authResult.userID
     authResult.rolID
     this.username;*/
@@ -165,11 +166,13 @@ export class AuthService {
     localStorage.setItem('access_token', authResult.token);
     localStorage.setItem('expires_at', '' + expiresAt);
     localStorage.setItem('logged_username', '' + this.username);
+    localStorage.setItem('objIdRol', '' + this.objIdRol);
+    console.log(this.objIdRol)
     localStorage.setItem('disableRoot', 'true');
     localStorage.setItem('objIdRol', '' + this.objIdRol);
     //objIdRol
     this.disableRt.disableRoot = true;
-    this.router.navigate(['/home']); 
+    this.router.navigate(['/home']);
   }
 
 
@@ -183,9 +186,9 @@ export class AuthService {
       let headers = new HttpHeaders({
         'Accept':'application/json',
         'Content-Type':'application/json',
-        'Access-Control-Allow-Origin':'*'      
-      });    
-  
+        'Access-Control-Allow-Origin':'*'
+      });
+
       return this.http.post( API_USEROPTION, body, { headers }  )
       .pipe(
         map((res:any) => {
@@ -193,7 +196,7 @@ export class AuthService {
           this.getOptionsList();
          // this.setProfileUserOption(this.userOptionResult, this.optionResult);
           console.log('SOY LISTADO-OPCIONES: ');
-          console.log(this.userOptionResult);        
+          console.log(this.userOptionResult);
         }
       ))
       .subscribe((res:any) => {
@@ -216,8 +219,8 @@ export class AuthService {
     let headers = new HttpHeaders({
       'Accept':'application/json',
       'Content-Type':'application/json',
-      'Access-Control-Allow-Origin':'*'      
-    });    
+      'Access-Control-Allow-Origin':'*'
+    });
 
     return this.http.post( API_OPTION, body, { headers }  )
     .pipe(
@@ -225,7 +228,7 @@ export class AuthService {
         this.optionResult = res.options;
         this.setProfileUserOption(this.userOptionResult, this.optionResult);
         console.log('SOY LISTADO-MODULOS: ');
-        console.log(this.optionResult);        
+        console.log(this.optionResult);
       }
     ))
     .subscribe((res:any) => {
@@ -287,7 +290,7 @@ export class AuthService {
               }
               //  console.log('modulo VENTA');
                 console.log('SOY CONSULTA-VENTA');
-                console.log(this.profileUserOption[0].consultaPr,this.profileUserOption[0].creacionPr,this.profileUserOption[0].modificacionCompletaPr,this.profileUserOption[0].modificacionRestringidaPr);  
+                console.log(this.profileUserOption[0].consultaPr,this.profileUserOption[0].creacionPr,this.profileUserOption[0].modificacionCompletaPr,this.profileUserOption[0].modificacionRestringidaPr);
              // if(userOResult[p].optionName === 'GeneraLote')
                // console.log('GENERA-LOTE');
               break;
@@ -302,7 +305,7 @@ export class AuthService {
               if(oResult[q].moduleId === '2')
                 this.profileUserOption[1] = profileComision;
                 console.log('SOY CONSULTA-COMISION');
-                console.log(this.profileUserOption[1].consultaPr,this.profileUserOption[1].creacionPr,this.profileUserOption[1].modificacionCompletaPr,this.profileUserOption[1].modificacionRestringidaPr);  
+                console.log(this.profileUserOption[1].consultaPr,this.profileUserOption[1].creacionPr,this.profileUserOption[1].modificacionCompletaPr,this.profileUserOption[1].modificacionRestringidaPr);
               break;
             case 'ConsultaLote':
               /*let profileLote = new Profile(
@@ -332,7 +335,7 @@ export class AuthService {
               profilePerfil.setConsultaPr(true);
               if(oResult[q].moduleId === '281')
                 this.profileUserOption[3] = profilePerfil;
-              break;  
+              break;
             case 'RegularizaLoteCompleto':
               /*let profileRCLote = new Profile(
                 true,
@@ -352,7 +355,7 @@ export class AuthService {
                 this.profileUserOption[2] = profileLote;
                 console.log('SOY REGULARIZACION-COMPLETA');
                 console.log(this.profileUserOption[2].consultaPr,this.profileUserOption[2].creacionPr,this.profileUserOption[2].modificacionCompletaPr,this.profileUserOption[2].modificacionRestringidaPr);
-              break;   
+              break;
           }
         /*  switch(oResult[q].moduleId){
             case '1':
@@ -372,11 +375,11 @@ export class AuthService {
             case '4':
               if(userOResult[p].optionName === 'GeneraLote')
                 console.log('GENERA-LOTE');
-              break;  
+              break;
           } */
 
         }
-        
+
       }
     }
     this.disableRt.profileRoot = this.profileUserOption;
@@ -422,7 +425,7 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  
+
 
   public loadSearch(){
     return this.http.post(API_SEARCH,null);
