@@ -11,6 +11,8 @@ import { SalesComponent } from "./components/sales/sales.component";
 import { BatchesComponent } from "./components/batches/batches.component";
 import { FeesComponent } from "./components/fees/fees.component";
 import { FeeComponent } from "./components/fees/fee.component";
+import { ProfilesComponent } from "./components/profiles/profiles.component";
+
 import { ItemDetails } from './components/item-details/item-details';
 import { OrderComponent } from './components/order/order';
 import { StatComponent } from './components/stat/stat.component';
@@ -33,7 +35,8 @@ const APP_ROUTES: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'browse', component: BrowseComponent },
   { path: 'browseBatch', component: BrowsebatchComponent },
-  { path: 'datatable', component: DataTableComponent },
+  { path: 'datatable', component: DataTableComponent }, 
+  { path: 'profiles', component: ProfilesComponent },
   { path: 'sales', component: SalesComponent,	canActivate: [RoleguardService],data:{
       rol:'42',
       vend:'43',

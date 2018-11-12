@@ -42,6 +42,7 @@ import { ItemDetails } from './components/item-details/item-details';
 import { OrderComponent } from './components/order/order';
 import { StatComponent } from './components/stat/stat.component';
 import { Orders } from './data/orders';
+import { ProfilesComponent } from './components/profiles/profiles.component';
 //import { BrowseComponentd } from './components/home/browse.component';
 
 @NgModule({
@@ -60,7 +61,8 @@ import { Orders } from './data/orders';
     FeeComponent,
     ItemDetails,
     OrderComponent,
-    StatComponent
+    StatComponent,
+    ProfilesComponent
   ],
   imports: [
     BrowserModule,

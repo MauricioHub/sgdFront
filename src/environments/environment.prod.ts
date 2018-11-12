@@ -23,7 +23,10 @@ export const environmentP = {
   sellersURL: "http://10.225.13.19:9956/GetSellers",
   paymentsURL: "http://10.225.13.19:9956/GetPayments",
   channelsURL: "http://10.225.13.19:9956/GetChannels",
-  penaltiesURL: "http://10.225.13.19:9956/GetPenalties"
+  penaltiesURL: "http://10.225.13.19:9956/GetPenalties",
+  dashboardURL: "http://10.225.13.19:9963/GetSalesResume",
+
+  profilesURL:'http://10.225.13.19:9962'
 
 
   /*browseBatchURL: "http://localhost:8082/LotInfo",

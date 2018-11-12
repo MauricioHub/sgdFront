@@ -22,6 +22,8 @@ const API_LSELLERS=environmentP.sellersURL;
 const API_LPAYMENTS=environmentP.paymentsURL;
 const API_LCHANNELS=environmentP.channelsURL;
 const API_LPENALTIES=environmentP.penaltiesURL;
+const API_DASHBOARD=environmentP.dashboardURL;
+const API_PROFILES=environmentP.profilesURL;
 
 //const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 //const EXCEL_EXTENSION = '.xls';
@@ -496,4 +498,58 @@ export class HeroesService {
         })
       );
   }
+
+  public getSalesOrderHistory(startDate, endDate){
+      let body = {
+        startDate:"01/08/2018",
+        endDate:"30/10/2018"
+      };
+
+      let headers = new HttpHeaders({
+        'Accept':'application/json',
+        'Content-Type':'application/json',
+        'Access-Control-Allow-Origin':'*'      
+      });  
+
+      return this.http.post( API_DASHBOARD, body, { headers }  )     
+      .pipe(
+        map((res:any) => {
+          return res.saleResumeResult;
+          //console.log('soy dashboard SERVIDOR: ');
+          
+        /*  this.flagVentas = 2;
+          localStorage.setItem('s_records', (res).records);
+          this.heroeServ = (res).salesResult;
+          return (res).salesResult; */
+          //this.router.navigate(['/sales']);             
+        })
+      );
+  }
+
+
+  getProfilesPage(){
+
+    let body = {
+      username:"guzmanmauc",
+      password:"admin123"
+    };
+
+    let headers = new HttpHeaders({
+      'Accept':'application/json',
+      'Content-Type':'application/json',
+      'Access-Control-Allow-Origin':'*'      
+    });  
+
+    return this.http.post( API_PROFILES, body, { headers }  )     
+    .pipe(
+      map((res:any) => {
+        console.log('SOY HEROES-serv-PROFILE: ');
+        console.log(res);             
+      })
+    )
+    .subscribe( data=>{
+
+    });
+  }
+
 }

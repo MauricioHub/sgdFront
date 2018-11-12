@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { AuthService } from '../../services/auth.service';
+import { HeroesService } from '../../services/heroes.service';
 import { HttpClient } from '@angular/common/http';
 import { Globals } from '../../app.globals';
 import { StatComponent } from '../stat/stat.component';
@@ -14,10 +15,14 @@ export class HomeComponent implements OnInit {
 
   loggedUsername:string = "";
   checkATag:boolean[] = [];
+  ordersHistory:any[] = [];
   mymodel;
   regularizedCard:string = '';
+  regularizedLenCard:string = '';
   refusedCard:string = '';
+  refusedLenCard:string = '';
   pendingCard:string = '';
+  pendingLenCard:string = '';
 
   // ADD CHART OPTIONS. 
   pieChartOptions = {
@@ -47,69 +52,40 @@ export class HomeComponent implements OnInit {
       { data: [28], label: 'Account C' }
   ];
 
-  chartData = [
-    { data: [28], label: 'Account A' },
-    { data: [9], label: 'Account B' },
-    { data: [47], label: 'Account C' }
-  ];
+  chartData: any[] = [];
 
-  pieData = [{ "data": [28, 9, 47] }];
+  pieData = [];
+  pieDataJson;
 
   constructor(private router:Router,
               private _authService:AuthService,
+              private _heroesService:HeroesService,
               private httpService: HttpClient,
               private disableRt:Globals) {
     if(localStorage.getItem('disableRoot') == 'true')
       this.disableRt.disableRoot = true;             
     this.loggedUsername = localStorage.getItem('logged_username');
+    this.pieDataJson = JSON.parse(localStorage.getItem('pieData'));
+    this.pieData = [this.pieDataJson];    
     this.loadFlagUser();
     this.checkFlagUser();
     this.regularizedCard = 'Regularizadas!';
     this.refusedCard = 'Rechazadas !';
     this.pendingCard = 'Pendientes !';
-    console.log('SOY PROFILE-ROOT-HOME: ');
-   // console.log(this.disableRt.profileRoot);
-   
+    this.regularizedLenCard = this.pieDataJson.data[0];
+    this.refusedLenCard = this.pieDataJson.data[1];
+    this.pendingLenCard = this.pieDataJson.data[2];
     this.disableRt.profileRoot[0] = JSON.parse(localStorage.getItem('sales_module'));
     this.disableRt.profileRoot[1] = JSON.parse(localStorage.getItem('fees_module'));
     this.disableRt.profileRoot[2] = JSON.parse(localStorage.getItem('batches_module'));
     this.disableRt.profileRoot[3] = JSON.parse(localStorage.getItem('profiles_module'));
-
-    console.log(this.disableRt.profileRoot[0]);
-    console.log(this.disableRt.profileRoot[1]);
-    console.log(this.disableRt.profileRoot[2]);
-
-  /*  localStorage.setItem('sales_module', JSON.stringify(this.disableRt.profileRoot[0]));
-    localStorage.setItem('fees_module', JSON.stringify(this.disableRt.profileRoot[1]));
-    localStorage.setItem('batches_module', JSON.stringify(this.disableRt.profileRoot[2]));*/
   }
 
   ngOnInit() {
     if(localStorage.getItem('disableRoot') == 'true')
       this.disableRt.disableRoot = true;
       this.pieChartData = this.pieData;
-
-  /*  this.disableRt.profileRoot[0] = JSON.parse(localStorage.getItem('sales_module'));
-    this.disableRt.profileRoot[1] = JSON.parse(localStorage.getItem('fees_module'));
-    this.disableRt.profileRoot[2] = JSON.parse(localStorage.getItem('batches_module')); */
-    /*  this.httpService.get('./assets/sales.json', {responseType: 'json'}).subscribe(
-        data => {
-            this.pieChartData = this.pieData;	 // FILL THE CHART ARRAY WITH DATA.
-        },
-        (err: HttpErrorResponse) => {
-            console.log (err.message);
-        }
-    );*/
   }
-
-/*  tempFunction(){
-    this.disableRt.profileRoot[0] = JSON.parse(localStorage.getItem('sales_module'));
-    console.log('SOY TEMP - FUNCTION: ');
-    console.log(this.disableRt.profileRoot[0]);
-    console.log(this.disableRt.profileRoot[1]);
-    console.log(this.disableRt.profileRoot[2]);
-
-  }*/
 
   valuechange(newValue) {
     this.mymodel = newValue;
@@ -157,7 +133,6 @@ export class HomeComponent implements OnInit {
   onChartClick(event) {
       console.log(event);
   }
-
 
 
 }
