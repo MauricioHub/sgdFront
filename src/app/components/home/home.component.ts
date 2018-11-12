@@ -56,6 +56,7 @@ export class HomeComponent implements OnInit {
 
   pieData = [];
   pieDataJson;
+  monthPieData;
 
   constructor(private router:Router,
               private _authService:AuthService,
@@ -65,6 +66,7 @@ export class HomeComponent implements OnInit {
     if(localStorage.getItem('disableRoot') == 'true')
       this.disableRt.disableRoot = true;             
     this.loggedUsername = localStorage.getItem('logged_username');
+    this.monthPieData = localStorage.getItem('monthPieData');
     this.pieDataJson = JSON.parse(localStorage.getItem('pieData'));
     this.pieData = [this.pieDataJson];    
     this.loadFlagUser();

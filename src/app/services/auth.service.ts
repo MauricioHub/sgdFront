@@ -287,11 +287,7 @@ export class AuthService {
     var salesOrderHistory = [];
     var locale = "es";
     var month = today.toLocaleString(locale, {month: "long"});
-    console.log('SOY DATE-AUTH-SERVICE: ');
-    console.log(month);
-    console.log('soy FECHA POR PARTES: ');
-    console.log(startDate + ', ');
-    console.log(endDate);
+    localStorage.setItem('monthPieData', month);
 
     let headers = new HttpHeaders({
       'Accept':'application/json',
@@ -334,8 +330,18 @@ export class AuthService {
       }
     }
     var dataCard = {
-      "data": historyList
+      "data": []
     }
+
+    if(historyList.length == 0)
+      dataCard = {
+        "data": [0,0,0]
+      }
+    else
+      dataCard = {
+        "data": historyList
+      }
+
     pieData = [dataCard];
     return pieData;
   }
