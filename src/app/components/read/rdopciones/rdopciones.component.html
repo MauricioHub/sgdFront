@@ -1,0 +1,46 @@
+<br/>
+
+<h2 align="center">OPCIONES </h2>
+<hr>
+
+<button mat-button id="delete" (click)="openDialogcreate()" mat-button matTooltip ="REGISTRAR UNA NUEVA OPCION" ><i class="material-icons">note_add</i></button>
+<mat-form-field appearance="outline" id="buscar">
+  <mat-label>BUSCAR OPCIONES</mat-label>
+    <input matInput   (keyup)="applyFilter($event.target.value)" placeholder="BUSCAR"><mat-icon matSuffix>search</mat-icon>
+</mat-form-field>
+<table mat-table [dataSource]="opciones">
+
+
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef> ID DE OPCION </th>
+    <td mat-cell *matCellDef="let element"> {{element.optionId}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> NOMBRE </th>
+    <td mat-cell *matCellDef="let element"> {{element.optionName}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="weight">weightt
+    <th mat-header-cell *matHeaderCellDef> ESTADO </th>
+    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="weightt">
+    <th mat-header-cell *matHeaderCellDef> TIPO </th>
+    <td mat-cell *matCellDef="let element"> {{element.optionType}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="editar">
+    <th mat-header-cell *matHeaderCellDef > EDITAR </th>
+    <td mat-cell *matCellDef="let element"> <button mat-button  mat-button matTooltip ="EDITAR ESTA OPCION" (click)="openDialogUpdate(element)" ><i class="material-icons">edit</i></button> </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 20,50,100,500]" showFirstLastButtons></mat-paginator>

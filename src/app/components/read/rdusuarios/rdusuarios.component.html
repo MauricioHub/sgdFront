@@ -1,0 +1,74 @@
+
+<br/>
+
+<h2 align="center">USUARIOS </h2>
+
+
+
+<hr>
+
+
+
+    <button mat-button id="delete" (click)="openDialogcreate()" mat-button matTooltip ="REGISTRAR UN NUEVO USUARIO" ><i class="material-icons">person_add</i></button>
+
+    <mat-form-field appearance="outline" id="buscar">
+      <mat-label>BUSCAR USUARIOS</mat-label>
+        <input matInput   (keyup)="applyFilter($event.target.value)" placeholder="BUSCAR"><mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+  <div class="mat-elevation-z8">
+  <table mat-table [dataSource]="userslist" class="mat-elevation-z8">
+
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> USUARIO </th>
+      <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef> NOMBRE </th>
+      <td mat-cell *matCellDef="let element"> {{element.firstname}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cell">
+      <th mat-header-cell *matHeaderCellDef> APELLIDO </th>
+      <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef> ESTADO </th>
+      <td mat-cell *matCellDef="let element"> {{element.enabled}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="telefono">
+      <th mat-header-cell *matHeaderCellDef> TELEFONO </th>
+      <td mat-cell *matCellDef="let element"> {{element.phonenumber}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> CORREO </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="editar">
+      <th mat-header-cell *matHeaderCellDef > CAMBIAR CONTRASEÑA </th>
+      <td mat-cell *matCellDef="let element"> <button  mat-button matTooltip ="CAMBIAR CONTRASEÑA" mat-button (click)="openDialogUpdate(element)" ><i class="material-icons">visibility_off</i></button> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="editar2">
+      <th mat-header-cell *matHeaderCellDef > ACTIVAR/DESACTIVAR </th>
+      <td mat-cell *matCellDef="let element"> <button mat-button matTooltip ="ACTIVAR/DESACTIVAR" mat-button (click)="openDialogUpdate2(element)" ><i class="material-icons">add_alert</i></button> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="editar3">
+      <th mat-header-cell *matHeaderCellDef > EDITAR DATOS </th>
+      <td mat-cell *matCellDef="let element"> <button  mat-button matTooltip ="EDITAR DATOS" mat-button (click)="openDialogUpdate3(element)" ><i class="material-icons">contact_phone</i></button> </td>
+    </ng-container>
+
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20,50,100,500]" showFirstLastButtons></mat-paginator>

@@ -1,0 +1,71 @@
+h2{
+  background-color:#FA5858;
+  color: #FFFFFF;
+  font-style: italic;
+  height: 40px;
+  background-color:#FA5858;
+    border-radius:30px;
+}
+
+body{
+    width: 100%;
+}
+
+
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
+
+button{
+  background-color:#EC7063;
+  color: #FFFFFF;
+    border-radius:30px;
+}
+
+#delete{
+  background-color:#EC7063  ;
+  color: #FFFFFF;
+  margin-left: 21%;
+    border-radius:30px;
+}
+
+mat-paginator {
+  width: 60%;
+  margin: auto;
+  background-color: #FA5858;
+  color: #FFFFFF;
+}
+
+th{
+  background-color: #FA5858;
+  color: #FFFFFF;
+}
+
+#buscar{
+  width: 17.5%;
+  color: #FA5858;
+   margin-left: 37%;
+
+}
+
+/
+.mat-form-field {
+  font-size: 20px;
+  width: 100%;
+  color: #FA5858;
+}
+input{
+  color: #FA5858;
+}
+
+table {
+  width: 60%;
+  margin: auto;
+  border: #FA5858 1px solid;
+}
+
+td, th {
+  width: 20%;
+  font-size: 75%;
+}

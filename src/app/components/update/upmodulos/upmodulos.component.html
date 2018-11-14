@@ -1,0 +1,50 @@
+
+<form (ngSubmit)="editar(formaed)" #formaed="ngForm" novalidate>
+<h2 align="center">EDITAR MODULO </h2>
+<br>
+<div>
+
+<div class="example-container">
+
+
+  <mat-form-field appearance="outline">
+  <mat-label>ID MODULO</mat-label>
+   <input matInput placeholder="Id del Modulo" disabled=true
+   name="moduleId"
+   ngModel="{{data.moduleId}}"
+   minlength=""
+   #moduleId="ngModel">
+   <mat-icon matSuffix>dehaze</mat-icon>
+  </mat-form-field>
+
+
+  <mat-form-field appearance="outline">
+  <mat-label>NOMBRE DEL MODULO</mat-label>
+   <input matInput placeholder="Nombre del modulo"
+    name="nombre"
+    ngModel="{{data.moduleName}}"
+    #nombre="ngModel"
+    required>
+   <mat-icon matSuffix>dehaze</mat-icon>
+  <div class="invalid-feedback" *ngIf="nombre.errors?.minlength">
+  Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres
+  </div>
+  </mat-form-field>
+
+  <mat-radio-group type="radio"   name="customRadio"   ngModel="{{data.status}}"  #customRadio="ngModel" >
+    <mat-radio-button     value="A"  > ACTIVO </mat-radio-button>
+    <mat-radio-button     value="I"  > INACTIVO </mat-radio-button>
+  </mat-radio-group>
+
+
+</div>
+<br>
+<button type="submit" id="guardar" class="btn btn-outline-primary" [disabled]="!formaed.valid" mat-button matTooltip ="GUARDAR"
+><mat-icon>create</mat-icon>
+</button>
+
+<button id="delete" type="reset" mat-dialog-close class="btn btn-outline-primary" mat-button matTooltip ="SALIR"
+><mat-icon>exit_to_app</mat-icon>
+</button>
+</div>
+</form>

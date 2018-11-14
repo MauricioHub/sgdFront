@@ -1,0 +1,137 @@
+
+
+
+<form (ngSubmit)="Nuevousu(formanvusu)" #formanvusu="ngForm" novalidate>
+  <h2 align="center">NUEVO USUARIO </h2>
+  <br>
+  <div>
+    <div class="example-container">
+
+      <mat-form-field appearance="outline">
+      <mat-label>NOMBRE DE USUARIO</mat-label>
+      <input matInput placeholder="NOMBRE DEL USUARIO"
+       name="usernombre"
+       ngModel
+       minlength="2"
+       required
+       pattern=""
+       #nombre="ngModel"
+       [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">
+      <mat-icon matSuffix>person</mat-icon>
+       <div class="invalid-feedback" *ngIf="nombre.errors?.required">
+        Este campo es requerido
+        </div>
+        <div class="invalid-feedback" *ngIf="nombre.errors?.minlength">
+         Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres
+        </div>
+         </mat-form-field>
+
+         <mat-form-field  appearance="outline">
+           <mat-label>CONTRASEÑA</mat-label>
+    <input matInput placeholder="INGRESE CONTRASEÑA" [type]="hide ? 'password' : 'text'"
+       name="passwusu"
+       ngModel
+       #passwusu="ngModel"
+      minlength="8"
+      required>
+    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+  <mat-label>NOMBRE DEL USUARIO</mat-label>
+  <input matInput placeholder="NOMBRE DEL USUARIO"
+   name="nombre"
+   ngModel
+   minlength="3"
+   required
+   #nombre="ngModel"
+   [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">
+  <mat-icon matSuffix>person</mat-icon>
+   <div class="invalid-feedback" *ngIf="nombre.errors?.required">
+    Este campo es requerido
+    </div>
+    <div class="invalid-feedback" *ngIf="nombre.errors?.minlength">
+     Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres
+    </div>
+     </mat-form-field>
+
+
+     <mat-form-field appearance="outline">
+     <mat-label>APELLIDO DEL USUARIO</mat-label>
+     <input matInput placeholder="NOMBRE DEL USUARIO"
+      name="apellido"
+      ngModel
+      minlength="3"
+      required
+      #nombre="ngModel"
+      [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">
+     <mat-icon matSuffix>person</mat-icon>
+      <div class="invalid-feedback" *ngIf="nombre.errors?.required">
+       Este campo es requerido
+       </div>
+       <div class="invalid-feedback" *ngIf="nombre.errors?.minlength">
+        Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres
+       </div>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+        <mat-label>TELEFONO DEL USUARIO</mat-label>
+        <input matInput placeholder="TELEFONO DEL USUARIO"
+         name="cell"
+         type="text"
+         maxlength="15"
+         minlength="10"
+         pattern="[0-9]+"
+         ngModel=
+         required
+         #cell="ngModel"
+         [ngClass]="{'is-invalid': (cell.errors?.minlength || cell.errors?.maxlength) && cell.touched}">
+        <mat-icon matSuffix>local_phone</mat-icon>
+         <div class="invalid-feedback" *ngIf="cell.errors?.required">
+          Este campo es requerido
+          </div>
+           </mat-form-field>
+
+
+
+         <mat-form-field appearance="outline">
+         <mat-label>EMAIL</mat-label>
+         <input matInput placeholder="Nombre del modulo"
+          type="email"
+          name="emailusu"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+          ngModel
+          required
+          #emailusu="ngModel">
+         <mat-icon matSuffix>email</mat-icon>
+         </mat-form-field>
+
+
+         <mat-form-field appearance="outline">
+         <mat-label>PERFIL</mat-label>
+         <mat-select placeholder="ID"
+         type="number"
+         name="idperfil"
+         ngModel
+         #idperfil="ngModel"
+         required>
+         <mat-option>None</mat-option>
+         <mat-option *ngFor="let usue of users" [value]="usue.id">{{usue.name}}</mat-option>
+         </mat-select>
+         </mat-form-field>
+
+        </div>
+
+            <button type="submit" id="guardar" class="btn btn-outline-primary" [disabled]="!formanvusu.valid" mat-button matTooltip ="editar usuario"
+             ><mat-icon>save</mat-icon>
+             </button>
+
+             <button id="delete" type="reset" mat-dialog-close class="btn btn-outline-primary" mat-button matTooltip ="SALIR"
+             ><mat-icon>exit_to_app</mat-icon>
+             </button>
+
+
+</div>
+
+</form>

@@ -1,0 +1,42 @@
+
+<form (ngSubmit)="Nuevoper(formanvper)" #formanvper="ngForm" novalidate>
+  <h2 align="center">NUEVO PERFIL </h2>
+  <br>
+  <div>
+
+    <div class="example-container">
+
+      <mat-form-field appearance="outline">
+      <mat-label>NOMBRE DEL PERFIL</mat-label>
+      <input matInput placeholder="INGRESE EL NOMBRE DEL PERFIL"
+       name="nombre"
+       ngModel
+       minlength="1"
+       maxlength="25"
+       required
+       #nombre="ngModel"
+       [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">
+      <mat-icon matSuffix>person</mat-icon>
+<div class="invalid-feedback" *ngIf="nombre.errors?.required">
+Este campo es requerido
+</div>
+<div class="invalid-feedback" *ngIf="nombre.errors?.minlength">
+Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres
+</div>
+</mat-form-field>
+
+
+    </div>
+
+    <button type="submit" id="guardar" class="btn btn-outline-primary" [disabled]="!formanvper.valid" mat-button matTooltip ="GUARDAR NUEVA PERFIL"
+    ><mat-icon>save</mat-icon>
+    </button>
+
+    <button id="delete" type="reset" mat-dialog-close class="btn btn-outline-primary" mat-button matTooltip ="SALIR"
+    ><mat-icon>exit_to_app</mat-icon>
+    </button>
+
+
+
+  </div>
+</form>

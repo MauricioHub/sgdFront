@@ -14,7 +14,55 @@ export const environment = {
   comissionURL: "http://localhost:8089/ComissionsInfo",
   loteURL: "http://localhost:8082/LotCreation",
   regularURL: "http://localhost:8082/LotUpdate",
-  sequenceURL: "http://localhost:8082/GetSequence"
+  sequenceURL: "http://localhost:8082/GetSequence",
+
+  //MODULOS
+//---------------------------------------------------------
+API_CREATE_MODULE:'http://10.225.13.19:9960/ModuleCreation',
+//  http://10.225.13.19:9960
+  API_GET_MODULE:'http://10.225.13.19:9960/GetModule',
+  API_UPDATE_MODULE:'http://10.225.13.19:9960/ModuleUpdate',
+
+//----------------------------------------------------------
+
+//OPCIONES
+//---------------------------------------------------------
+  API_CREATE_OPCIONES:'http://10.225.13.19:9960/OptionCreation',
+  API_GET_OPCIONES:'http://10.225.13.19:9960/GetOption',
+  API_UPDATE_OPCIONES:'http://10.225.13.19:9960/OptionUpdate',
+
+//---------------------------------------------------------
+
+//PERFILES
+//---------------------------------------------------------
+  API_CREATE_PERFILES:'http://10.225.13.19:9961/authority/',
+  API_GET_PERFILES:'http://10.225.13.19:9961/authority/',
+  API_UPDATE_PERFILES:'http://10.225.13.19:9961/authority/',
+
+//---------------------------------------------------------
+
+
+//USUARIOS
+//---------------------------------------------------------
+  API_CREATE_USUARIOS:'http://10.225.13.19:9961/users/',
+  API_UPDATE_USUARIOSDATA:'http://10.225.13.19:9961/userUpdate',
+  API_GET_USUARIOS:'http://10.225.13.19:9961/users/',
+  API_UPDATE_USUARIOS:'http://10.225.13.19:9961/users/',
+  API_DELETE_USUARIOS:'http://10.225.13.19:9961/users/',
+
+//---------------------------------------------------------
+
+//USUARIOS-OPCIONES
+//---------------------------------------------------------
+  API_CREATE_USEROPC:'http://10.225.13.19:9960/SetUserOption',
+  API_GET_USEROPC:'http://10.225.13.19:9960/GetUserOption',
+  API_UPDATE_USEROPC:'http://10.225.13.19:9960/UpdateUserOption',
+
+
+
+//AUTENTICACION
+API_LOGIN:'http://10.225.13.19:9961/auth/'
+
 };
 
 /*

@@ -1,0 +1,137 @@
+
+<form (ngSubmit)="editarper(formaedper)" #formaedper="ngForm" novalidate>
+  <h2 align="center">EDITAR PERFIL </h2>
+  <br>
+  <div>
+
+    <div class="example-container">
+
+      <mat-form-field appearance="outline">
+      <mat-label>ID PERFIL</mat-label>
+       <input matInput placeholder="Id del Modulo" disabled=true
+       name="profileId"
+       ngModel="{{data.profileId}}"
+       minlength=""
+       #profileId="ngModel">
+       <mat-icon matSuffix>dehaze</mat-icon>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+      <mat-label>NOMBRE DEL PERFIL</mat-label>
+      <input matInput placeholder="Nombre del modulo"
+       name="nombre"
+       ngModel="{{data.profileName}}"
+       minlength="5"
+       required
+       #nombre="ngModel"
+       [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">
+      <mat-icon matSuffix>person</mat-icon>
+<div class="invalid-feedback" *ngIf="nombre.errors?.required">
+Este campo es requerido
+</div>
+<div class="invalid-feedback" *ngIf="nombre.errors?.minlength">
+Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres
+</div>
+</mat-form-field>
+
+<mat-form-field appearance="outline">
+<mat-label>DIAS DE EXPIRACION DE CONTRASEÑA</mat-label>
+<input matInput placeholder="dias para expirar contraseña"
+ type="number"
+ name="diasexp"
+ ngModel="{{data.passwordExpirationDays}}"
+ min="1"
+ minlength="5"
+ #diasexp="ngModel">
+<mat-icon matSuffix>hourglass_full</mat-icon>
+</mat-form-field>
+
+
+<mat-form-field appearance="outline">
+<mat-label># DE INTENTOS</mat-label>
+<input matInput placeholder="cantidad de intentos de contraseña"
+ type="number"
+ name="intentos"
+ ngModel="{{data.attempsNumber}}"
+ min="0"
+ minlength="1"
+ #intentos="ngModel"
+ [ngClass]="{'is-invalid': (intentos.errors?.required || intentos.errors?.minlength) && intentos.touched}">
+<mat-icon matSuffix>notification_important</mat-icon>
+<div class="invalid-feedback" *ngIf="intentos.errors?.required">
+Este campo es requerido
+</div>
+<div class="invalid-feedback" *ngIf="intentos.errors?.minlength">
+Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres
+</div>
+</mat-form-field>
+
+<mat-form-field appearance="outline">
+  <mat-label>FECHA DE CADUCIDAD DE CONTRASEÑA</mat-label>
+  <input matInput placeholder="FECHA DE CACUDUCIDAD PARA LA CONTRASEÑA"
+         type="datetime-local"
+         name="fechayhora"
+         ngModel="{{data.passwordExpirationDate}}"
+         #fechayhora="ngModel">
+         <mat-icon matSuffix>calendar_today</mat-icon>
+</mat-form-field>
+
+  <mat-form-field appearance="outline">
+  <mat-label>LOGINTUD DE CONTRASEÑA</mat-label>
+  <input matInput placeholder="Tamaño de la contraseña"
+   type="number"
+   name="passlongitud"
+   ngModel="{{data.passwordLength}}"
+   min="0"
+   minlength="1"
+   #passlongitud="ngModel"
+   [ngClass]="{'is-invalid': (passlongitud.errors?.required || passlongitud.errors?.minlength) && passlongitud.touched}">
+  <mat-icon matSuffix>vpn_key</mat-icon>
+  <div class="invalid-feedback" *ngIf="passlongitud.errors?.required">
+  Este campo es requerido
+  </div>
+  <div class="invalid-feedback" *ngIf="passlongitud.errors?.minlength">
+  Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres
+  </div>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+  <mat-label>CADUCIDAD DE SESSION</mat-label>
+  <input matInput placeholder="limite de caducidad de la session"
+   type="number"
+   name="expsesion"
+   ngModel="{{data.sessionExpiration}}"
+   min="0"
+   minlength="1"
+   #expsesion="ngModel"
+   [ngClass]="{'is-invalid': (expsesion.errors?.required || expsesion.errors?.minlength) && expsesion.touched}">
+  <mat-icon matSuffix>add_alert</mat-icon>
+  <div class="invalid-feedback" *ngIf="expsesion.errors?.required">
+  Este campo es requerido
+  </div>
+  <div class="invalid-feedback" *ngIf="expsesion.errors?.minlength">
+  Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres
+  </div>
+  </mat-form-field>
+
+  <mat-radio-group type="radio"   name="customRadio"   ngModel="{{data.status}}"  #customRadio="ngModel" >
+    <mat-radio-button     value="A"  > ACTIVO </mat-radio-button>
+    <mat-radio-button     value="I"  > INACTIVO </mat-radio-button>
+  </mat-radio-group>
+
+
+    </div>
+
+    <button type="submit" id="guardar" class="btn btn-outline-primary" [disabled]="!formaedper.valid" mat-button matTooltip ="EDITAR PERFIL"
+    ><mat-icon>create</mat-icon>
+    </button>
+
+    <button id="delete" type="reset" mat-dialog-close class="btn btn-outline-primary" mat-button matTooltip ="SALIR"
+    ><mat-icon>exit_to_app</mat-icon>
+    </button>
+
+
+
+  </div>
+</form>

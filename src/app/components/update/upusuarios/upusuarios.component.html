@@ -1,0 +1,47 @@
+
+<form (ngSubmit)="editarusuario(formaedusua)" #formaedusua="ngForm" novalidate>
+  <h2 align="center">CAMBIAR CONTRASEÑA </h2>
+  <br>
+<div>
+
+    <div class="example-container">
+
+      <mat-form-field appearance="outline">
+      <mat-label>USUARIO</mat-label>
+       <input matInput placeholder="Id del Usuario"
+
+       name="username"
+       ngModel="{{data.username}}"
+       minlength=""
+       #username="ngModel">
+       <mat-icon matSuffix>dehaze</mat-icon>
+      </mat-form-field>
+
+         <mat-form-field  appearance="outline">
+           <mat-label>CONTRASEÑA</mat-label>
+    <input matInput placeholder="INGRESE CONTRASEÑA" [type]="hide ? 'password' : 'text'"
+       name="passwusu"
+       ngModel="{{data.password}}"
+       #passwusu="ngModel"
+      minlength="8"
+      required>
+    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+  </mat-form-field>
+<!--
+     <mat-radio-group type="boolean"   name="enabled"   ngModel="{{data.enabled}}"  #enabled="ngModel" >
+           <mat-radio-button     value="true"  > ACTIVO </mat-radio-button>
+           <mat-radio-button     value="false"  > INACTIVO </mat-radio-button>
+         </mat-radio-group>-->
+
+  </div>
+            <button type="submit" id="guardar" class="btn btn-outline-primary" [disabled]="!formaedusua.valid" mat-button matTooltip ="editar usuario"
+             ><mat-icon>create</mat-icon>
+             </button>
+
+             <button id="delete" type="reset" mat-dialog-close class="btn btn-outline-primary" mat-button matTooltip ="SALIR"
+             ><mat-icon>exit_to_app</mat-icon>
+             </button>
+
+
+</div>
+</form>

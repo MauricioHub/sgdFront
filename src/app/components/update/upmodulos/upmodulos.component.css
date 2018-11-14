@@ -1,0 +1,49 @@
+h2{
+  background-color:#FA5858;
+  color: #FFFFFF;
+  font-style: italic;
+  height: 40px;
+  border-radius:30px;
+}
+
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * {
+  width: 100%;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
+
+button{
+  background-color:#AED6F1;
+    border-radius:30px;
+}
+
+#delete{
+  background-color:#FA5858;
+  color: #FFFFFF;
+  margin-right: 8px;
+    border-radius:30px;
+}
+
+
+/*ESTILO DEL RADIO BUTTTON
+*/
+example-radio-group {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+
+.example-selected-value {
+  margin: 15px 0;
+}

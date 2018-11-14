@@ -1,0 +1,85 @@
+<form (ngSubmit)="editaropc(formaedopc)" #formaedopc="ngForm" novalidate>
+  <h2 align="center">EDITAR OPCIÓN </h2>
+  <br>
+  <div>
+
+    <div class="example-container">
+
+
+      <mat-form-field appearance="outline">
+      <mat-label>ID OPCION</mat-label>
+       <input matInput placeholder="Id del usuario" disabled=true
+       name="optionId"
+       ngModel="{{data.optionId}}"
+       minlength=""
+       #optionId="ngModel">
+       <mat-icon matSuffix>dehaze</mat-icon>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+      <mat-label>NOMBRE DE LA OPCION</mat-label>
+       <input matInput placeholder="Nombre del modulo"
+        name="nombre"
+        ngModel="{{data.optionName}}"
+        required
+        minlength="5"
+        #nombre="ngModel"
+        [ngClass]="{'is-invalid':nombre.errors?.minlength && nombre.touched}">
+       <mat-icon matSuffix>dehaze</mat-icon>
+      <div class="invalid-feedback" *ngIf="nombre.errors?.minlength">
+      Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres
+      </div>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+      <mat-label>TIPO DE OPCION</mat-label>
+      <mat-select matNativeControl placeholder="TIPO DE OPCION"
+       name="nombretipo"
+        ngModel="{{data.optionType}}"
+       #nombretipo=ngModel
+       required>
+        <mat-option value="" disabled selected>None</mat-option>
+        <mat-option *ngFor="let nombree of opcioness" [value]="nombree.value">{{nombree.viewValue}}</mat-option>
+      </mat-select>
+      </mat-form-field>
+
+
+
+      <mat-form-field appearance="outline">
+      <mat-label>ID MODULO</mat-label>
+      <mat-select placeholder="ID"
+      name="idmodulo"
+      ngModel="{{data.moduleId}}"
+      #idmodulo="ngModel"
+      required>
+        <mat-option>None</mat-option>
+        <mat-option *ngFor="let module of modules" [value]="module.moduleId">{{module.moduleName}}</mat-option>
+      </mat-select>
+      </mat-form-field>
+
+
+      <mat-radio-group type="radio"   name="customRadio"   ngModel="{{data.status}}"  #customRadio="ngModel" >
+        <mat-radio-button     value="A"  > ACTIVO </mat-radio-button>
+        <mat-radio-button     value="I"  > INACTIVO </mat-radio-button>
+      </mat-radio-group>
+
+    </div>
+
+    <button type="submit" id="guardar" class="btn btn-outline-primary" [disabled]="!formaedopc.valid" mat-button matTooltip ="editar opción"
+    ><mat-icon>create</mat-icon>
+    </button>
+
+    <button id="delete" type="reset" mat-dialog-close class="btn btn-outline-primary" mat-button matTooltip ="SALIR"
+    ><mat-icon>exit_to_app</mat-icon>
+    </button>
+
+
+
+
+
+
+  </div>
+</form>
+<hr>
