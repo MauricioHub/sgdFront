@@ -26,7 +26,11 @@ export const environmentP = {
   penaltiesURL: "http://10.225.13.19:9956/GetPenalties",
   dashboardURL: "http://10.225.13.19:9963/GetSalesResume",
 
-  profilesURL:'http://10.225.13.19:9962'
+  profilesURL:'http://10.225.13.19:9962',
+
+  API_GET_USUARIOS:'http://10.225.13.19:9961/users/',
+  API_UPDATE_USUARIOSDATA:'http://10.225.13.19:9961/user/Update'
+
 
 
   /*browseBatchURL: "http://localhost:8082/LotInfo",

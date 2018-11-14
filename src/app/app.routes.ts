@@ -12,6 +12,7 @@ import { BatchesComponent } from "./components/batches/batches.component";
 import { FeesComponent } from "./components/fees/fees.component";
 import { FeeComponent } from "./components/fees/fee.component";
 import { ProfilesComponent } from "./components/profiles/profiles.component";
+import { UsersdataComponent } from "./components/usersdata/usersdata.component";
 
 import { ItemDetails } from './components/item-details/item-details';
 import { OrderComponent } from './components/order/order';
@@ -37,6 +38,7 @@ const APP_ROUTES: Routes = [
   { path: 'browseBatch', component: BrowsebatchComponent },
   { path: 'datatable', component: DataTableComponent }, 
   { path: 'profiles', component: ProfilesComponent },
+  { path: 'usersdata', component: UsersdataComponent },
   { path: 'sales', component: SalesComponent,	canActivate: [RoleguardService],data:{
       rol:'42',
       vend:'43',

@@ -5,4 +5,5 @@ import { Profile } from "../app/interfaces/profile.interface";
 export class Globals {
   disableRoot:boolean = false;
   profileRoot:Profile[] = [];
+  refreshSession:boolean = false;
 }
