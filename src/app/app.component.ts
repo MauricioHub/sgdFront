@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   disableRt:Globals;
 
   constructor(private router: Router,
-              private global:Globals){
+      private global:Globals){
     if(global.disableRoot){
     /*  this.disableRoot = true;
       this.router.navigate(['/login']);

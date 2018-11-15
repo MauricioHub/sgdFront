@@ -1,0 +1,48 @@
+
+mat-tab-group{
+    border: 2px solid;
+     border-bottom-color: #1C2833;
+  }
+  
+  button{
+    background-color:#FBFCFC;
+  
+  #btdes{
+    background-color: #E74C3C
+  }
+  
+  }
+  
+  #delete{
+    background-color:#F1948A ;
+    margin-right: 8px;
+  }
+  .example-tab-icon {
+    margin-right: 8px;
+    color: red;
+  }
+  
+  
+  .example-headers-align .mat-expansion-panel-header-title,
+  .example-headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+  
+  }
+  
+  .example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /*///////////////////////////////
+  ESTILOS AL PANEL DESPLAZANTE
+  //////////////////////////////*/
+  mat-form-field{
+    width: 350px;
+    /*padding: 1000px;*/
+    border: 2px solid red;
+  }
+  mat-action-row{
+    background-color: #F1948A;
+  }
+  

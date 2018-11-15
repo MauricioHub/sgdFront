@@ -1,0 +1,48 @@
+<form (ngSubmit)="nuevoopcuser(formanvopcusers)" #formanvopcusers="ngForm" novalidate>
+  <h2 align="center">NUEVA OPCION DE USUARIOS </h2>
+
+  <br>
+  <div>
+
+    <div class="example-container">
+
+      <mat-form-field appearance="outline">
+      <mat-label> USUARIO</mat-label>
+      <mat-select placeholder="ID"
+      name="idusuario"
+      ngModel
+      #idusuario="ngModel"
+      required>
+      <mat-option>None</mat-option>
+      <mat-option *ngFor="let use of usersop" [value]="use.id">{{use.username}}</mat-option>
+      </mat-select>
+      </mat-form-field>
+
+
+
+      <mat-form-field appearance="outline">
+      <mat-label>OPCIÓN</mat-label>
+      <mat-select placeholder="ID"
+      name="idopcion"
+      ngModel
+      #idmodulo="ngModel"
+      required>
+     <mat-option>None</mat-option>
+    <mat-option *ngFor="let opcion of opciones" [value]="opcion.optionId">{{opcion.optionName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    </div>
+
+    <button type="submit" id="guardar" class="btn btn-outline-primary" [disabled]="!formanvopcusers.valid" mat-button matTooltip ="GUARDAR NUEVA OPCION DE USUARIO"
+    ><mat-icon>save</mat-icon>
+    </button>
+
+    <button id="delete" type="reset" mat-dialog-close class="btn btn-outline-primary" mat-button matTooltip ="SALIR"
+    ><mat-icon>exit_to_app</mat-icon>
+    </button>
+
+
+  </div>
+</form>

@@ -1,0 +1,49 @@
+
+<form (ngSubmit)="editaropcusers(formaedopcuser)" #formaedopcuser="ngForm" novalidate>
+  <h2 align="center">EDITAR USUARIO </h2>
+  <br>
+  <div>
+    <div class="example-container">
+
+      <mat-form-field appearance="outline">
+      <mat-label>ID USUARIO</mat-label>
+       <input matInput placeholder="Id de usuario" disabled=true
+       name="userId"
+       ngModel="{{data.userId}}"
+       minlength=""
+       #userId="ngModel">
+       <mat-icon matSuffix>dehaze</mat-icon>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+      <mat-label>ID OPCIÓN</mat-label>
+      <mat-select placeholder="ID" disabled=true
+      name="optionId"
+      ngModel="{{data.optionId}}"
+      #optionId="ngModel">
+     <mat-option>None</mat-option>
+    <mat-option *ngFor="let opcion of opciones" [value]="opcion.optionId">{{opcion.optionName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-radio-group type="radio"   name="customRadio"   ngModel="{{data.status}}" #customRadio="ngModel" >
+      <mat-radio-button     value="A"  > ACTIVO </mat-radio-button>
+      <mat-radio-button     value="I"  > INACTIVO </mat-radio-button>
+    </mat-radio-group>
+
+
+    </div>
+
+    <button type="submit" id="guardar" class="btn btn-outline-primary" [disabled]="!formaedopcuser.valid" mat-button matTooltip ="editar opción"
+    ><mat-icon>create</mat-icon>
+    </button>
+
+    <button id="delete" type="reset" mat-dialog-close class="btn btn-outline-primary" mat-button matTooltip ="SALIR"
+    ><mat-icon>exit_to_app</mat-icon>
+    </button>
+
+
+  </div>
+</form>

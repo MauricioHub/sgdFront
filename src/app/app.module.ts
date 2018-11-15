@@ -3,8 +3,52 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+//IMPORTACIONES DE MATERIAL ANGULAR
+import {
+    MatOptionModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatBadgeModule,
+    MatBottomSheetModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatStepperModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatTreeModule,
+  
+  } from '@angular/material';
+  
+
+
 //external modules
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';
@@ -44,6 +88,25 @@ import { StatComponent } from './components/stat/stat.component';
 import { Orders } from './data/orders';
 import { ProfilesComponent } from './components/profiles/profiles.component';
 import { UsersdataComponent } from './components/usersdata/usersdata.component';
+import { PanelComponent } from './components/panel/panel.component';
+
+import { CrmoduloComponent } from './components/create/crmodulo/crmodulo.component';
+import { CropcionesComponent } from './components/create/cropciones/cropciones.component';
+import { CrperfilesComponent } from './components/create/crperfiles/crperfiles.component';
+import { CrusuariosComponent } from './components/create/crusuarios/crusuarios.component';
+import { CrusersopcComponent } from './components/create/crusersopc/crusersopc.component';
+import { RdmodulosComponent } from './components/read/rdmodulos/rdmodulos.component';
+import { RdopcionesComponent } from './components/read/rdopciones/rdopciones.component';
+import { RdperfilesComponent } from './components/read/rdperfiles/rdperfiles.component';
+import { RdusuariosComponent } from './components/read/rdusuarios/rdusuarios.component';
+import { RdusersopcComponent } from './components/read/rdusersopc/rdusersopc.component';
+import { UpmodulosComponent } from './components/update/upmodulos/upmodulos.component';
+import { UpopcionesComponent } from './components/update/upopciones/upopciones.component';
+import { UpperfilesComponent } from './components/update/upperfiles/upperfiles.component';
+import { UpusuariosComponent } from './components/update/upusuarios/upusuarios.component';
+import { UpusuariosopcionesComponent } from './components/update/upusuariosopciones/upusuariosopciones.component';
+import { EstadousuarioComponent } from './components/update/estadousuario/estadousuario.component';
+import { UpdatedatosComponent } from './components/update/updatedatos/updatedatos.component';
 //import { BrowseComponentd } from './components/home/browse.component';
 
 @NgModule({
@@ -64,10 +127,31 @@ import { UsersdataComponent } from './components/usersdata/usersdata.component';
     OrderComponent,
     StatComponent,
     ProfilesComponent,
-    UsersdataComponent
+    UsersdataComponent,
+    PanelComponent,
+    CrmoduloComponent,
+    CropcionesComponent,
+    CrperfilesComponent,
+    CrusuariosComponent,
+    CrusersopcComponent,
+    RdmodulosComponent,
+    RdopcionesComponent,
+    RdperfilesComponent,
+    RdusuariosComponent,
+    RdusersopcComponent,
+    FooterComponent,
+    UpmodulosComponent,
+    UpopcionesComponent,
+    UpperfilesComponent,
+    UpusuariosComponent,
+    UpusuariosopcionesComponent,
+    EstadousuarioComponent,
+    UpdatedatosComponent
+    
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     NgbModule,
     APP_ROUTING,
@@ -77,7 +161,44 @@ import { UsersdataComponent } from './components/usersdata/usersdata.component';
     HttpClientModule,
     DataTableModule,
     DropdownModule,
-    ChartsModule
+    ChartsModule,
+    MatOptionModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatBadgeModule,
+    MatBottomSheetModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatStepperModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatTreeModule,    
   ],
   providers: [
     HeroesService,

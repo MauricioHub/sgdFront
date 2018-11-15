@@ -1,0 +1,100 @@
+<form (ngSubmit)="updatedatos(formanupdatos)" #formanupdatos="ngForm" novalidate>
+  <h2 align="center">EDITAR DATOS  </h2>
+  <br>
+  <div>
+    <div class="example-container">
+
+      <mat-form-field appearance="outline">
+      <mat-label>USUARIO</mat-label>
+       <input matInput placeholder="Id del Usuario" disabled=true
+       name="username"
+       ngModel="{{data.username}}"
+       minlength=""
+       #username="ngModel">
+       <mat-icon matSuffix>dehaze</mat-icon>
+      </mat-form-field>
+
+
+  <mat-form-field appearance="outline">
+  <mat-label>NOMBRE DEL USUARIO</mat-label>
+  <input matInput placeholder="NOMBRE DEL USUARIO"
+   name="nombre"
+  ngModel="{{data.firstname}}"
+   minlength="3"
+   required
+   #nombre="ngModel"
+   [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">
+  <mat-icon matSuffix>person</mat-icon>
+   <div class="invalid-feedback" *ngIf="nombre.errors?.required">
+    Este campo es requerido
+    </div>
+    <div class="invalid-feedback" *ngIf="nombre.errors?.minlength">
+     Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres
+    </div>
+     </mat-form-field>
+
+
+     <mat-form-field appearance="outline">
+     <mat-label>APELLIDO DEL USUARIO</mat-label>
+     <input matInput placeholder="NOMBRE DEL USUARIO"
+      name="apellido"
+      ngModel="{{data.lastname}}"
+      minlength="3"
+      required
+      #nombre="ngModel"
+      [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">
+     <mat-icon matSuffix>person</mat-icon>
+      <div class="invalid-feedback" *ngIf="nombre.errors?.required">
+       Este campo es requerido
+       </div>
+       <div class="invalid-feedback" *ngIf="nombre.errors?.minlength">
+        Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres
+       </div>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+        <mat-label>TELEFONO DEL USUARIO</mat-label>
+        <input matInput placeholder="TELEFONO DEL USUARIO"
+         name="cell"
+         type="text"
+         maxlength="15"
+         minlength="10"
+         pattern="[0-9]+"
+         ngModel="{{data.phonenumber}}"
+         required
+         #cell="ngModel"
+         [ngClass]="{'is-invalid': (cell.errors?.minlength || cell.errors?.maxlength) && cell.touched}">
+        <mat-icon matSuffix>local_phone</mat-icon>
+         <div class="invalid-feedback" *ngIf="cell.errors?.required">
+          Este campo es requerido
+          </div>
+           </mat-form-field>
+
+
+
+         <mat-form-field appearance="outline">
+         <mat-label>EMAIL</mat-label>
+         <input matInput placeholder="Nombre del modulo"
+          type="email"
+          name="emailusu"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+          ngModel="{{data.email}}"
+          required
+          #emailusu="ngModel">
+         <mat-icon matSuffix>email</mat-icon>
+         </mat-form-field>
+
+        </div>
+
+            <button type="submit" id="guardar" class="btn btn-outline-primary" [disabled]="!formanupdatos.valid" mat-button matTooltip ="editar usuario"
+             ><mat-icon>how_to_reg</mat-icon>
+             </button>
+
+             <button id="delete" type="reset" mat-dialog-close class="btn btn-outline-primary" mat-button matTooltip ="SALIR"
+             ><mat-icon>exit_to_app</mat-icon>
+             </button>
+
+
+</div>
+</form>
