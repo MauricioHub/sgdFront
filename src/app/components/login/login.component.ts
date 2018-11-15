@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { Globals } from '../../app.globals';
 //import { AlertService } from '../../services/alert.service';
 
 @Component({
@@ -14,12 +15,22 @@ export class LoginComponent implements OnInit {
   class:string = '';
 
   constructor(private router: Router,
-              private authService:AuthService) { }
+              private authService:AuthService,
+              private disableRt:Globals) { 
+
+    /*  setInterval(function(refreshSession){
+        /*if(!refreshSession){
+          console.log('soy-ALERT-NOIF: ');
+          //this.router.navigate(['/login']);
+        } --
+        
+      }, 2000, this.disableRt.refreshSession);*/                  
+  }
 
   ngOnInit() {
     if(localStorage.getItem("access_token")!=null){
     this.router.navigate(['/home']);
-}
+    }
   }
 
   login(formulario:NgForm){

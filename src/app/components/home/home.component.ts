@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   refusedLenCard:string = '';
   pendingCard:string = '';
   pendingLenCard:string = '';
+  flagSession:string = '';
 
   // ADD CHART OPTIONS. 
   pieChartOptions = {
@@ -81,12 +82,50 @@ export class HomeComponent implements OnInit {
     this.disableRt.profileRoot[1] = JSON.parse(localStorage.getItem('fees_module'));
     this.disableRt.profileRoot[2] = JSON.parse(localStorage.getItem('batches_module'));
     this.disableRt.profileRoot[3] = JSON.parse(localStorage.getItem('profiles_module'));
+
+    this.flagSession = localStorage.getItem('logged_');
+    console.log('soy-PRUEBITA-USUARIO: ');
+    console.log(this.loggedUsername);
+    if(localStorage.getItem('logged_username') != null){
+      console.log('VARIABLE GLOBAL-TRUE: ');
+      this.disableRt.refreshSession = true;
+    }
+
+   /* if (history.length >= 1) {
+      console.log('SOY-VENTANA-NUEVA: ');
+      console.log(history.length); 
+      // Estás es una nueva pestaña/ventana: realiza las acciones necesarias
+    }*/
+      
+   /* if(this.isEmpty(this.flagSession)){
+      console.log('soy-ALERT: ');
+      console.log(this.flagSession);
+      setInterval(function(){ alert("Hello"); }, 3000);
+    }*/
+   // console.log('soy-ALERT-NOIF: ');
+
+
+  /*  setInterval(function(username){
+      if((!username || 0 === username.length)){
+        console.log('soy-ALERT-NOIF: ');
+        console.log(username);
+        this.router.navigate(['/login']);
+      }*/
+    setInterval(function(username){
+      
+      console.log('soy-ALERT-HOME: ');
+      console.log(username);
+      
+    }, 4000, localStorage.getItem('logged_username'));
+   // }, 2000, localStorage.getItem('logged_username'));
+
   }
 
   ngOnInit() {
     if(localStorage.getItem('disableRoot') == 'true')
       this.disableRt.disableRoot = true;
       this.pieChartData = this.pieData;
+   
   }
 
   valuechange(newValue) {
@@ -128,12 +167,26 @@ export class HomeComponent implements OnInit {
   }
 
   logout(){
+    localStorage.removeItem('logged_username');
+    this.disableRt.refreshSession = false;
     this._authService.logout();
+
+    this._heroesService.getUsuarios()
+    .toPromise().then(data => {
+      console.log('SOY HOME-LOGOUT: ');
+      console.log(data);
+    });
+
+
   }
 
 
   onChartClick(event) {
       console.log(event);
+  }
+
+  public isEmpty(str:string) {
+    return (!str || 0 === str.length);
   }
 
 

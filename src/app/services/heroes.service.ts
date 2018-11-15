@@ -25,6 +25,10 @@ const API_LPENALTIES=environmentP.penaltiesURL;
 const API_DASHBOARD=environmentP.dashboardURL;
 const API_PROFILES=environmentP.profilesURL;
 
+const API_GET_USUARIOS=environmentP.API_GET_USUARIOS;
+const API_UPDATE_USUARIOSDATA=environmentP.API_UPDATE_USUARIOSDATA;
+
+
 //const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 //const EXCEL_EXTENSION = '.xls';
 
@@ -551,5 +555,35 @@ export class HeroesService {
 
     });
   }
+
+
+  getUsuarios(){
+    //let consul={
+    //}
+
+    return this.http.get(API_GET_USUARIOS)
+    .pipe(
+      map((res:any) => {
+        return res;             
+      })
+    );
+  }
+
+
+  updatedatauser(username:string,
+                 firstname:string,
+                 lastname:string,email:string,
+                 phonenumber:string){
+
+    let dataus={
+      username:username,
+      firstname:firstname,
+      lastname:lastname,
+      email:email,
+      phonenumber:phonenumber
+    }
+    return this.http.post(API_UPDATE_USUARIOSDATA,dataus);
+  }
+
 
 }

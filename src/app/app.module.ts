@@ -5,9 +5,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 //IMPORTACIONES DE MATERIAL ANGULAR
 import {
-  MatOptionModule,
-  MatAutocompleteModule,
-  MatFormFieldModule,
+    MatOptionModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
     MatBadgeModule,
     MatBottomSheetModule,
     MatButtonModule,
@@ -87,6 +87,7 @@ import { OrderComponent } from './components/order/order';
 import { StatComponent } from './components/stat/stat.component';
 import { Orders } from './data/orders';
 import { ProfilesComponent } from './components/profiles/profiles.component';
+import { UsersdataComponent } from './components/usersdata/usersdata.component';
 import { PanelComponent } from './components/panel/panel.component';
 
 import { CrmoduloComponent } from './components/create/crmodulo/crmodulo.component';
@@ -106,7 +107,6 @@ import { UpusuariosComponent } from './components/update/upusuarios/upusuarios.c
 import { UpusuariosopcionesComponent } from './components/update/upusuariosopciones/upusuariosopciones.component';
 import { EstadousuarioComponent } from './components/update/estadousuario/estadousuario.component';
 import { UpdatedatosComponent } from './components/update/updatedatos/updatedatos.component';
-
 //import { BrowseComponentd } from './components/home/browse.component';
 
 @NgModule({
@@ -127,6 +127,7 @@ import { UpdatedatosComponent } from './components/update/updatedatos/updatedato
     OrderComponent,
     StatComponent,
     ProfilesComponent,
+    UsersdataComponent,
     PanelComponent,
     CrmoduloComponent,
     CropcionesComponent,
@@ -147,7 +148,6 @@ import { UpdatedatosComponent } from './components/update/updatedatos/updatedato
     EstadousuarioComponent,
     UpdatedatosComponent
     
-
   ],
   imports: [
     BrowserModule,
@@ -165,41 +165,40 @@ import { UpdatedatosComponent } from './components/update/updatedatos/updatedato
     MatOptionModule,
     MatAutocompleteModule,
     MatFormFieldModule,
-  MatBadgeModule,
-  MatBottomSheetModule,
-  MatButtonModule,
-  MatButtonToggleModule,
-  MatCardModule,
-  MatCheckboxModule,
-  MatChipsModule,
-  MatDatepickerModule,
-  MatDialogModule,
-  MatDividerModule,
-  MatExpansionModule,
-  MatGridListModule,
-  MatIconModule,
-  MatInputModule,
-  MatListModule,
-  MatMenuModule,
-  MatNativeDateModule,
-  MatPaginatorModule,
-  MatProgressBarModule,
-  MatProgressSpinnerModule,
-  MatRadioModule,
-  MatRippleModule,
-  MatSelectModule,
-  MatSidenavModule,
-  MatSliderModule,
-  MatSlideToggleModule,
-  MatSnackBarModule,
-  MatSortModule,
-  MatStepperModule,
-  MatTableModule,
-  MatTabsModule,
-  MatToolbarModule,
-  MatTooltipModule,
-  MatTreeModule,
-    
+    MatBadgeModule,
+    MatBottomSheetModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatStepperModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatTreeModule,    
   ],
   providers: [
     HeroesService,

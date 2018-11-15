@@ -102,6 +102,7 @@ export class AuthService {
     localStorage.setItem('disableRoot', 'true');
     localStorage.setItem('objIdRol', '' + this.objIdRol);
     this.disableRt.disableRoot = true;
+    this.disableRt.refreshSession = true;
     this.router.navigate(['/home']);
   }
 
@@ -242,6 +243,7 @@ export class AuthService {
     // Go back to the home route
     localStorage.setItem('disableRoot', 'false');
     this.disableRt.disableRoot = false;
+    this.disableRt.refreshSession = false;
     this.router.navigate(['/login']);
   }
 
