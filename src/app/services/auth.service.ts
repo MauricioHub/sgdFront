@@ -101,6 +101,8 @@ export class AuthService {
     console.log(this.objIdRol)
     localStorage.setItem('disableRoot', 'true');
     localStorage.setItem('objIdRol', '' + this.objIdRol);
+
+    //this.setCookie('username', this.username,1);
     this.disableRt.disableRoot = true;
     this.disableRt.refreshSession = true;
     this.router.navigate(['/home']);
@@ -232,16 +234,8 @@ export class AuthService {
   }
 
   public logout(): void {
-    localStorage.removeItem('access_token');
-  //  localStorage.removeItem('id_token');
-    localStorage.removeItem('expires_at');
-    localStorage.removeItem('logged_username');
-    localStorage.removeItem('sales_module');
-    localStorage.removeItem('fees_module');
-    localStorage.removeItem('batches_module');
-    //localStorage.removeItem('code_temp');
-    // Go back to the home route
-    localStorage.setItem('disableRoot', 'false');
+    localStorage.clear();
+    //this.setCookie('username','',1);
     this.disableRt.disableRoot = false;
     this.disableRt.refreshSession = false;
     this.router.navigate(['/login']);
@@ -348,5 +342,11 @@ export class AuthService {
     return pieData;
   }
 
+/*  public setCookie(cname,cvalue,exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires=" + d.getDate();
+    document.cookie = cname + "=" + cvalue + ";" + expires;
+  }*/
 
 }

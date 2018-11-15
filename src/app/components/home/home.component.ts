@@ -31,9 +31,6 @@ export class HomeComponent implements OnInit {
   }
 
   pieChartLabels =  ['REGLR', 'RECHZ', 'PENDT'];
-
-  // CHART COLOR. 'rgba(139, 136, 136, 0.9)', 'rgba(255, 161, 181, 0.9)' 
-  //, 54, 77  data: [45, 67, 800, 500],
   pieChartColor:any = [
       {
           /*backgroundColor: ['rgba(30, 169, 224, 0.8)',
@@ -90,36 +87,9 @@ export class HomeComponent implements OnInit {
       console.log('VARIABLE GLOBAL-TRUE: ');
       this.disableRt.refreshSession = true;
     }
-
-   /* if (history.length >= 1) {
-      console.log('SOY-VENTANA-NUEVA: ');
-      console.log(history.length); 
-      // Estás es una nueva pestaña/ventana: realiza las acciones necesarias
-    }*/
-      
-   /* if(this.isEmpty(this.flagSession)){
-      console.log('soy-ALERT: ');
-      console.log(this.flagSession);
-      setInterval(function(){ alert("Hello"); }, 3000);
-    }*/
-   // console.log('soy-ALERT-NOIF: ');
-
-
-  /*  setInterval(function(username){
-      if((!username || 0 === username.length)){
-        console.log('soy-ALERT-NOIF: ');
-        console.log(username);
-        this.router.navigate(['/login']);
-      }*/
-    setInterval(function(username){
-      
-      console.log('soy-ALERT-HOME: ');
-      console.log(username);
-      
-    }, 4000, localStorage.getItem('logged_username'));
-   // }, 2000, localStorage.getItem('logged_username'));
-
+    setInterval( ()=>{ this.checkStorage(); }, 500);
   }
+
 
   ngOnInit() {
     if(localStorage.getItem('disableRoot') == 'true')
@@ -171,13 +141,11 @@ export class HomeComponent implements OnInit {
     this.disableRt.refreshSession = false;
     this._authService.logout();
 
-    this._heroesService.getUsuarios()
+  /*  this._heroesService.getUsuarios()
     .toPromise().then(data => {
       console.log('SOY HOME-LOGOUT: ');
       console.log(data);
-    });
-
-
+    });*/
   }
 
 
@@ -187,6 +155,58 @@ export class HomeComponent implements OnInit {
 
   public isEmpty(str:string) {
     return (!str || 0 === str.length);
+  }
+
+
+/*  public setCookie(cname,cvalue,exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires=" + d.getDate();
+    document.cookie = cname + "=" + cvalue + ";" + expires;
+  }
+
+
+  public checkCookie() {
+    var user=this.getCookie("username");
+    if (user != "") {
+        console.log('SOY-HOME-COOKIE-LLENO: ');
+        console.log(user);
+    } else {
+      console.log('SOY-HOME-COOKIE-VACIO: ');
+      console.log(user);
+      localStorage.removeItem('logged_username');
+      this.disableRt.disableRoot = false;
+      this.router.navigate(['/login']);
+      /* user = prompt("Please enter your name:","");
+       if (user != "" && user != null) {
+           setCookie("username", user, 30);
+       }
+    }
+  }
+
+
+  public getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+  } */
+
+  public checkStorage(){
+    if(localStorage.getItem('logged_username') == null){
+      this.disableRt.disableRoot = false;
+      this.router.navigate(['/login']);
+    } else{
+    }
   }
 
 
