@@ -7,6 +7,8 @@
   <mat-label>MODULO</mat-label>
   <mat-select placeholder="MODULO"
    name="idModule"
+   maxlength="25"
+   minlength="2"
    ngModel
    #idModule=ngModel
    required>
@@ -33,7 +35,8 @@
     [(ngModel)]="value"
      name="nombre"
      ngModel
-     minlength="5"
+     maxlength="25"
+     minlength="2"
      required
      #nombre="ngModel"
      [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">

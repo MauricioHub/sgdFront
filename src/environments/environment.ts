@@ -37,7 +37,7 @@ API_CREATE_MODULE:'http://10.225.13.19:9960/ModuleCreation',
 //---------------------------------------------------------
   API_CREATE_PERFILES:'http://10.225.13.19:9961/authority/',
   API_GET_PERFILES:'http://10.225.13.19:9961/authority/',
-  API_UPDATE_PERFILES:'http://10.225.13.19:9961/authority/',
+  API_UPDATE_PERFILES:'http://10.225.13.19:9961/authorityUpdate/',
 
 //---------------------------------------------------------
 

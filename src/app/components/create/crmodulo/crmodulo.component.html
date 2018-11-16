@@ -13,6 +13,7 @@
        name="nombre"
        ngModel
        minlength="5"
+       maxlength="25"
        required
        #nombre="ngModel"
        [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">

@@ -30,7 +30,7 @@ public usersss;
       console.log(formanupdatos.value.apellido);
        console.log(formanupdatos.value.emailusu);
         console.log(formanupdatos.value.cell);
-     this.crusua.updatedatauser(this.data.username,formanupdatos.value.nombre,formanupdatos.value.apellido,formanupdatos.value.emailusu,formanupdatos.value.cell).subscribe(res=>{
+     this.crusua.updatedatauser(this.data.username,formanupdatos.value.nombre,formanupdatos.value.apellido,formanupdatos.value.emailusu,formanupdatos.value.cell,formanupdatos.value.idperfil).subscribe(res=>{
        console.log(res);
          this.openSnackBar(formanupdatos.value.username);
          this.dialogRef.close();
@@ -40,7 +40,7 @@ public usersss;
    }
    listaidus(){
 
-     this.creusu.getUsiarios('','').subscribe((usersss:any)=>{
+     this.creusu.getPerfile('','').subscribe((usersss:any)=>{
      console.log(usersss);
      this.usersss=usersss;
      },
