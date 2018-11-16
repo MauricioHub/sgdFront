@@ -534,32 +534,25 @@ export class SalesComponent implements OnInit {
   }
 
   onSelectionChannelChange(selectedCanal){
-    console.log('SOY CHANNEL !!!!: ');
-    console.log(selectedCanal.channelId);
     this.chargeOffices(selectedCanal.channelId);
     this.browseParameters();
   }
 
   chargeChannels(){
-    let channelEmpty = {channelId: "", description: "todos"};
-
     this._heroesService.chargeChannels()
     .toPromise().then(data => {
-      data.push(channelEmpty);
-      this.channels = data;
+      var dataList = this.dataListSort(data,1);
+      this.channels = dataList;
     });
   }
 
   chargeOffices(selectedCanal){
-    console.log('SOY CHARGE OFFICCES!!!');
-    let officeEmpty = {officeId: "", officeName: ""};
-
     this._heroesService.chargeOffices( 
           selectedCanal                                     
     )
     .toPromise().then(data => {
-      data.push(officeEmpty);
-      this.oficinas = data;
+      var dataList = this.dataListSort(data,2);
+      this.oficinas = dataList;
     });
   }
 
@@ -810,5 +803,28 @@ export class SalesComponent implements OnInit {
         }
       });
   }
+
+  public dataListSort(dataListSource:any[], code:number){
+    var dataListSorted:any[] = [];
+    var lenDataSource = dataListSource.length;
+    var p;
+
+    for(p=0; p<=lenDataSource; p++){
+      if(code == 1){
+        if(p == 0)
+          dataListSorted[0] = {channelId: "", description: ""};
+        else
+          dataListSorted[p] = dataListSource[p-1];
+      }
+      if(code == 2){
+        if(p == 0)
+          dataListSorted[0] = {officeId: "", officeName: ""};
+        else
+          dataListSorted[p] = dataListSource[p-1];
+      }
+    }
+    return dataListSorted;
+  }
+
 
 }

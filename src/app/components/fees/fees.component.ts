@@ -185,32 +185,26 @@ export class FeesComponent implements OnInit {
   }
 
   chargeChannels(){
-    let channelEmpty = {channelId: "", description: "todos"};
-
     this._heroesService.chargeChannels()
     .toPromise().then(data => {
-      data.push(channelEmpty);
-      this.channels = data;
+      var dataList = this.dataListSort(data, 1);
+      this.channels = dataList;
     });
   }
 
   chargeSellers(){
-    let sellerEmpty = {sellerId: "", sellerName: "todos"};
-
     this._heroesService.chargeSellers()
     .toPromise().then(data => {
-      data.push(sellerEmpty);
-      this.sellers = data;
+      var dataList = this.dataListSort(data, 2);
+      this.sellers = dataList;
     });
   }
 
   chargePenalties(){
-    let penaltyEmpty = {penaltyId: "", description: "todos"};
-
     this._heroesService.chargePenalties()
     .toPromise().then(data => {
-      data.push(penaltyEmpty);
-      this.penalties = data;
+      var dataList = this.dataListSort(data, 3);
+      this.penalties = dataList;
     });
   }
 
@@ -303,51 +297,6 @@ export class FeesComponent implements OnInit {
   
   }
 
-/*  public captureScreen(){  
-    var data = document.getElementById('tablefee');  
-    html2canvas(data).then(canvas => {  
-      // Few necessary setting options  
-      var imgWidth = 208;   
-      var pageHeight = 295;    
-      var imgHeight = canvas.height * imgWidth / canvas.width;  
-      var heightLeft = imgHeight;  
-  
-      const contentDataURL = canvas.toDataURL('image/png')  
-      let pdf = new jsPDF('l', 'mm', 'a4'); // A4 size page of PDF  
-      var position = 0;  
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-      pdf.save('comisiones.pdf'); // Generated PDF   
-    });  
-  }
-
-  public mydownloadPDF(){
-    let doc = new jsPDF('l', 'pt', 'a4');
-    let margins = {
-      top: 0,
-      bottom: 0,
-      left: 10,
-      width: 850,
-      height: 360
-    };
-
-    let specialElementHandlers = {
-      '#editor': function(element, renderer){
-        return true;
-      }
-    };
-    let content = this.content.nativeElement;
-    doc.fromHTML(
-      content.innerHTML, // HTML string or DOM elem ref.
-      margins.left,
-      margins.top, {
-        'width': margins.width
-        //'elementHandlers': specialElementHandlers
-      },
-      function(dispose) {
-        doc.save('comisionesjspdf.pdf');
-      }, margins);
-    //doc.save('comisionesjspdf.pdf');
-  }*/
 
   public downloadPDF(){
     let lenFees = this.fees.length;
@@ -480,6 +429,36 @@ export class FeesComponent implements OnInit {
         //console.log('SOY RESPONSE COMPONENT');
         });
   }
+
+
+  public dataListSort(dataListSource:any[], code:number){
+    var dataListSorted:any[] = [];
+    var lenDataSource = dataListSource.length;
+    var p;
+
+    // {penaltyId: "", description: "todos"}
+    for(p=0; p<=lenDataSource; p++){
+      if(code == 1){
+        if(p == 0)
+          dataListSorted[0] = {channelId: "", description: ""};
+        else
+          dataListSorted[p] = dataListSource[p-1];
+      }
+      if(code == 2){
+        if(p == 0)
+          dataListSorted[0] = {sellerId: "", sellerName: ""};
+        else
+          dataListSorted[p] = dataListSource[p-1];
+      }
+      if(code == 3){
+        if(p == 0)
+          dataListSorted[0] = {penaltyId: "", description: ""};
+        else
+          dataListSorted[p] = dataListSource[p-1];
+      }
+    }
+    return dataListSorted;
+  }  
 
 
 }
