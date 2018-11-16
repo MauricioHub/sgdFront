@@ -20,7 +20,8 @@
   <input matInput placeholder="NOMBRE DEL USUARIO"
    name="nombre"
   ngModel="{{data.firstname}}"
-   minlength="3"
+  maxlength="25"
+  minlength="2"
    required
    #nombre="ngModel"
    [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">
@@ -39,7 +40,8 @@
      <input matInput placeholder="NOMBRE DEL USUARIO"
       name="apellido"
       ngModel="{{data.lastname}}"
-      minlength="3"
+      maxlength="25"
+      minlength="2"
       required
       #nombre="ngModel"
       [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">
@@ -83,6 +85,19 @@
           required
           #emailusu="ngModel">
          <mat-icon matSuffix>email</mat-icon>
+         </mat-form-field>
+
+         <mat-form-field appearance="outline">
+         <mat-label>PERFIL</mat-label>
+         <mat-select placeholder="ID"
+         type="number"
+         name="idperfil"
+         ngModel
+         #idperfil="ngModel"
+         required>
+         <mat-option>None</mat-option>
+         <mat-option *ngFor="let usue of usersss" [value]="usue.id">{{usue.name}}</mat-option>
+         </mat-select>
          </mat-form-field>
 
         </div>

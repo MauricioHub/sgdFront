@@ -11,8 +11,8 @@
       <input matInput placeholder="INGRESE EL NOMBRE DEL PERFIL"
        name="nombre"
        ngModel
-       minlength="1"
        maxlength="25"
+       minlength="2"
        required
        #nombre="ngModel"
        [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">

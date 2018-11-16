@@ -1,10 +1,9 @@
 h2{
   background-color:#FA5858;
   color: #FFFFFF;
-  font-style: italic;
   height: 40px;
   background-color:#FA5858;
-    border-radius:30px;
+
 }
 
 body{
@@ -20,18 +19,16 @@ input.example-right-align {
 button{
   background-color:#EC7063;
   color: #FFFFFF;
-    border-radius:30px;
 }
 
 #delete{
   background-color:#EC7063  ;
   color: #FFFFFF;
   margin-left: 21%;
-    border-radius:30px;
 }
 
 mat-paginator {
-  width: 60%;
+  width: 100%;
   margin: auto;
   background-color: #FA5858;
   color: #FFFFFF;
@@ -60,8 +57,8 @@ input{
 }
 
 table {
-  width: 60%;
-  margin: auto;
+  width: 100%;
+  
   border: #FA5858 1px solid;
 }
 

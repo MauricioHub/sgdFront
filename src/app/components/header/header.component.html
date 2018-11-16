@@ -39,10 +39,10 @@
               Regularización</a>
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" *ngIf="enableProfilesModule">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-bars" aria-hidden="true"></i>
-             Panel
+            <i class="fa fa-users" aria-hidden="true"></i>
+             Panel de Control
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a *ngIf="enableFeesModule" class="dropdown-item" routerLink="/rdmodulos" routerLinkActive="active">
@@ -50,19 +50,19 @@
                Módulos</a>
             <div class="dropdown-divider"></div>
             <a *ngIf="enableSalesModule" class="dropdown-item" routerLink="/rdopciones" routerLinkActive="active">
-              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+              <i class="fa fa-clipboard" aria-hidden="true"></i>
               Opciones</a>
             <div class="dropdown-divider"></div>
             <a *ngIf="enableBatchesModule" class="dropdown-item" routerLink="/rdperfiles" routerLinkActive="active">
-              <i class="fa fa-address-card" aria-hidden="true"></i>
+              <i class="fa fa-address-book" aria-hidden="true"></i>
               Perfiles</a>
               <div class="dropdown-divider"></div>
               <a *ngIf="enableSalesModule" class="dropdown-item" routerLink="/rdusuarios" routerLinkActive="active">
-                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                <i class="fa fa-address-card" aria-hidden="true"></i>
                 Usuarios</a>
               <div class="dropdown-divider"></div>
               <a *ngIf="enableBatchesModule" class="dropdown-item" routerLink="/rdusersopc" routerLinkActive="active">
-                <i class="fa fa-retweet" aria-hidden="true"></i>
+                <i class="fa fa-align-justify" aria-hidden="true"></i>
                 Opciones de usuarios</a>
           </div>
         </li>

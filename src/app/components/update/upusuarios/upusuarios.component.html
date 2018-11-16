@@ -8,7 +8,7 @@
 
       <mat-form-field appearance="outline">
       <mat-label>USUARIO</mat-label>
-       <input matInput placeholder="Id del Usuario"
+       <input matInput placeholder="Id del Usuario" disabled=true
 
        name="username"
        ngModel="{{data.username}}"
@@ -27,11 +27,16 @@
       required>
     <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
   </mat-form-field>
-<!--
-     <mat-radio-group type="boolean"   name="enabled"   ngModel="{{data.enabled}}"  #enabled="ngModel" >
-           <mat-radio-button     value="true"  > ACTIVO </mat-radio-button>
-           <mat-radio-button     value="false"  > INACTIVO </mat-radio-button>
-         </mat-radio-group>-->
+
+  <mat-form-field appearance="outline">
+  <mat-label>PERFIL</mat-label>
+   <input matInput placeholder="Perfil del Usuario" disabled=true
+   name="username"
+   ngModel="{{data.authorities}}"
+   minlength=""
+   #username="ngModel">
+   <mat-icon matSuffix>dehaze</mat-icon>
+  </mat-form-field>
 
   </div>
             <button type="submit" id="guardar" class="btn btn-outline-primary" [disabled]="!formaedusua.valid" mat-button matTooltip ="editar usuario"

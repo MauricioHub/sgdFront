@@ -18,7 +18,7 @@ import { CrperfilesComponent } from '../../create/crperfiles/crperfiles.componen
   styleUrls: ['./rdperfiles.component.css']
 })
 export class RdperfilesComponent implements OnInit {
-displayedColumns: string[] = ['position', 'name']
+displayedColumns: string[] = ['position', 'name','editar']
 @ViewChild(MatPaginator) paginator:MatPaginator;
 @ViewChild(MatSort) sort: MatSort;
 public perfs= new MatTableDataSource();
@@ -64,5 +64,18 @@ listaidus(){
         this.listaidus()
       });
     }
+
+    openDialogupdate(element:Perfil){
+      const dialogRef = this.dialog.open(UpperfilesComponent, {
+         width: '500px',
+         disableClose:true,
+         data:element
+       });
+
+       dialogRef.afterClosed().subscribe(result => {
+         console.log('The dialog was closed');
+         this.listaidus()
+       });
+     }
 
 }

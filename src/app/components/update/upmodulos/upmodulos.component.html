@@ -22,6 +22,8 @@
   <mat-label>NOMBRE DEL MODULO</mat-label>
    <input matInput placeholder="Nombre del modulo"
     name="nombre"
+    maxlength="25"
+    minlength="2"
     ngModel="{{data.moduleName}}"
     #nombre="ngModel"
     required>

@@ -11,9 +11,9 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatSnackBar} from '@angular/mat
   styleUrls: ['./upperfiles.component.css']
 })
 export class UpperfilesComponent implements OnInit {
-public perfs;
+public perfs:Perfil;
   constructor(private updperfil:ServupdateService,private getper:ServicesgetService,public snackBar: MatSnackBar,public dialogRef: MatDialogRef<UpperfilesComponent>,@Inject(MAT_DIALOG_DATA) public data: Perfil) {
-  this.listaidus() }
+ }
 
   ngOnInit() {
   }
@@ -23,17 +23,10 @@ public perfs;
         duration: 5000,
       });
  }
-/*editarper(formaedper:NgForm){
-console.log(formaedper.value.idperfil);
+editarper(formaedper:NgForm){
+console.log(formaedper.value.id);
 console.log(formaedper.value.nombre);
-console.log(formaedper.value.diasexp);
-console.log(formaedper.value.intentos);
-console.log(formaedper.value.customRadio);
-console.log(formaedper.value.fechayhora);
-console.log(formaedper.value.passlongitud);
-console.log(formaedper.value.expsesion);
-this.updperfil.updatePerfiles(this.data.profileId,formaedper.value.nombre,formaedper.value.diasexp,
-formaedper.value.intentos,formaedper.value.customRadio,formaedper.value.fechayhora,formaedper.value.passlongitud,formaedper.value.expsesion).subscribe(res=>{
+this.updperfil.updperfill(this.data.id,formaedper.value.nombre).subscribe(res=>{
   console.log(res);
   this.openSnackBar(formaedper.value.nombre);
     this.dialogRef.close();
@@ -41,13 +34,13 @@ formaedper.value.intentos,formaedper.value.customRadio,formaedper.value.fechayho
 err=>console.log(err)
 );
 
-}*/
+}
 
 listaidus(){
-
-  this.getper.getPerfile('','').subscribe((perfs:any)=>{
-  console.log(perfs);
-  this.perfs=perfs.profiles;
+console.log('m')
+  this.getper.getPerfile('','').subscribe((perfs:Perfil)=>{
+  console.log("* "+perfs);
+  this.perfs=perfs;
   },
   err=>console.log(err))
   }

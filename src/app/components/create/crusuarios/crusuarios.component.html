@@ -12,6 +12,7 @@
       <input matInput placeholder="NOMBRE DEL USUARIO"
        name="usernombre"
        ngModel
+       maxlength="25"
        minlength="2"
        required
        pattern=""
@@ -33,6 +34,7 @@
        ngModel
        #passwusu="ngModel"
       minlength="8"
+      maxlength="16"
       required>
     <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
   </mat-form-field>
@@ -42,7 +44,8 @@
   <input matInput placeholder="NOMBRE DEL USUARIO"
    name="nombre"
    ngModel
-   minlength="3"
+   maxlength="25"
+   minlength="2"
    required
    #nombre="ngModel"
    [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">
@@ -61,7 +64,8 @@
      <input matInput placeholder="NOMBRE DEL USUARIO"
       name="apellido"
       ngModel
-      minlength="3"
+      maxlength="25"
+      minlength="2"
       required
       #nombre="ngModel"
       [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">
@@ -83,7 +87,7 @@
          maxlength="15"
          minlength="10"
          pattern="[0-9]+"
-         ngModel=
+         ngModel
          required
          #cell="ngModel"
          [ngClass]="{'is-invalid': (cell.errors?.minlength || cell.errors?.maxlength) && cell.touched}">
