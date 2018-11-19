@@ -63,7 +63,7 @@ listaiduss(){
    openDialogcreate(element:Usuario){
      const dialogRef = this.dialog.open(CrusuariosComponent, {
         width: '500px',
-        disableClose:true,
+        disableClose:false,
       });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -76,7 +76,7 @@ listaiduss(){
     openDialogUpdate2(element:Usuario){
       const dialogReff = this.dialog.open(EstadousuarioComponent, {
          width: '500px',
-         disableClose:true,
+         disableClose:false,
          data: element
        });
 
@@ -88,7 +88,7 @@ listaiduss(){
      openDialogUpdate3(element:Usuario){
        const dialogReff = this.dialog.open(UpdatedatosComponent, {
           width: '500px',
-          disableClose:true,
+          disableClose:false,
           data: element
         });
 

@@ -61,7 +61,7 @@ export class RdopcionesComponent implements OnInit {
   openDialogUpdate(element:Opcion){
     const dialogRef = this.dialog.open(UpopcionesComponent, {
        width: '500px',
-         disableClose:true,
+         disableClose:false,
        data: element
      });
 
@@ -74,7 +74,7 @@ export class RdopcionesComponent implements OnInit {
    openDialogcreate(element:Opcion){
      const dialogRef = this.dialog.open(CropcionesComponent, {
         width: '500px',
-        disableClose:true,
+        disableClose:false,
       });
 
       dialogRef.afterClosed().subscribe(result => {

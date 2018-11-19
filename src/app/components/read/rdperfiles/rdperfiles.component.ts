@@ -46,7 +46,7 @@ listaidus(){
   openDialogUpdate(element:Perfil){
     const dialogRef = this.dialog.open(UpperfilesComponent, {
        width: '500px',
-       disableClose:true,
+       disableClose:false,
        data: element
      });
 
@@ -59,7 +59,7 @@ listaidus(){
    openDialogcreate(element:Perfil){
      const dialogRef = this.dialog.open(CrperfilesComponent, {
         width: '500px',
-        disableClose:true,
+        disableClose:false,
       });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -71,7 +71,7 @@ listaidus(){
     openDialogupdate(element:Perfil){
       const dialogRef = this.dialog.open(UpperfilesComponent, {
          width: '500px',
-         disableClose:true,
+         disableClose:false,
          data:element
        });
 

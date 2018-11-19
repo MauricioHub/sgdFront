@@ -57,7 +57,7 @@ openDialogUpdate(element:Modulo){
   const dialogRef = this.dialog.open(UpmodulosComponent, {
      width: '500px',
      height: '500px',
-       disableClose:true,
+       disableClose:false,
      data: element
    });
 
@@ -71,7 +71,7 @@ openDialogUpdate(element:Modulo){
    const dialogRef = this.dialog.open(CrmoduloComponent, {
       width: '500px',
       height: '400px',
-      disableClose:true
+      disableClose:false
     });
 
     dialogRef.afterClosed().subscribe(result => {

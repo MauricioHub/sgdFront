@@ -49,7 +49,7 @@ listatbOU(){
 openDialogUpdate(element:Opcionusuario){
   const dialogRef = this.dialog.open(UpusuariosopcionesComponent, {
      width: '700px',
-     disableClose:true,
+     disableClose:false,
      data: element
    });
 
@@ -62,7 +62,7 @@ openDialogUpdate(element:Opcionusuario){
  openDialogcreate(element:Opcionusuario){
    const dialogRef = this.dialog.open(CrusersopcComponent, {
       width: '700px',
-      disableClose:true,
+      disableClose:false,
     });
 
     dialogRef.afterClosed().subscribe(result => {
