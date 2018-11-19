@@ -24,6 +24,9 @@
        ngModel="{{data.password}}"
        #passwusu="ngModel"
       minlength="8"
+      maxlength="16"
+      pattern="[A-Z]+[A-Za-z0-9]+[ÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@#\$%\^&\*\+\?_~\/]$"
+     mat-button matTooltip ="Debe empezar con una letra mayuscula y tener un caracter especial al final"
       required>
     <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
   </mat-form-field>
