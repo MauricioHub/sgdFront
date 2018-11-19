@@ -4,8 +4,6 @@ import { HeroesService } from "../../services/heroes.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
 import { ExcelService } from "../../services/excel.service";
-//import * as jspdf from 'jspdf';  
-//import html2canvas from 'html2canvas';
 import { Batch } from "../../interfaces/batch.interface";
 import {FormControl, FormGroup} from '@angular/forms';
 import { Globals } from '../../app.globals';
@@ -26,8 +24,6 @@ export class BatchesComponent implements OnInit {
   flagUser:boolean = false;
   cardFlag: boolean = false;
   checkDis:boolean;
-  //radioAct2:boolean[] = [];
-
   loggedUsername:string = "";
   checkBatches:boolean[] = [];
   enableBatches:boolean[] = [];
@@ -56,7 +52,8 @@ export class BatchesComponent implements OnInit {
 
   batchIdentifier:string = "";
   orderIdentifier:string = "";  
-  startDate; endDate;
+  startDate:any = {day:'', month:'', year:''}; 
+  endDate:any = {day:'', month:'', year:''};
   startDateStr = '';
   startDateLng = 0;
   endDateStr = '';
@@ -110,7 +107,6 @@ export class BatchesComponent implements OnInit {
     this.disableRt.profileRoot[0] = JSON.parse(localStorage.getItem('sales_module'));
     this.disableRt.profileRoot[1] = JSON.parse(localStorage.getItem('fees_module'));
     this.disableRt.profileRoot[2] = JSON.parse(localStorage.getItem('batches_module'));    
-    //this.batches = this._heroesService.getBrowseBatch();
     if(!this.flagRegularized)
         this.batches = [];
 
@@ -127,21 +123,14 @@ export class BatchesComponent implements OnInit {
     this.radioActAll = false;
     this.checkAllBox = false;
     this.loggedUsername = localStorage.getItem('logged_username');
-    /*if(this.loggedUsername == 'sdiaz')
-    this.flagUser = true;*/
-
+    
     this.v_lotId = localStorage.getItem('v_lotId');
     this.v_lotDate = localStorage.getItem('v_lotDate');
-   // this.v_lotDate = this.formatDateReport(this.v_lotDate);
     this.v_records = localStorage.getItem('v_records');
     this.chargeOffices("");
     this.chargePayments();
     
     this.enableSelectReason(true);
-   /* if(this.flagUser)
-        this.enableFlagUser(this.flagUser);*/
-   // console.log('SOY FEES COMP');
-   // console.log(this.batches);
     if(this.batches.length == 0)
         this.v_records = '0';
 
@@ -171,19 +160,17 @@ export class BatchesComponent implements OnInit {
 
     lotIdBrowse(newValue){
         this.lotId = newValue;
-        console.log(newValue);
-        let firstDate='', lastDate = '';
-        firstDate = JSON.stringify( this.startDate );
-        lastDate = JSON.stringify( this.endDate );
+        let firstDate = '';
+        let lastDate = '';
         this.radioActAll = false;
         this.onSelectionMarkAll();
      
-        if(this.isEmpty(firstDate))
+        if(this.startDate.day == '')
           firstDate = '';
         else
           firstDate = '' + this.startDate.day + '/' + this.startDate.month + '/' + this.startDate.year;
     
-        if(this.isEmpty(lastDate))
+        if(this.endDate.day == '')
           lastDate = '';
         else
           lastDate = '' + this.endDate.day + '/' + this.endDate.month + '/' + this.endDate.year;
@@ -216,43 +203,40 @@ export class BatchesComponent implements OnInit {
     }
 
     startDateBrowse(newStartDate){
-        if(!this.isEmpty(this.startDate.day)){
-          this.startDate = newStartDate;
-          this.startDateStr = this.jsonDateToString(this.startDate);
-          this.startDateStr = this.formatDateReport(new Date(this.startDateStr));
-          this.startDateLng = this.strDateToLong(this.startDateStr);
-          if(this.isEmpty(this.endDate)){
+        this.startDate = newStartDate;
+        this.startDateStr = this.jsonDateToString(this.startDate);
+        this.startDateStr = this.formatDateReport(new Date(this.startDateStr));
+        this.startDateLng = this.strDateToLong(this.startDateStr);
+        
+        if(this.isEmpty(this.endDate.day)){
             this.browseParameters();
-          } else{
+        } else{
             this.endDateStr = this.jsonDateToString(this.endDate);
             this.endDateStr = this.formatDateReport(new Date(this.endDateStr));
             this.endDateLng = this.strDateToLong(this.endDateStr);
             if(this.startDateLng <= this.endDateLng)
-              this.browseParameters();
+                this.browseParameters();
             else
-              this.showAlert('RANGO FECHAS INVALIDAS!');
-          }
-        }      
+                this.showAlert('RANGO FECHAS INVALIDAS!');
+        }
       }
     
       endDateBrowse(newEndDate){
-        if(!this.isEmpty(this.startDate.day)){
-          this.endDate = newEndDate;
-          this.endDateStr = this.jsonDateToString(this.endDate);
-          this.endDateStr = this.formatDateReport(new Date(this.endDateStr));
-          this.endDateLng = this.strDateToLong(this.endDateStr);
+        this.endDate = newEndDate;            
+        this.endDateStr = this.jsonDateToString(this.endDate);
+        this.endDateStr = this.formatDateReport(new Date(this.endDateStr));
+        this.endDateLng = this.strDateToLong(this.endDateStr);
     
-          if(this.isEmpty(this.startDate)){
+        if(this.isEmpty(this.startDate.day)){
             this.browseParameters();
-          } else {
+        } else {
             this.startDateStr = this.jsonDateToString(this.startDate);
             this.startDateStr = this.formatDateReport(new Date(this.startDateStr));
             this.startDateLng = this.strDateToLong(this.startDateStr);
-            if(this.startDateLng <= this.endDateLng)
-              this.browseParameters();
-            else
-              this.showAlert('RANGO FECHAS INVALIDAS!');
-          }
+        if(this.startDateLng <= this.endDateLng)
+            this.browseParameters();
+        else
+            this.showAlert('RANGO FECHAS INVALIDAS!');
         }  
       }
     
@@ -286,26 +270,16 @@ export class BatchesComponent implements OnInit {
     
 
     browseParameters(){
-        let firstDate, lastDate;
-        if(this.startDate === '')
-          firstDate = '';
-        else
-          firstDate = JSON.stringify( this.startDate );
-    
-        if(this.endDate === '')
-          lastDate = '';
-        else
-          lastDate = JSON.stringify( this.endDate );        
-
+        let firstDate = '', lastDate = '';        
         this.radioActAll = false;
         this.onSelectionMarkAll();
      
-        if(this.isEmpty(firstDate))
+        if(this.startDate.day === '')
           firstDate = '';
         else
           firstDate = '' + this.startDate.day + '/' + this.startDate.month + '/' + this.startDate.year;
     
-        if(this.isEmpty(lastDate))
+        if(this.endDate.day === '')
           lastDate = '';
         else
           lastDate = '' + this.endDate.day + '/' + this.endDate.month + '/' + this.endDate.year;
@@ -333,9 +307,9 @@ export class BatchesComponent implements OnInit {
                 this.v_records = localStorage.getItem('b_records');
                 if(this.batches.length == 0)
                   this.v_records = '0';
-                console.log('SIGNATURE: ');
-                console.log(this.batches[0].claroSignature + ', FIRST TIME: ');
-                console.log(this.batches[0].signatureFirstTime);
+                //console.log('SIGNATURE: ');
+                //console.log(this.batches[0].claroSignature + ', FIRST TIME: ');
+                //console.log(this.batches[0].signatureFirstTime);
             }
           });
     }
@@ -849,6 +823,12 @@ export class BatchesComponent implements OnInit {
           }
         }
         return dataListSorted;
+      }
+
+      brokeBatchesCode(nombreLote){
+        let re = /_/g;
+        let resultLote = nombreLote.replace(re, " ");
+        return resultLote;
       }
 
 }

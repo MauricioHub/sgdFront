@@ -6,8 +6,6 @@ import { AuthService } from "../../services/auth.service";
 import { Sale } from '../../interfaces/sale.interface';
 import { ExcelService } from "../../services/excel.service";
 import { Globals } from '../../app.globals';
-//import * as jspdf from 'jspdf';  
-//import html2canvas from 'html2canvas';
 
 declare var jsPDF: any;
 
@@ -55,7 +53,8 @@ export class SalesComponent implements OnInit {
   display='none';
   displayOK='none';
   mdSalesLenght = '';
-  startDate; endDate;
+  startDate:any = {day:'', month:'', year:''}; 
+  endDate:any = {day:'', month:'', year:''};
   startDateStr:string = '';
   endDateStr:string = '';
   lotId:string = '';
@@ -71,7 +70,6 @@ export class SalesComponent implements OnInit {
 
   channels:any[] = [{channelId: "", description: ""}];
   selectedChannel:any = {channelId: "" , description: "todos"};
-  //selectedCanal:any = {id: "" , name: ""};
   oficinas:any[] = [{officeId: "", officeName: ""}];
   selectedOficina:any = {officeId: "", officeName: ""};
   selectedEstado:any = {id: "", status: ""};
@@ -93,26 +91,16 @@ export class SalesComponent implements OnInit {
 
       this.chargeChannels();
       this.chargeOffices(this.selectedChannel.channelId);
-      //this.heroes = this._heroesService.getBrowseHeroes();
       if(!this.flagBatched)
         this.heroes = [];
 
       this._heroesService.getBatchSequenceAsync()
       .subscribe((data:any) => {
-      //this.heroes = data;
         if(data.code == 200){
           this.batchSequence = data.sequence;
-        }
-        //console.log('SEQUENCE-ASYNC:');
-        //console.log(this.batchSequence);          
-      });            
+        }          
+      });
 
-      /*  if(!(this._authService.isAuthenticated()))
-      this._authService.login();*/
-      // this.checkActive = {};
-
-      //  selectedActive:any = {id: "" , name: ""}
-      //this.changeCheckSalesAll(true);
       this.loggedUsername = localStorage.getItem('logged_username');
       this.v_records = localStorage.getItem('vE_records');
       if(this.heroes.length == 0)
@@ -130,29 +118,12 @@ export class SalesComponent implements OnInit {
           { field: 'reason', header: 'Motivo' },
           { field: 'lotId', header: 'Código Lote' }
       ];
-      // this.markCheckButtons(false);
-
-
-      /*if(this._heroesService.flagVentas == 1){
-      this._heroesService.getHeroes()
-      .subscribe( data =>{
-      this.heroes = data.salesResults;
-      console.log(this.heroes);
-      this.loading = false;
-      })
-      } else if(this._heroesService.flagVentas == 2){
-      console.log('SOY COMPO Y VENGO DE BROWSE');
-      this.heroes = this._heroesService.getBrowseHeroes();
-      this.loading = false;
-      console.log(this.heroes);
-      }*/
        
   }
 
   ngOnInit() {
     if(localStorage.getItem('disableRoot') == 'true')
       this.disableRt.disableRoot = true;
-    //this.heroes = this._heroesService.getBrowseHeroes();
     if(!this.flagBatched)
         this.heroes = [];
     this.loading = false;
@@ -166,24 +137,19 @@ export class SalesComponent implements OnInit {
 
   lotIdBrowse(newValue){
     this.lotId = newValue;
-    console.log(newValue);
     this.radioActAll = false;
     this.onSelectionMarkAll();
-
-    let firstDate = JSON.stringify( this.startDate );
-    let lastDate = JSON.stringify( this.endDate );
-    if(this.isEmpty(firstDate))
+    let firstDate = '';
+    let lastDate = '';
+    if(this.startDate.day == '')
       firstDate = '';
     else
       firstDate = '' + this.startDate.day + '/' + this.startDate.month + '/' + this.startDate.year;
-
-    if(this.isEmpty(lastDate))
+      
+    if(this.endDate.day == '')
       lastDate = '';
     else
       lastDate = '' + this.endDate.day + '/' + this.endDate.month + '/' + this.endDate.year;
-    
-    console.log('SOY LOTID-BROWSE: ');
-    console.log(this.lotId);
 
     this._heroesService.browseVenta( firstDate,
                                      lastDate,
@@ -204,47 +170,39 @@ export class SalesComponent implements OnInit {
 
   startDateBrowse(newStartDate){
     this.startDate = newStartDate;
-    if(!this.isEmpty(this.startDate.day)){
-      //this.startDate = newStartDate;
-      this.startDateStr = this.jsonDateToString(this.startDate);
-      this.startDateStr = this.formatDateReport(new Date(this.startDateStr));
-      this.startDateLng = this.strDateToLong(this.startDateStr);
+    this.startDateStr = this.jsonDateToString(this.startDate);
+    this.startDateStr = this.formatDateReport(new Date(this.startDateStr));
+    this.startDateLng = this.strDateToLong(this.startDateStr);
 
-      console.log('START DATE-BROWSE: ');
-      console.log(this.startDate);
-
-      if(this.isEmpty(this.endDate)){
+    if(this.isEmpty(this.endDate.day)){
+      this.browseParameters();
+    } else{
+      this.endDateStr = this.jsonDateToString(this.endDate);
+      this.endDateStr = this.formatDateReport(new Date(this.endDateStr));
+      this.endDateLng = this.strDateToLong(this.endDateStr);
+      if(this.startDateLng <= this.endDateLng)
         this.browseParameters();
-      } else{
-        this.endDateStr = this.jsonDateToString(this.endDate);
-        this.endDateStr = this.formatDateReport(new Date(this.endDateStr));
-        this.endDateLng = this.strDateToLong(this.endDateStr);
-        if(this.startDateLng <= this.endDateLng)
-          this.browseParameters();
-        else
-          this.showAlert('RANGO FECHAS INVALIDAS!');
-      }
+      else
+        this.showAlert('RANGO FECHAS INVALIDAS!');
     }      
   }
 
   endDateBrowse(newEndDate){
-    if(!this.isEmpty(this.startDate.day)){
-      this.endDate = newEndDate;
-      this.endDateStr = this.jsonDateToString(this.endDate);
-      this.endDateStr = this.formatDateReport(new Date(this.endDateStr));
-      this.endDateLng = this.strDateToLong(this.endDateStr);
+    this.endDate = newEndDate; 
+    this.endDateStr = this.jsonDateToString(this.endDate);
+    this.endDateStr = this.formatDateReport(new Date(this.endDateStr));
+    this.endDateLng = this.strDateToLong(this.endDateStr);
 
-      if(this.isEmpty(this.startDate)){
+    if(this.isEmpty(this.startDate.day)){
+      this.browseParameters();
+    } else {
+      this.startDateStr = this.jsonDateToString(this.startDate);
+      this.startDateStr = this.formatDateReport(new Date(this.startDateStr));
+      this.startDateLng = this.strDateToLong(this.startDateStr);
+      if(this.startDateLng <= this.endDateLng)
         this.browseParameters();
-      } else {
-        this.startDateStr = this.jsonDateToString(this.startDate);
-        this.startDateStr = this.formatDateReport(new Date(this.startDateStr));
-        this.startDateLng = this.strDateToLong(this.startDateStr);
-        if(this.startDateLng <= this.endDateLng)
-          this.browseParameters();
-        else
-          this.showAlert('RANGO FECHAS INVALIDAS!');
-      }
+      else
+        this.showAlert('RANGO FECHAS INVALIDAS!');
     }  
   }
 
@@ -558,50 +516,20 @@ export class SalesComponent implements OnInit {
 
 
   browseParameters(){
-    let firstDate, lastDate;
-    if(this.startDate === '')
-      firstDate = '';
-    else
-      firstDate = JSON.stringify( this.startDate );
-
-    if(this.endDate === '')
-      lastDate = '';
-    else
-      lastDate = JSON.stringify( this.endDate );
- 
+    let firstDate = '', lastDate = ''; 
     this.radioActAll = false;
     this.onSelectionMarkAll();
 
-    if(this.isEmpty(firstDate))
+    if(this.startDate.day === '')
       firstDate = '';
     else
       firstDate = '' + this.startDate.day + '/' + this.startDate.month + '/' + this.startDate.year;
 
-    if(this.isEmpty(lastDate))
-      lastDate = '';
-    else
-      lastDate = '' + this.endDate.day + '/' + this.endDate.month + '/' + this.endDate.year;
-  /*  let firstDate:string = JSON.stringify( this.startDate );
-    let lastDate:string = JSON.stringify( this.endDate );
-    console.log('BROWSEPARAM: ');
-    console.log(this.startDate);
-    console.log(this.endDate);
-    console.log(firstDate);
-    console.log(lastDate);
-   // if(this.isEmpty(firstDate))
-    if(firstDate === '')
-      firstDate = '';
-    else
-      firstDate = '' + this.startDate.day + '/' + this.startDate.month + '/' + this.startDate.year;
-
-    if(lastDate === '')
+    if(this.endDate.day === '')
       lastDate = '';
     else
       lastDate = '' + this.endDate.day + '/' + this.endDate.month + '/' + this.endDate.year;
 
-      console.log("SOY BROWSEPARAM: ");
-      console.log(firstDate);
-      console.log(lastDate);*/
     this._heroesService.browseVenta( firstDate,
                                      lastDate,
                                      this.selectedChannel.channelId,
@@ -626,23 +554,6 @@ export class SalesComponent implements OnInit {
       }
     });
   }
-
- /* public captureScreen(){  
-      var data = document.getElementById('tablesale');  
-      html2canvas(data).then(canvas => {  
-          // Few necessary setting options  
-          var imgWidth = 208;   
-          var pageHeight = 295;    
-          var imgHeight = canvas.height * imgWidth / canvas.width;  
-          var heightLeft = imgHeight;  
-      
-          const contentDataURL = canvas.toDataURL('image/png')  
-          let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF  
-          var position = 0;  
-          pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-          pdf.save('comisiones.pdf'); // Generated PDF   
-      });  
-  }*/
 
   
   openModal(){
@@ -772,6 +683,7 @@ export class SalesComponent implements OnInit {
     let firstDate = '', lastDate = '';
     this.radioActAll = false;
     this.onSelectionMarkAll();
+    this.chargeOffices('');
     this.selectedChannel = {channelId: "" , description: "todos"};
     this.selectedOficina = {officeId: "", officeName: ""};
     this.selectedEstado = {id: "", status: ""};
