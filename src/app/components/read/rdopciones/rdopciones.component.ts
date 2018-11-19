@@ -12,6 +12,7 @@ import {Observable} from 'rxjs';
 import {UpopcionesComponent} from '../../update/upopciones/upopciones.component';
 import { CrmoduloComponent } from '../../create/crmodulo/crmodulo.component';
 import { CropcionesComponent } from '../../create/cropciones/cropciones.component';
+import { Globals } from '../../../app.globals';
 
 @Component({
   selector: 'app-rdopciones',
@@ -27,7 +28,9 @@ export class RdopcionesComponent implements OnInit {
   public opciones = new MatTableDataSource();
   public modulos = new MatTableDataSource();
   public valid:boolean=false;
-  constructor(private srdopciones:ServicesgetService, public dialog:MatDialog,) {
+  constructor(private srdopciones:ServicesgetService, public dialog:MatDialog,private disableRt:Globals ) {
+    if(localStorage.getItem('disableRoot') == 'true')
+      this.disableRt.disableRoot = true;
   this.litstaidopcup()
   this.applyFilter('')
   }

@@ -11,6 +11,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {Observable} from 'rxjs';
 import {UpperfilesComponent} from '../../update/upperfiles/upperfiles.component';
 import { CrperfilesComponent } from '../../create/crperfiles/crperfiles.component';
+import { Globals } from '../../../app.globals';
 
 @Component({
   selector: 'app-rdperfiles',
@@ -23,7 +24,9 @@ displayedColumns: string[] = ['position', 'name','editar']
 @ViewChild(MatSort) sort: MatSort;
 public perfs= new MatTableDataSource();
 public valid:boolean=false;
-  constructor(private srdperfiles:ServicesgetService,public dialog:MatDialog) {
+  constructor(private srdperfiles:ServicesgetService,public dialog:MatDialog,private disableRt:Globals ) {
+    if(localStorage.getItem('disableRoot') == 'true')
+      this.disableRt.disableRoot = true;
     this.listaidus()
   this.applyFilter('') }
   applyFilter(filterValue: string) {

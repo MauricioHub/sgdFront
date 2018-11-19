@@ -11,6 +11,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {Observable} from 'rxjs';
 import {UpmodulosComponent} from '../../update/upmodulos/upmodulos.component';
 import { CrmoduloComponent } from '../../create/crmodulo/crmodulo.component';
+import { Globals } from '../../../app.globals';
 
 @Component({
   selector: 'app-rdmodulos',
@@ -26,7 +27,9 @@ value = 'Clear me';
 
 public modules= new MatTableDataSource();
 public valid:boolean=false;
-  constructor(private srdmodulo:ServicesgetService,public dialog: MatDialog ) {
+  constructor(private srdmodulo:ServicesgetService,public dialog: MatDialog,private disableRt:Globals ){
+    if(localStorage.getItem('disableRoot') == 'true')
+      this.disableRt.disableRoot = true;
   this.listaids()
   this.applyFilter('')
 }

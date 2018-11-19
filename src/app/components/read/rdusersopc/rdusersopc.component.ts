@@ -10,6 +10,7 @@ import {MatTableModule} from '@angular/material';
 import {DataSource} from '@angular/cdk/collections';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {Observable} from 'rxjs';import { CrusersopcComponent } from '../../create/crusersopc/crusersopc.component';
+import { Globals } from '../../../app.globals';
 @Component({
   selector: 'app-rdusersopc',
   templateUrl: './rdusersopc.component.html',
@@ -20,7 +21,9 @@ export class RdusersopcComponent implements OnInit {
   @ViewChild(MatPaginator) paginator:MatPaginator;
   public usersopclist= new MatTableDataSource();
 public valid:boolean=false;
-  constructor(private rsuseropc:ServicesgetService,public dialog: MatDialog) {
+  constructor(private rsuseropc:ServicesgetService,public dialog: MatDialog,private disableRt:Globals ) {
+    if(localStorage.getItem('disableRoot') == 'true')
+      this.disableRt.disableRoot = true;
 this.listatbOU()
 this.applyFilter('')
   }

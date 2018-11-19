@@ -13,7 +13,7 @@ import {UpusuariosComponent} from '../../update/upusuarios/upusuarios.component'
 import {CrusuariosComponent } from '../../create/crusuarios/crusuarios.component';
 import { EstadousuarioComponent } from '../../update/estadousuario/estadousuario.component';
 import { UpdatedatosComponent } from '../../update/updatedatos/updatedatos.component';
-
+import { Globals } from '../../../app.globals';
 
 
 
@@ -27,7 +27,9 @@ export class RdusuariosComponent implements OnInit {
   @ViewChild(MatPaginator) paginator:MatPaginator;
   public userslist = new MatTableDataSource();
   public perfs;
-  constructor(private rdusuarios:ServicesgetService, public dialog:MatDialog){
+  constructor(private rdusuarios:ServicesgetService, public dialog:MatDialog,private disableRt:Globals ){
+    if(localStorage.getItem('disableRoot') == 'true')
+      this.disableRt.disableRoot = true;
   this.listaiduss()
   }
   applyFilter(filterValue: string) {
