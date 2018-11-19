@@ -267,26 +267,20 @@ export class BatchesComponent implements OnInit {
       }
 
     chargeOffices(selectedCanal){
-        let officeEmpty = {officeId: "", officeName: ""};
-    
         this._heroesService.chargeOffices( 
               selectedCanal                                     
         )
         .toPromise().then(data => {
-          data.push(officeEmpty);
-          this.oficinas = data;
-          console.log('SOY CHARGEOFF: ');
-          console.log(this.oficinas);
+          var dataList = this.dataListSort(data, 1);
+          this.oficinas = dataList;
         });
     }    
     
     chargePayments(){
-        let paymentEmpty = {idPayment: "" , description: ""};
-
         this._heroesService.chargePayments()
         .toPromise().then(data => {
-            data.push(paymentEmpty);
-            this.paymentType = data;
+            var dataList = this.dataListSort(data, 2);
+            this.paymentType = dataList;
         });
     }
     
@@ -671,23 +665,6 @@ export class BatchesComponent implements OnInit {
         }
         return 0;
     }
-    
-   /* public captureScreen(){  
-        var data = document.getElementById('tablebatch');  
-        html2canvas(data).then(canvas => {  
-            // Few necessary setting options  
-            var imgWidth = 208;   
-            var pageHeight = 295;    
-            var imgHeight = canvas.height * imgWidth / canvas.width;  
-            var heightLeft = imgHeight;  
-        
-            const contentDataURL = canvas.toDataURL('image/png')  
-            let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF  
-            var position = 0;  
-            pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-            pdf.save('comisiones.pdf'); // Generated PDF   
-        });  
-    }*/
 
 
     openModal(){
@@ -849,6 +826,29 @@ export class BatchesComponent implements OnInit {
           batches.push(objBatchesNew);
         }
         return batches;
-      }     
+      }
+      
+
+      public dataListSort(dataListSource:any[], code:number){
+        var dataListSorted:any[] = [];
+        var lenDataSource = dataListSource.length;
+        var p;
+    
+        for(p=0; p<=lenDataSource; p++){
+          if(code == 1){
+            if(p == 0)
+              dataListSorted[0] = {officeId: "", officeName: ""};
+            else
+              dataListSorted[p] = dataListSource[p-1];
+          }
+          if(code == 2){
+            if(p == 0)
+              dataListSorted[0] = {idPayment: "" , description: ""};
+            else
+              dataListSorted[p] = dataListSource[p-1];
+          }
+        }
+        return dataListSorted;
+      }
 
 }
