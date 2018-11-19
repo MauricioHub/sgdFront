@@ -15,8 +15,7 @@
        maxlength="25"
        minlength="2"
        required
-       pattern=""
-       #nombre="ngModel"
+       #usernombre="ngModel"
        [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">
       <mat-icon matSuffix>person</mat-icon>
        <div class="invalid-feedback" *ngIf="nombre.errors?.required">
@@ -35,7 +34,10 @@
        #passwusu="ngModel"
       minlength="8"
       maxlength="16"
+        pattern="[A-Z]+[A-Za-z0-9]+[ÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@#\$%\^&\*\+\?_~\/]$"
+       mat-button matTooltip ="Debe empezar con una letra mayuscula y tener un caracter especial al final"
       required>
+
     <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
   </mat-form-field>
 
@@ -61,13 +63,13 @@
 
      <mat-form-field appearance="outline">
      <mat-label>APELLIDO DEL USUARIO</mat-label>
-     <input matInput placeholder="NOMBRE DEL USUARIO"
+     <input matInput placeholder="APELLIDO DEL USUARIO"
       name="apellido"
       ngModel
       maxlength="25"
       minlength="2"
       required
-      #nombre="ngModel"
+      #apellido="ngModel"
       [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">
      <mat-icon matSuffix>person</mat-icon>
       <div class="invalid-feedback" *ngIf="nombre.errors?.required">

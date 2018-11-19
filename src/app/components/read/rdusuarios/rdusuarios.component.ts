@@ -13,7 +13,7 @@ import {UpusuariosComponent} from '../../update/upusuarios/upusuarios.component'
 import {CrusuariosComponent } from '../../create/crusuarios/crusuarios.component';
 import { EstadousuarioComponent } from '../../update/estadousuario/estadousuario.component';
 import { UpdatedatosComponent } from '../../update/updatedatos/updatedatos.component';
-
+import { Globals } from '../../../app.globals';
 
 
 
@@ -27,7 +27,9 @@ export class RdusuariosComponent implements OnInit {
   @ViewChild(MatPaginator) paginator:MatPaginator;
   public userslist = new MatTableDataSource();
   public perfs;
-  constructor(private rdusuarios:ServicesgetService, public dialog:MatDialog){
+  constructor(private rdusuarios:ServicesgetService, public dialog:MatDialog,private disableRt:Globals ){
+    if(localStorage.getItem('disableRoot') == 'true')
+      this.disableRt.disableRoot = true;
   this.listaiduss()
   }
   applyFilter(filterValue: string) {
@@ -61,7 +63,7 @@ listaiduss(){
    openDialogcreate(element:Usuario){
      const dialogRef = this.dialog.open(CrusuariosComponent, {
         width: '500px',
-        disableClose:true,
+        disableClose:false,
       });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -74,7 +76,7 @@ listaiduss(){
     openDialogUpdate2(element:Usuario){
       const dialogReff = this.dialog.open(EstadousuarioComponent, {
          width: '500px',
-         disableClose:true,
+         disableClose:false,
          data: element
        });
 
@@ -86,7 +88,7 @@ listaiduss(){
      openDialogUpdate3(element:Usuario){
        const dialogReff = this.dialog.open(UpdatedatosComponent, {
           width: '500px',
-          disableClose:true,
+          disableClose:false,
           data: element
         });
 
