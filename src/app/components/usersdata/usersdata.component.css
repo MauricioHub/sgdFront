@@ -1,0 +1,8 @@
+.card, .card-body, .container {
+    font-size: 95%;
+    font-family: Century Gothic, sans-serif;
+ }
+ h5{
+    font-weight: bold;
+    color:#696969;
+ }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HeroesService } from "../../services/heroes.service";
 import { AuthService } from "../../services/auth.service";
+import { Globals } from '../../app.globals';
 
 @Component({
   selector: 'app-usersdata',
@@ -16,17 +17,17 @@ export class UsersdataComponent implements OnInit {
   public dateee;
 
   constructor(private _heroesService:HeroesService,
-              private authService:AuthService) { 
-    
+              private authService:AuthService,
+              private disableRt:Globals) { 
+    if(localStorage.getItem('disableRoot') == 'true')
+      this.disableRt.disableRoot = true;
+
     this.userName = localStorage.getItem('logged_username');
     this.listaidus();
     this._heroesService.getUsuarios()
     .subscribe( data=>{
-        //console.log('SOY USERS-DATA-COMPONENT: ');
-        //console.log(data);
         this.chooseUserProfile(data);
     });
-
   }
 
   ngOnInit() {
@@ -42,33 +43,25 @@ export class UsersdataComponent implements OnInit {
   }
 
   chooseUserProfile(usersList:any[]){
-    console.log('SOY-USER-PROFILE-CHOOSE: ');
-    //console.log(usersList);
-
     var p;
     var lenUsersL = usersList.length;
+    var userEmpty:any = {
+      username:'',
+      password:'',
+      firstname:'',
+      lastname:'',
+      phonenumber:'',
+      id:'',
+      email:''
+    };
+    this.profileData = userEmpty;
+  
     for(p=0; p<lenUsersL; p++){
-      switch(usersList[p].username){
-        case 'dagerld':
-          this.profileData = usersList[p];
-          break;
-        case 'arosario':
-          this.profileData = usersList[p];
-          break;
-        case 'sdiaz':
-          this.profileData = usersList[p];
-          break;
-        case 'guzmanmauc':
-          this.profileData = usersList[p];
-          break;
-        case 'hzambrano':
-          this.profileData = usersList[p];
-          break;
-      }
-
+      if(this.userName == usersList[p].username)
+        this.profileData = usersList[p];
     }
+    console.log('SOY-CHOOSE-USER-PROFILE: ');
     console.log(this.profileData);
-
   }
 
 
