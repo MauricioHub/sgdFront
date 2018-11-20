@@ -2,7 +2,7 @@
 
 
 <form (ngSubmit)="Nuevousu(formanvusu)" #formanvusu="ngForm" novalidate>
-  <h2 align="center">NICKNAME USUARIO </h2>
+  <h2 align="center">NUEVO USUARIO </h2>
   <br>
   <div>
     <div class="example-container">
@@ -13,11 +13,11 @@
        name="usernombre"
        ngModel
        maxlength="25"
-       minlength="5"
+       minlength="4"
        required
        #usernombre="ngModel">
        <mat-error *ngIf="usernombre.hasError('minlength')">
-      <strong>Minimo 5 caracteres</strong>
+      <strong>Minimo 4 caracteres</strong>
      </mat-error>
      <mat-error *ngIf="usernombre.hasError('required')">
     <strong>El nickname es requerido</strong>

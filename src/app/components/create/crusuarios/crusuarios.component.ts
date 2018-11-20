@@ -1,7 +1,9 @@
 import { Component, OnInit,Inject } from '@angular/core';
 import {ServcreatedService,} from '../../../servicios/servcreated/servcreated.service';
 import { NgForm } from "@angular/forms";
+import { Router } from '@angular/router';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import {ServicesgetService, } from '../../../servicios/serget/servicesget.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatSnackBar} from '@angular/material';
 import {Usuario} from "../../../interface/usuario";
@@ -13,7 +15,7 @@ import {Usuario} from "../../../interface/usuario";
 export class CrusuariosComponent implements OnInit {
  hide = true;
  public users;
-  constructor(private crusua: ServcreatedService,private creusu: ServicesgetService,public snackBar: MatSnackBar,public dialogRef: MatDialogRef<CrusuariosComponent>,@Inject(MAT_DIALOG_DATA) public data: Usuario) {
+  constructor(public router: Router,private crusua: ServcreatedService,private creusu: ServicesgetService,public snackBar: MatSnackBar,public dialogRef: MatDialogRef<CrusuariosComponent>,@Inject(MAT_DIALOG_DATA) public data: Usuario) {
     this.listaidus()
    }
 
@@ -39,7 +41,11 @@ this.crusua.createUsuarios(formanvusu.value.usernombre,formanvusu.value.passwusu
     this.dialogRef.close();
 
 },
-err=>console.log(err)
+(err:HttpErrorResponse) => {
+  if(err.status == 500)
+    this.showAlert('USUARIO REPETIDO!');
+}
+
 );
 }
 
@@ -50,5 +56,12 @@ listaidus(){
   this.users=users;
   },
   err=>console.log(err))
+  }
+  showAlert(message){
+    if(window.confirm(message)){
+      this.router.navigate(['/rdusuarios']);
+    } else{
+      this.router.navigate(['/rdusuarios']);
+    }
   }
 }
