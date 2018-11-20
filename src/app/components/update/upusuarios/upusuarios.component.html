@@ -21,27 +21,29 @@
            <mat-label>CONTRASEÑA</mat-label>
     <input matInput placeholder="INGRESE CONTRASEÑA" [type]="hide ? 'password' : 'text'"
        name="passwusu"
-       ngModel="{{data.password}}"
+       ngModel
        #passwusu="ngModel"
       minlength="8"
       maxlength="16"
       pattern="[A-Z]+[A-Za-z0-9]+[ÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@#\$%\^&\*\+\?_~\/]$"
      mat-button matTooltip ="Debe empezar con una letra mayuscula y tener un caracter especial al final"
       required>
+      <mat-error *ngIf="passwusu.hasError('required')">
+     <strong>La contraseña es requerida</strong>
+    </mat-error>
+    <mat-error *ngIf="passwusu.hasError('minlength')">
+   <strong>minimo 8 caracteres</strong>
+  </mat-error>
+  <mat-error *ngIf="passwusu.hasError('pattern')">
+ <strong>Debe empezar con una letra mayuscula y tener un caracter especial al final</strong>
+</mat-error>
     <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+    <mat-hint align="end">{{passwusu.value.length}} / 16</mat-hint>
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
-  <mat-label>PERFIL</mat-label>
-   <input matInput placeholder="Perfil del Usuario" disabled=true
-   name="username"
-   ngModel="{{data.authorities}}"
-   minlength=""
-   #username="ngModel">
-   <mat-icon matSuffix>dehaze</mat-icon>
-  </mat-form-field>
 
   </div>
+  <br>
             <button type="submit" id="guardar" class="btn btn-outline-primary" [disabled]="!formaedusua.valid" mat-button matTooltip ="editar usuario"
              ><mat-icon>create</mat-icon>
              </button>

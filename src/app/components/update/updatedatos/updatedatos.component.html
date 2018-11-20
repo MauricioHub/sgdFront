@@ -6,10 +6,9 @@
 
       <mat-form-field appearance="outline">
       <mat-label>USUARIO</mat-label>
-       <input matInput placeholder="Id del Usuario" disabled=true
+       <input matInput placeholder="Nickname del Usuario" disabled=true
        name="username"
        ngModel="{{data.username}}"
-       minlength=""
        #username="ngModel">
        <mat-icon matSuffix>dehaze</mat-icon>
       </mat-form-field>
@@ -20,38 +19,36 @@
   <input matInput placeholder="NOMBRE DEL USUARIO"
    name="nombre"
   ngModel="{{data.firstname}}"
-  maxlength="25"
-  minlength="2"
+   maxlength="25"
+   minlength="3"
    required
-   #nombre="ngModel"
-   [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">
-  <mat-icon matSuffix>person</mat-icon>
-   <div class="invalid-feedback" *ngIf="nombre.errors?.required">
-    Este campo es requerido
-    </div>
-    <div class="invalid-feedback" *ngIf="nombre.errors?.minlength">
-     Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres
-    </div>
+   #nombre="ngModel">
+   <mat-error *ngIf="nombre.hasError('minlength')">
+  <strong>Minimo 3 caracteres</strong>
+ </mat-error>
+ <mat-error *ngIf="nombre.hasError('required')">
+<strong>El nombre es requerido</strong>
+</mat-error>
+   <mat-icon matSuffix>person</mat-icon>
      </mat-form-field>
 
 
      <mat-form-field appearance="outline">
      <mat-label>APELLIDO DEL USUARIO</mat-label>
-     <input matInput placeholder="NOMBRE DEL USUARIO"
+     <input matInput placeholder="APELLIDO DEL USUARIO"
       name="apellido"
       ngModel="{{data.lastname}}"
       maxlength="25"
-      minlength="2"
+      minlength="5"
       required
-      #nombre="ngModel"
-      [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">
+      #apellido="ngModel">
+      <mat-error *ngIf="apellido.hasError('minlength')">
+     <strong>Minimo 5 caracteres</strong>
+    </mat-error>
+    <mat-error *ngIf="apellido.hasError('required')">
+   <strong>El nombre es requerido</strong>
+   </mat-error>
      <mat-icon matSuffix>person</mat-icon>
-      <div class="invalid-feedback" *ngIf="nombre.errors?.required">
-       Este campo es requerido
-       </div>
-       <div class="invalid-feedback" *ngIf="nombre.errors?.minlength">
-        Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres
-       </div>
         </mat-form-field>
 
 
@@ -65,16 +62,20 @@
          pattern="[0-9]+"
          ngModel="{{data.phonenumber}}"
          required
-         #cell="ngModel"
-         [ngClass]="{'is-invalid': (cell.errors?.minlength || cell.errors?.maxlength) && cell.touched}">
+         #cell="ngModel">
+         <mat-error *ngIf="cell.hasError('required')">
+         <strong>El número de telefono es requerido</strong>
+         </mat-error>
+         <mat-error *ngIf="cell.hasError('minlength')">
+         <strong>Minimo 7 digitos</strong>
+         </mat-error>
+         <mat-error *ngIf="cell.hasError('pattern')">
+         <strong>Solo valida digitos</strong>
+         </mat-error>
         <mat-icon matSuffix>local_phone</mat-icon>
-         <div class="invalid-feedback" *ngIf="cell.errors?.required">
-          Este campo es requerido
-          </div>
            </mat-form-field>
 
-
-
+           <br>
          <mat-form-field appearance="outline">
          <mat-label>EMAIL</mat-label>
          <input matInput placeholder="Nombre del modulo"
@@ -84,6 +85,12 @@
           ngModel="{{data.email}}"
           required
           #emailusu="ngModel">
+          <mat-error *ngIf="emailusu.hasError('pattern')">
+          <strong>formato de email invalido</strong>
+          </mat-error>
+          <mat-error *ngIf="emailusu.hasError('required')">
+          <strong>El email es requerido</strong>
+          </mat-error>
          <mat-icon matSuffix>email</mat-icon>
          </mat-form-field>
 
@@ -98,6 +105,9 @@
          <mat-option>None</mat-option>
          <mat-option *ngFor="let usue of usersss" [value]="usue.id">{{usue.name}}</mat-option>
          </mat-select>
+         <mat-error *ngIf="idperfil.hasError('required')">
+         <strong>El perfil es requerido</strong>
+         </mat-error>
          </mat-form-field>
 
         </div>

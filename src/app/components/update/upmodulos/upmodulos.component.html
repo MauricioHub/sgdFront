@@ -23,14 +23,17 @@
    <input matInput placeholder="Nombre del modulo"
     name="nombre"
     maxlength="25"
-    minlength="2"
+    minlength="5"
     ngModel="{{data.moduleName}}"
     #nombre="ngModel"
     required>
+    <mat-error *ngIf="nombre.hasError('required')">
+  El nombre es <strong>obligario</strong>
+  </mat-error>
+  <mat-error *ngIf="nombre.hasError('minlength')">
+ <strong>Minimo 5 caracteres</strong>
+</mat-error>
    <mat-icon matSuffix>dehaze</mat-icon>
-  <div class="invalid-feedback" *ngIf="nombre.errors?.minlength">
-  Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres
-  </div>
   </mat-form-field>
 
   <mat-radio-group type="radio"   name="customRadio"   ngModel="{{data.status}}"  #customRadio="ngModel" >

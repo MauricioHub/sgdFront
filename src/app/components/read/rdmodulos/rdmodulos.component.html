@@ -7,9 +7,12 @@
 <hr>
 
   <button mat-button id="delete" (click)="openDialogcreate()" mat-button matTooltip ="REGISTRAR UN NUEVO MODULO" ><i class="material-icons">note_add</i></button>
+
 <mat-form-field appearance="outline" id="buscar">
   <mat-label>BUSCAR MODULO</mat-label>
-  <input matInput   (keyup)="applyFilter($event.target.value)" placeholder="BUSCAR"><mat-icon matSuffix>search</mat-icon>
+  <input matInput   (keyup)="applyFilter($event.target.value)" placeholder="BUSCAR"
+       maxlength="25">
+  <mat-icon matSuffix>search</mat-icon>
 </mat-form-field>
 
 

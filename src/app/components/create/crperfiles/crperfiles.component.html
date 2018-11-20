@@ -12,22 +12,21 @@
        name="nombre"
        ngModel
        maxlength="25"
-       minlength="2"
+       minlength="3"
        required
-       #nombre="ngModel"
-       [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">
+       #nombre="ngModel">
+       <mat-error *ngIf="nombre.hasError('minlength')">
+      <strong>Minimo 3 caracteres</strong>
+     </mat-error>
+     <mat-error *ngIf="nombre.hasError('required')">
+    <strong>El nombre es requerido</strong>
+   </mat-error>
       <mat-icon matSuffix>person</mat-icon>
-<div class="invalid-feedback" *ngIf="nombre.errors?.required">
-Este campo es requerido
-</div>
-<div class="invalid-feedback" *ngIf="nombre.errors?.minlength">
-Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres
-</div>
 </mat-form-field>
 
 
     </div>
-
+<br>
     <button type="submit" id="guardar" class="btn btn-outline-primary" [disabled]="!formanvper.valid" mat-button matTooltip ="GUARDAR NUEVA PERFIL"
     ><mat-icon>save</mat-icon>
     </button>

@@ -2,29 +2,30 @@
 
 
 <form (ngSubmit)="Nuevousu(formanvusu)" #formanvusu="ngForm" novalidate>
-  <h2 align="center">NUEVO USUARIO </h2>
+  <h2 align="center">NICKNAME USUARIO </h2>
   <br>
   <div>
     <div class="example-container">
 
       <mat-form-field appearance="outline">
-      <mat-label>NOMBRE DE USUARIO</mat-label>
-      <input matInput placeholder="NOMBRE DEL USUARIO"
+      <mat-label>NICKNAME DE USUARIO</mat-label>
+      <input matInput placeholder="NICKNAME DEL USUARIO"
        name="usernombre"
        ngModel
        maxlength="25"
-       minlength="2"
+       minlength="5"
        required
-       #usernombre="ngModel"
-       [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">
+       #usernombre="ngModel">
+       <mat-error *ngIf="usernombre.hasError('minlength')">
+      <strong>Minimo 5 caracteres</strong>
+     </mat-error>
+     <mat-error *ngIf="usernombre.hasError('required')">
+    <strong>El nickname es requerido</strong>
+   </mat-error>
       <mat-icon matSuffix>person</mat-icon>
-       <div class="invalid-feedback" *ngIf="nombre.errors?.required">
-        Este campo es requerido
-        </div>
-        <div class="invalid-feedback" *ngIf="nombre.errors?.minlength">
-         Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres
-        </div>
          </mat-form-field>
+
+
 
          <mat-form-field  appearance="outline">
            <mat-label>CONTRASEÑA</mat-label>
@@ -37,9 +38,18 @@
         pattern="[A-Z]+[A-Za-z0-9]+[ÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@#\$%\^&\*\+\?_~\/]$"
        mat-button matTooltip ="Debe empezar con una letra mayuscula y tener un caracter especial al final"
       required>
-
+      <mat-error *ngIf="passwusu.hasError('required')">
+     <strong>La contraseña es requerida</strong>
+    </mat-error>
+    <mat-error *ngIf="passwusu.hasError('minlength')">
+   <strong>minimo 8 caracteres</strong>
+  </mat-error>
+  <mat-error *ngIf="passwusu.hasError('pattern')">
+ <strong>Debe empezar con una letra mayuscula y tener un caracter especial al final</strong>
+</mat-error>
     <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
   </mat-form-field>
+  <br>
 
   <mat-form-field appearance="outline">
   <mat-label>NOMBRE DEL USUARIO</mat-label>
@@ -47,17 +57,16 @@
    name="nombre"
    ngModel
    maxlength="25"
-   minlength="2"
+   minlength="3"
    required
-   #nombre="ngModel"
-   [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">
+   #nombre="ngModel">
   <mat-icon matSuffix>person</mat-icon>
-   <div class="invalid-feedback" *ngIf="nombre.errors?.required">
-    Este campo es requerido
-    </div>
-    <div class="invalid-feedback" *ngIf="nombre.errors?.minlength">
-     Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres
-    </div>
+  <mat-error *ngIf="nombre.hasError('minlength')">
+ <strong>Minimo 3 caracteres</strong>
+</mat-error>
+<mat-error *ngIf="nombre.hasError('required')">
+<strong>El nombre es requerido</strong>
+</mat-error>
      </mat-form-field>
 
 
@@ -67,17 +76,16 @@
       name="apellido"
       ngModel
       maxlength="25"
-      minlength="2"
+      minlength="3"
       required
-      #apellido="ngModel"
-      [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">
+      #apellido="ngModel">
+      <mat-error *ngIf="apellido.hasError('minlength')">
+     <strong>Minimo 3 caracteres</strong>
+    </mat-error>
+    <mat-error *ngIf="apellido.hasError('required')">
+    <strong>El apellido es requerido</strong>
+    </mat-error>
      <mat-icon matSuffix>person</mat-icon>
-      <div class="invalid-feedback" *ngIf="nombre.errors?.required">
-       Este campo es requerido
-       </div>
-       <div class="invalid-feedback" *ngIf="nombre.errors?.minlength">
-        Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres
-       </div>
         </mat-form-field>
 
 
@@ -87,18 +95,24 @@
          name="cell"
          type="text"
          maxlength="15"
-         minlength="10"
+         minlength="7"
          pattern="[0-9]+"
          ngModel
          required
-         #cell="ngModel"
-         [ngClass]="{'is-invalid': (cell.errors?.minlength || cell.errors?.maxlength) && cell.touched}">
+         #cell="ngModel">
+         <mat-error *ngIf="cell.hasError('required')">
+         <strong>El número de telefono es requerido</strong>
+         </mat-error>
+         <mat-error *ngIf="cell.hasError('minlength')">
+         <strong>Minimo 7 digitos</strong>
+         </mat-error>
+         <mat-error *ngIf="cell.hasError('pattern')">
+         <strong>Solo valida digitos</strong>
+         </mat-error>
         <mat-icon matSuffix>local_phone</mat-icon>
-         <div class="invalid-feedback" *ngIf="cell.errors?.required">
-          Este campo es requerido
-          </div>
-           </mat-form-field>
 
+           </mat-form-field>
+<br>
 
 
          <mat-form-field appearance="outline">
@@ -110,6 +124,12 @@
           ngModel
           required
           #emailusu="ngModel">
+          <mat-error *ngIf="emailusu.hasError('pattern')">
+          <strong>formato de email invalido</strong>
+          </mat-error>
+          <mat-error *ngIf="emailusu.hasError('required')">
+          <strong>El email es requerido</strong>
+          </mat-error>
          <mat-icon matSuffix>email</mat-icon>
          </mat-form-field>
 
@@ -125,11 +145,14 @@
          <mat-option>None</mat-option>
          <mat-option *ngFor="let usue of users" [value]="usue.id">{{usue.name}}</mat-option>
          </mat-select>
+         <mat-error *ngIf="idperfil.hasError('required')">
+         <strong>El perfil es requerido</strong>
+         </mat-error>
          </mat-form-field>
 
         </div>
 
-            <button type="submit" id="guardar" class="btn btn-outline-primary" [disabled]="!formanvusu.valid" mat-button matTooltip ="editar usuario"
+            <button type="submit" id="guardar" class="btn btn-outline-primary" [disabled]="!formanvusu.valid" mat-button matTooltip =" crear usuario"
              ><mat-icon>save</mat-icon>
              </button>
 
