@@ -19,18 +19,20 @@
 
       <mat-form-field appearance="outline">
       <mat-label>NOMBRE DE LA OPCION</mat-label>
-       <input matInput placeholder="Nombre del modulo"
+       <input matInput placeholder="Nombre de la opción"
         name="nombre"
         ngModel="{{data.optionName}}"
         required
         maxlength="25"
         minlength="2"
-        #nombre="ngModel"
-        [ngClass]="{'is-invalid':nombre.errors?.minlength && nombre.touched}">
+        #nombre="ngModel">
+        <mat-error *ngIf="nombre.hasError('required')">
+      El nombre es <strong>obligario</strong>
+      </mat-error>
+      <mat-error *ngIf="nombre.hasError('minlength')">
+     <strong>Minimo 5 digitos</strong>
+    </mat-error>
        <mat-icon matSuffix>dehaze</mat-icon>
-      <div class="invalid-feedback" *ngIf="nombre.errors?.minlength">
-      Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres
-      </div>
       </mat-form-field>
 
 
@@ -44,6 +46,9 @@
         <mat-option value="" disabled selected>None</mat-option>
         <mat-option *ngFor="let nombree of opcioness" [value]="nombree.value">{{nombree.viewValue}}</mat-option>
       </mat-select>
+      <mat-error *ngIf="nombretipo.hasError('required')">
+    El tipo de opción es <strong>obligario</strong>
+    </mat-error>
       </mat-form-field>
 
 
@@ -58,6 +63,9 @@
         <mat-option>None</mat-option>
         <mat-option *ngFor="let module of modules" [value]="module.moduleId">{{module.moduleName}}</mat-option>
       </mat-select>
+      <mat-error *ngIf="idmodulo.hasError('required')">
+    El modulo es <strong>obligario</strong>
+    </mat-error>
       </mat-form-field>
 
 

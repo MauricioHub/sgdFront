@@ -15,20 +15,16 @@
        minlength="5"
        maxlength="25"
        required
-       #nombre="ngModel"
-       [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">
+       #nombre="ngModel">
+       <mat-error *ngIf="nombre.hasError('required')">
+     El nombre es <strong>obligario</strong>
+     </mat-error>
+     <mat-error *ngIf="nombre.hasError('minlength')">
+    <strong>Minimo 5 caracteres</strong>
+   </mat-error>
       <mat-icon matSuffix>work</mat-icon>
-    <!--  <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''"> <mat-icon>close</mat-icon>  </button>-->
-
-
-<div class="invalid-feedback" *ngIf="nombre.errors?.required">
-Este campo es requerido
-</div>
-<div class="invalid-feedback" *ngIf="nombre.errors?.minlength">
-Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres
-</div>
-</mat-form-field>
-</div>
+      </mat-form-field>
+      </div>
 
 <br>
 <button id="guardar" type="submit" class="btn btn-outline-primary" data-toggle="modal" [disabled]="!formanv.valid" mat-button matTooltip ="GUARDAR NUEVO MODULO"

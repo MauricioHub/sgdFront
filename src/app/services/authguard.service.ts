@@ -18,6 +18,7 @@ export class AuthguardService implements CanActivate {
     return true;
 
   }else{
+     this.router.navigate(['login']);
     console.error("blqoueado por goku");
     return false;
   }

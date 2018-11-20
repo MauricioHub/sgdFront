@@ -1,6 +1,6 @@
 import { Component, OnInit,Inject } from '@angular/core';
 import {ServcreatedService,} from '../../../servicios/servcreated/servcreated.service';
-import { NgForm,FormControl, Validators } from "@angular/forms";
+import { NgForm } from "@angular/forms";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {Usuario} from "../../../interface/usuario";
 import {ServicesgetService} from '../../../servicios/serget/servicesget.service';

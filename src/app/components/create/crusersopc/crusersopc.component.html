@@ -8,7 +8,7 @@
 
       <mat-form-field appearance="outline">
       <mat-label> USUARIO</mat-label>
-      <mat-select placeholder="ID"
+      <mat-select placeholder="USUARIO"
       name="idusuario"
       ngModel
       #idusuario="ngModel"
@@ -16,20 +16,26 @@
       <mat-option>None</mat-option>
       <mat-option *ngFor="let use of usersop" [value]="use.id">{{use.username}}</mat-option>
       </mat-select>
+      <mat-error *ngIf="idusuario.hasError('required')">
+      <strong>El usuario es requerido</strong>
+      </mat-error>
       </mat-form-field>
 
 
 
       <mat-form-field appearance="outline">
       <mat-label>OPCIÓN</mat-label>
-      <mat-select placeholder="ID"
+      <mat-select placeholder="OPCIÓN"
       name="idopcion"
       ngModel
-      #idmodulo="ngModel"
+      #idopcion="ngModel"
       required>
      <mat-option>None</mat-option>
     <mat-option *ngFor="let opcion of opciones" [value]="opcion.optionId">{{opcion.optionName}}</mat-option>
       </mat-select>
+      <mat-error *ngIf="idopcion.hasError('required')">
+      <strong>La opción es requerida</strong>
+      </mat-error>
     </mat-form-field>
 
 
