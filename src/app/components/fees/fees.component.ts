@@ -29,7 +29,8 @@ export class FeesComponent implements OnInit {
   cardFlag: boolean = false;
   loggedUsername: string = "";
   v_records = '';
-  startDate; endDate;
+  startDate:any = {day:'', month:'', year:''}; 
+  endDate:any = {day:'', month:'', year:''};
   startDateStr = '';
   startDateLng = 0;
   endDateStr = '';
@@ -54,26 +55,6 @@ export class FeesComponent implements OnInit {
     {penaltyId: "3", description: "ENTREGA A TIEMPO"},
   ];
   selectedPenalty:any = {penaltyId: "", description: ""};
-  //records:string[] = [];
-
-  /*data: any = [{
-    id: 'e101',
-    name: 'mauricio',
-    salarY: 1000
-    },{
-    id: 'e102',
-    name: 'arosario',
-    salarY: 2000
-    },{
-    id: 'e103',
-    name: 'sdiaz',
-    salarY: 3000
-    },
-    {
-      id: 'e104',
-      name: 'anoboa',
-      salarY: 10000
-    }]; */
 
 
   constructor(private _heroesService:HeroesService,
@@ -126,12 +107,12 @@ export class FeesComponent implements OnInit {
   }
 
   startDateBrowse(newStartDate){
-    if(!this.isEmpty(this.startDate.day)){
       this.startDate = newStartDate;
       this.startDateStr = this.jsonDateToString(this.startDate);
       this.startDateStr = this.formatDate(new Date(this.startDateStr));
       this.startDateLng = this.strDateToLong(this.startDateStr);
-      if(this.isEmpty(this.endDate)){
+      
+      if(this.isEmpty(this.endDate.day)){
         this.browseParameters();
       } else{
         this.endDateStr = this.jsonDateToString(this.endDate);
@@ -142,17 +123,15 @@ export class FeesComponent implements OnInit {
         else
           this.showAlert('RANGO FECHAS INVALIDAS!');
       }
-    }      
   }
 
   endDateBrowse(newEndDate){
-    if(!this.isEmpty(this.startDate.day)){
       this.endDate = newEndDate;
       this.endDateStr = this.jsonDateToString(this.endDate);
       this.endDateStr = this.formatDate(new Date(this.endDateStr));
       this.endDateLng = this.strDateToLong(this.endDateStr);
 
-      if(this.isEmpty(this.startDate)){
+      if(this.isEmpty(this.startDate.day)){
         this.browseParameters();
       } else {
         this.startDateStr = this.jsonDateToString(this.startDate);
@@ -163,7 +142,6 @@ export class FeesComponent implements OnInit {
         else
           this.showAlert('RANGO FECHAS INVALIDAS!');
       }
-    }  
   }
 
   jsonDateToString(time){
@@ -209,28 +187,15 @@ export class FeesComponent implements OnInit {
   }
 
   browseParameters(){
-    let firstDate, lastDate;
-    if(this.startDate === '')
-      firstDate = '';
-    else
-      firstDate = JSON.stringify( this.startDate );
+    let firstDate = '';
+    let lastDate = '';
 
-    if(this.endDate === '')
-      lastDate = '';
-    else
-      lastDate = JSON.stringify( this.endDate );
-
-    if(this.endDate === '')
-      lastDate = '';
-    else
-      lastDate = JSON.stringify( this.endDate );
-
-    if(this.isEmpty(firstDate))
+    if(this.startDate.day === '')
       firstDate = '';
     else
       firstDate = '' + this.startDate.day + '/' + this.startDate.month + '/' + this.startDate.year;
 
-    if(this.isEmpty(lastDate))
+    if(this.endDate.day === '')
       lastDate = '';
     else
       lastDate = '' + this.endDate.day + '/' + this.endDate.month + '/' + this.endDate.year;
@@ -248,7 +213,6 @@ export class FeesComponent implements OnInit {
           if(this.fees.length == 0)
             this.v_records = '0';
         }
-        //console.log('SOY RESPONSE COMPONENT');
     }); 
   }
 
@@ -407,17 +371,19 @@ export class FeesComponent implements OnInit {
   }
 
   browseWhitoutParameters(){
-    let firstDate = '', lastDate = '';
+    let firstDateAll = '';
+    let lastDateAll = '';
     this.selectedChannel = {channelId: "", description: ""};
     this.selectedSeller = {sellerId: "", sellerName: ""};
     this.selectedPenalty = {penaltyId: "", description: ""};
-    this.startDate = '', this.endDate = '';
+    this.startDate = {day:'', month:'', year:''};
+    this.endDate = {day:'', month:'', year:''};
 
     this._heroesService.browseComission('',
                                         '',
                                         '',
-                                        firstDate,
-                                        lastDate                                     
+                                        firstDateAll,
+                                        lastDateAll                                     
                                       )
         .toPromise().then(data => {                                  
           if(data){

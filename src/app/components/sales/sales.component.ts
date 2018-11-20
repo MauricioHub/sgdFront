@@ -516,7 +516,8 @@ export class SalesComponent implements OnInit {
 
 
   browseParameters(){
-    let firstDate = '', lastDate = ''; 
+    let firstDate = '';
+    let lastDate = ''; 
     this.radioActAll = false;
     this.onSelectionMarkAll();
 
@@ -680,19 +681,20 @@ export class SalesComponent implements OnInit {
 
 
   browseWhitoutParameters(){
-    let firstDate = '', lastDate = '';
+    let firstDateAll = '';
+    let lastDateAll = '';
     this.radioActAll = false;
     this.onSelectionMarkAll();
     this.chargeOffices('');
     this.selectedChannel = {channelId: "" , description: "todos"};
     this.selectedOficina = {officeId: "", officeName: ""};
     this.selectedEstado = {id: "", status: ""};
-    //this.startDate = {'year':0, 'month':0, 'day':0};
-    this.startDate = '', this.endDate = '';
+    this.startDate = {day:'', month:'', year:''};
+    this.endDate = {day:'', month:'', year:''};
     this.lotId = '';
 
-    this._heroesService.browseVenta( firstDate,
-                                     lastDate,
+    this._heroesService.browseVenta( firstDateAll,
+                                     lastDateAll,
                                      '',
                                      '',
                                      '',

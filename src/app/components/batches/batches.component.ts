@@ -270,7 +270,8 @@ export class BatchesComponent implements OnInit {
     
 
     browseParameters(){
-        let firstDate = '', lastDate = '';        
+        let firstDate = '';
+        let lastDate = '';        
         this.radioActAll = false;
         this.onSelectionMarkAll();
      
@@ -596,8 +597,6 @@ export class BatchesComponent implements OnInit {
             this.enableFlagVariable(false);
             if(this.flagUser)
                 this.enableFlagUser(true);
-           // console.log('COMPONENT-ASYNC: ');
-           // console.log(this.batches);
         });
     }
 
@@ -610,9 +609,7 @@ export class BatchesComponent implements OnInit {
             if(data.code == 200){
                 this.batchReason = data.reasonsResults;
                 this.loadBatchesReason();
-            }      
-            console.log('SOY - CHARGE REASONS: ')
-            console.log(this.batchReason);
+            }
         });
     }
 
@@ -678,15 +675,17 @@ export class BatchesComponent implements OnInit {
       browseWhitoutParameters(){
         this.radioActAll = false;
         this.onSelectionMarkAll();
-        let firstDate = '', lastDate = '';
+        let firstDateAll = '';
+        let lastDateAll = '';
         this.selectedPaymentType = {idPayment: "" , description: ""};
         this.selectedOficina = {officeId: "", officeName: ""};
         this.selectedEstado = {id: "", status: ""};
-        this.startDate = '', this.endDate = '';
+        this.startDate = {day:'', month:'', year:''};
+        this.endDate = {day:'', month:'', year:''};
         this.lotId = '';
 
-        this._heroesService.browseBatch( firstDate,
-                                        lastDate,
+        this._heroesService.browseBatch( firstDateAll,
+                                        lastDateAll,
                                         '',
                                         '',
                                         '',
