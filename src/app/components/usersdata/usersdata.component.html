@@ -1,9 +1,56 @@
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="../../../assets/img/role.png" alt="Card image cap">
+<div class="card">
+    <!--<img class="card-img-top" src="../../../assets/img/role.png" alt="Card image cap"> -->
     <div class="card-body">
-      <h5 class="card-title">{{ userName }}</h5>
+        <div class="container">
+            <div class="row">
+              <div class="col-lg-4 text-right">
+                  <img class="card-img-top" src="../../../assets/img/role.png" alt="Card image cap">
+                  <a href="#" class="card-link">SUBIR IMAGEN</a>
+              </div>
+              <div class="col-lg-1 text-right">
+              </div>
+              <div class="col-lg-7">
+
+                <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ userName }}</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">
+                        <div class="row">
+                          <div class="col-md-3">Nombres:</div>
+                          <div class="col-md-9">{{ profileData.firstname }}</div>
+                        </div>
+                      </li>
+                      <li class="list-group-item">
+                        <div class="row">
+                           <div class="col-md-3">Apellidos:</div>
+                           <div class="col-md-9">{{ profileData.lastname }}</div>
+                        </div>
+                      </li>
+                      <li class="list-group-item">
+                        <div class="row">
+                           <div class="col-md-3">Teléfono:</div>
+                           <div class="col-md-9">{{ profileData.phonenumber }}</div>
+                        </div>
+                      </li>
+                      <li class="list-group-item">
+                        <div class="row">
+                           <div class="col-md-3">E-mail:</div>
+                           <div class="col-md-9">{{ profileData.email }}</div>
+                        </div>
+                      </li>
+                    </ul>
+                    <div class="card-body  text-right">
+                        <a href="#" class="card-link">EDITAR DATOS</a>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      <!-- <h5 class="card-title">{{ userName }}</h5> -->
     </div>
-    <ul class="list-group list-group-flush">
+  <!--  <ul class="list-group list-group-flush">
       <li class="list-group-item">Nombre:     {{ profileData.firstname }}</li>
       <li class="list-group-item">Apellido:   {{ profileData.lastname }}</li>
       <li class="list-group-item">Telefono:   {{ profileData.phonenumber }} </li>
@@ -11,6 +58,5 @@
     </ul>
     <div class="card-body">
       <a href="#" class="card-link">EDITAR DATOS</a>
-    </div>
+    </div> -->
 </div>
-  
