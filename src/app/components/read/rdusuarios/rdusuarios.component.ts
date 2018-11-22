@@ -63,6 +63,7 @@ listaiduss(){
    openDialogcreate(element:Usuario){
      const dialogRef = this.dialog.open(CrusuariosComponent, {
         width: '500px',
+        height: '700px',
         disableClose:false,
       });
 

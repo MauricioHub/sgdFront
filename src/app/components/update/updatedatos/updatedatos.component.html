@@ -100,8 +100,7 @@
          type="number"
          name="idperfil"
          ngModel
-         #idperfil="ngModel"
-         required>
+         #idperfil="ngModel">
          <mat-option>None</mat-option>
          <mat-option *ngFor="let usue of usersss" [value]="usue.id">{{usue.name}}</mat-option>
          </mat-select>
