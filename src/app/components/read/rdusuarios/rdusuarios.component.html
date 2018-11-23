@@ -57,13 +57,18 @@
     </ng-container>
 
     <ng-container matColumnDef="editar2">
-      <th mat-header-cell *matHeaderCellDef > ACTIVAR/DESACTIVAR </th>
-      <td mat-cell *matCellDef="let element"> <button mat-button matTooltip ="ACTIVAR/DESACTIVAR" mat-button (click)="openDialogUpdate2(element)" ><i class="material-icons">add_alert</i></button> </td>
+      <th mat-header-cell *matHeaderCellDef > ESTADO </th>
+      <td mat-cell *matCellDef="let element"> <button mat-button matTooltip ="ACTIVAR/DESACTIVAR" mat-button (click)="openDialogUpdate2(element)" ><i class="material-icons">person_add_disabled</i></button> </td>
     </ng-container>
 
     <ng-container matColumnDef="editar3">
       <th mat-header-cell *matHeaderCellDef > EDITAR DATOS </th>
       <td mat-cell *matCellDef="let element"> <button  mat-button matTooltip ="EDITAR DATOS" mat-button (click)="openDialogUpdate3(element)" ><i class="material-icons">contact_phone</i></button> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="editar4">
+      <th mat-header-cell *matHeaderCellDef > EDITAR PERFIL </th>
+      <td mat-cell *matCellDef="let element"> <button  mat-button matTooltip ="EDITAR PERFIL" mat-button (click)="openDialogUpdate4(element)" ><i class="material-icons">assignment_ind</i></button> </td>
     </ng-container>
 
 

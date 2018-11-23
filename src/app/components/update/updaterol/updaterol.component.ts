@@ -9,15 +9,15 @@ import {ServupdateService} from '../../../servicios/servupdate/servupdate.servic
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatSnackBar} from '@angular/material';
 
 @Component({
-  selector: 'app-updatedatos',
-  templateUrl: './updatedatos.component.html',
-  styleUrls: ['./updatedatos.component.css']
+  selector: 'app-updaterol',
+  templateUrl: './updaterol.component.html',
+  styleUrls: ['./updaterol.component.css']
 })
-export class UpdatedatosComponent implements OnInit {
+export class UpdaterolComponent implements OnInit {
 public usersss ;
-  constructor(private crusua: ServupdateService,private creusu: ServicesgetService,public snackBar: MatSnackBar,public dialogRef: MatDialogRef<UpdatedatosComponent>,@Inject(MAT_DIALOG_DATA) public data: Usuario) {
-    this.listaidus();
-  }
+  constructor(private crusua: ServupdateService,private creusu: ServicesgetService,public snackBar: MatSnackBar,public dialogRef: MatDialogRef<UpdaterolComponent>,@Inject(MAT_DIALOG_DATA) public data: Usuario,) {
+this.listaidus();
+   }
 
   ngOnInit() {
   }
@@ -26,15 +26,11 @@ public usersss ;
         duration: 5000,
       });
      }
-     updatedatos(formanupdatos:NgForm){
-       console.log(formanupdatos.value.username);
-     console.log(formanupdatos.value.nombre);
-      console.log(formanupdatos.value.apellido);
-       console.log(formanupdatos.value.emailusu);
-        console.log(formanupdatos.value.cell);
-     this.crusua.updatedatauser(this.data.username,formanupdatos.value.nombre,formanupdatos.value.apellido,formanupdatos.value.emailusu,formanupdatos.value.cell).subscribe(res=>{
+     updateroles(formanuprol:NgForm){
+          console.log(formanuprol.value.idperfil);
+     this.crusua.editarrol(this.data.username,this.data.firstname,this.data.lastname,this.data.email,this.data.phonenumber,formanuprol.value.idperfil).subscribe(res=>{
        console.log(res);
-         this.openSnackBar(formanupdatos.value.username);
+         this.openSnackBar(formanuprol.value.username);
          this.dialogRef.close();
      },
      err=>console.log(err)

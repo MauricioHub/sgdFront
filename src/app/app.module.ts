@@ -107,6 +107,7 @@ import { UpusuariosComponent } from './components/update/upusuarios/upusuarios.c
 import { UpusuariosopcionesComponent } from './components/update/upusuariosopciones/upusuariosopciones.component';
 import { EstadousuarioComponent } from './components/update/estadousuario/estadousuario.component';
 import { UpdatedatosComponent } from './components/update/updatedatos/updatedatos.component';
+import { UpdaterolComponent } from './components/update/updaterol/updaterol.component';
 //import { BrowseComponentd } from './components/home/browse.component';
 
 @NgModule({
@@ -146,7 +147,8 @@ import { UpdatedatosComponent } from './components/update/updatedatos/updatedato
     UpusuariosComponent,
     UpusuariosopcionesComponent,
     EstadousuarioComponent,
-    UpdatedatosComponent
+    UpdatedatosComponent,
+    UpdaterolComponent
     
   ],
   imports: [

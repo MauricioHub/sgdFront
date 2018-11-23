@@ -43,6 +43,7 @@ import { UpusuariosComponent } from './components/update/upusuarios/upusuarios.c
 import { UpusuariosopcionesComponent } from './components/update/upusuariosopciones/upusuariosopciones.component';
 import { EstadousuarioComponent } from './components/update/estadousuario/estadousuario.component';
 import { UpdatedatosComponent } from './components/update/updatedatos/updatedatos.component';
+import {UpdaterolComponent} from './components/update/updaterol/updaterol.component';
 
 
 
@@ -61,9 +62,13 @@ const APP_ROUTES: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'browse', component: BrowseComponent },
   { path: 'browseBatch', component: BrowsebatchComponent },
-  { path: 'datatable', component: DataTableComponent }, 
+  { path: 'datatable', component: DataTableComponent },
   { path: 'profiles', component: ProfilesComponent },
   { path: 'usersdata', component: UsersdataComponent },
+  { path: 'updrol', component: UpdaterolComponent,	canActivate: [RoleguardService],data:{
+    rol:'42',
+   }
+   },
 
   { path: 'panel', component: PanelComponent,	canActivate: [RoleguardService],data:{
     rol:'42',
@@ -105,7 +110,7 @@ const APP_ROUTES: Routes = [
       { path: 'rdusersopc', component: RdusersopcComponent,	canActivate: [RoleguardService],data:{
         rol:'42',
        } },
-      
+
       //created
       { path: 'crmodulo', component: CrmoduloComponent,	canActivate: [RoleguardService],data:{
         rol:'42',
@@ -122,8 +127,8 @@ const APP_ROUTES: Routes = [
       { path: 'crusersopc', component: CrusersopcComponent,	canActivate: [RoleguardService],data:{
         rol:'42',
        } },
-      
-      
+
+
       //update
       { path: 'upmodulos', component: UpmodulosComponent,	canActivate: [RoleguardService],data:{
         rol:'42',

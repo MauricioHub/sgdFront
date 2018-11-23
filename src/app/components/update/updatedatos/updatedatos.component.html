@@ -39,7 +39,7 @@
       name="apellido"
       ngModel="{{data.lastname}}"
       maxlength="25"
-      minlength="5"
+      minlength="4"
       required
       #apellido="ngModel">
       <mat-error *ngIf="apellido.hasError('minlength')">
@@ -92,21 +92,6 @@
           <strong>El email es requerido</strong>
           </mat-error>
          <mat-icon matSuffix>email</mat-icon>
-         </mat-form-field>
-
-         <mat-form-field appearance="outline">
-         <mat-label>PERFIL</mat-label>
-         <mat-select placeholder="ID"
-         type="number"
-         name="idperfil"
-         ngModel
-         #idperfil="ngModel">
-         <mat-option>None</mat-option>
-         <mat-option *ngFor="let usue of usersss" [value]="usue.id">{{usue.name}}</mat-option>
-         </mat-select>
-         <mat-error *ngIf="idperfil.hasError('required')">
-         <strong>El perfil es requerido</strong>
-         </mat-error>
          </mat-form-field>
 
         </div>
