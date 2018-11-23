@@ -229,27 +229,18 @@ export class SalesComponent implements OnInit {
 
         let ventaNueva = new Sale(
           '' + venta.order,
-          '' + venta.description,
-          '' + loggedDate,
           '' + venta.officceId,
           '' + venta.officce,
-          '' + venta.seller,
           '' + venta.customerId,
           '' + venta.customer,
           '' + venta.product,
-          '' + venta.productValue,
           '' + activationDate,
-          '' + this.loggedUsername, 
+          '' + this.loggedUsername,
           '' + venta.status,
           '' + venta.paymentType,
-          '' + venta.financialInstitution,
-          '' + venta.requestId,
-          '' + venta.account,
-          '' + venta.regularizedUser
+          '' + venta.financialInstitution
         );
-
         this.loteList.push(ventaNueva);
-        console.log('SOY IF CHANGE');
 
       } else{
         let indexReal = this.indexOfSale(this.loteList,venta.order);
@@ -309,20 +300,19 @@ export class SalesComponent implements OnInit {
     localStorage.setItem('l_sale', '' + lsale);
     
     if(lsale >= 1){
-    //  let identificador = localStorage.getItem('code_temp');
       let identificador = this.batchSequence;
       let codigoOficina = this.loteList[0].officceId;
       let nombreOficina = this.loteList[0].officce;
   
       let re = / /g;
       let resultOficina = nombreOficina.replace(re, "_");
-    //  console.log(resultOficina);
       lotIdent = '' + identificador + '_' + codigoOficina + '_' + resultOficina;
     }
 
     this.objLote.lotId = lotIdent;
     this.objLote.lotDate = today;
     this.objLote.lotDetail = this.loteList;
+    console.log('SOY-GENERAR-LOTE: ');
     console.log(this.objLote);
     console.log(this.objLote.lotDetail);
 
@@ -330,7 +320,6 @@ export class SalesComponent implements OnInit {
     .subscribe( data=>{
          console.log(data);
          if(data.code == 201){
-          console.log('COMPON-0: ');
           localStorage.setItem('vE_lotSequence', lotIdent);
           this.garbageCollectorSale();
           this.flagBatched = true;
