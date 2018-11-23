@@ -86,18 +86,13 @@ updateUsuarios(username:string,password:string)
   return this.http.put(API_UPDATE_USUARIOS,UserInputsUpdate);
 }
 
-updatedatauser(username:string,firstname:string,lastname:string,email:string,phonenumber:string,authorities:any[]){
-  let authorList:any[]= [];
-  authorList = [{
-    "id":authorities
-  }];
+updatedatauser(username:string,firstname:string,lastname:string,email:string,phonenumber:string){
   let dataus={
     username:username,
     firstname:firstname,
     lastname:lastname,
     email:email,
-    phonenumber:phonenumber,
-    authorities:authorList
+    phonenumber:phonenumber
   }
   return this.http.post(API_UPDATE_USUARIOSDATA,dataus);
 }
@@ -111,4 +106,21 @@ name:name
 return this.http.post(API_UPDATE_PERFILES,perfill);
 }
 
+editarrol(username:string,firstname:string,lastname:string,email:string,phonenumber:string,authorities:any[])
+{
+  let authorList:any[]= [];
+  authorList = [{
+    "id":authorities
+  }];
+  let uproles={
+    username:username,
+    firstname:firstname,
+    lastname:lastname,
+    email:email,
+    phonenumber:phonenumber,
+      authorities:authorList
+  }
+  return this.http.post(API_UPDATE_USUARIOSDATA,uproles);
+
+ }
 }

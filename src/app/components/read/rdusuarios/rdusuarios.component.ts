@@ -14,6 +14,7 @@ import {CrusuariosComponent } from '../../create/crusuarios/crusuarios.component
 import { EstadousuarioComponent } from '../../update/estadousuario/estadousuario.component';
 import { UpdatedatosComponent } from '../../update/updatedatos/updatedatos.component';
 import { Globals } from '../../../app.globals';
+import {UpdaterolComponent} from '../../update/updaterol/updaterol.component';
 
 
 
@@ -23,7 +24,7 @@ import { Globals } from '../../../app.globals';
   styleUrls: ['./rdusuarios.component.css']
 })
 export class RdusuariosComponent implements OnInit {
-  displayedColumns: string[] = ['name','nombre','cell','estado','telefono','email','editar','editar2','editar3']
+  displayedColumns: string[] = ['name','nombre','cell','estado','telefono','email','editar','editar2','editar3','editar4']
   @ViewChild(MatPaginator) paginator:MatPaginator;
   public userslist = new MatTableDataSource();
   public perfs;
@@ -98,6 +99,19 @@ listaiduss(){
           this.listaiduss()
         });
       }
+
+      openDialogUpdate4(element:Usuario){
+        const dialogReff = this.dialog.open(UpdaterolComponent, {
+           width: '500px',
+           disableClose:false,
+           data: element
+         });
+
+         dialogReff.afterClosed().subscribe(result => {
+           console.log('The dialog was closed');
+           this.listaiduss()
+         });
+       }
 
 
 

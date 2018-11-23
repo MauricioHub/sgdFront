@@ -1,4 +1,6 @@
-export interface Usuario {
+import {Authorities} from './Authorities';
+
+export class Usuario {
  id : string;
  username : string;
  password: string;
@@ -8,5 +10,5 @@ export interface Usuario {
  enabled :boolean;
  lastPasswordResetDate : string;
  phonenumber:string;
-authorities:number[];
+authorities:any["id"]
 }
