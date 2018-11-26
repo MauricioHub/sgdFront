@@ -9,6 +9,7 @@ import { Profile } from ".././interfaces/profile.interface";
 import { environment } from '../../environments/environment';
 import { environmentP } from '../../environments/environment.prod';
 import { Globals } from '../app.globals';
+import { storeCleanupWithContext } from '@angular/core/src/render3/instructions';
 
 const API_LOGIN=environmentP.apiLogin;
 const API_USEROPTION=environmentP.userOptionsURL;
@@ -102,7 +103,6 @@ export class AuthService {
     localStorage.setItem('disableRoot', 'true');
     localStorage.setItem('objIdRol', '' + this.objIdRol);
 
-    //this.setCookie('username', this.username,1);
     this.disableRt.disableRoot = true;
     this.disableRt.refreshSession = true;
     this.router.navigate(['/home']);
@@ -123,7 +123,7 @@ export class AuthService {
       .pipe(
         map((res:any) => {
           this.userOptionResult = res.userOptionResult;
-          this.getOptionsList();
+          this.getSalesOrderHistory();
         }
       ))
       .subscribe((res:any) => {
@@ -135,95 +135,121 @@ export class AuthService {
 
   }
 
-  public getOptionsList(){
-    let body = {
-      optionId:"",
-      optionName:"",
-      moduleId:""
-    };
-    let headers = new HttpHeaders({
-      'Accept':'application/json',
-      'Content-Type':'application/json',
-      'Access-Control-Allow-Origin':'*'
-    });
 
-    return this.http.post( API_OPTION, body, { headers }  )
-    .pipe(
-      map((res:any) => {
-        this.optionResult = res.options;
-        this.getSalesOrderHistory();
-      }
-    ))
-    .subscribe((res:any) => {
-
-    }, (err:HttpErrorResponse) => {
-      if(err.status == 401)
-        this.showAlert('BAD REQUEST!');
-  });
-
-}
-
-  public setProfileUserOption(userOptionResult:any[], optionResult:any[]){
-    var userOResult = userOptionResult;
-    var oResult = optionResult;
-    var lenUserOResult = userOResult.length;
-    var lenOResult = oResult.length;
+  public setProfileUserOption(userOptionResult:any[]){
+    var lenOResult = userOptionResult.length;
     var p, q;
 
-    let profileVenta = new Profile(false,false,false,false);
-    let profileComision = new Profile(false,false,false,false);
-    let profileLote = new Profile(false,false,false,false);
-    let profilePerfil = new Profile(false,false,false,false);
+    let profileVenta = new Profile(false,false,false,false,false);
+    let profileComision = new Profile(false,false,false,false,false);
+    let profileLote = new Profile(false,false,false,false,false);
+    let profilePerfil = new Profile(false,false,false,false,false);
     this.profileUserOption[0] = profileVenta;
     this.profileUserOption[1] = profileComision;
     this.profileUserOption[2] = profileLote;
     this.profileUserOption[3] = profilePerfil;
 
-    for(p=0; p<lenUserOResult; p++){
-      for(q=0; q<lenOResult; q++){
-         if(userOResult[p].optionId === oResult[q].optionId){
-
-          switch(userOResult[p].optionName){
-            case 'ConsultaVenta':
-              profileVenta.setConsultaPr(true);
-              if(oResult[q].moduleId === '1'){
-                this.profileUserOption[0] = profileVenta;
-              }
-              break;
-            case 'ConsultaComision':
-              profileComision.setConsultaPr(true);
-              if(oResult[q].moduleId === '2')
-                this.profileUserOption[1] = profileComision;
-              break;
-            case 'ConsultaLote':
-              profileLote.setConsultaPr(true);
-              if(oResult[q].moduleId === '3')
-                this.profileUserOption[2] = profileLote;
-              break;
-            case 'GeneraLote':
-              profileVenta.setCreacionPr(true);
-              if(oResult[q].moduleId === '1')
-                this.profileUserOption[0] = profileVenta;
-              break;
-            case 'ConsultaPerfiles':
-              profilePerfil.setConsultaPr(true);
-              if(oResult[q].moduleId === '281')
-                this.profileUserOption[3] = profilePerfil;
-              break;
-            case 'RegularizaLoteCompleto':
-              profileLote.setModificacionCompletaPr(true);
-              if(oResult[q].moduleId === '3')
-                this.profileUserOption[2] = profileLote;
-              break;
-            case 'RegularizaLoteRestringido':
-              profileLote.setModificacionRestringidaPr(true);
-              if(oResult[q].moduleId === '3')
-                this.profileUserOption[2] = profileLote;
-              break;
-          }
-        }
-
+    for(p=0;p<lenOResult;p++){
+      switch(userOptionResult[p].moduleId){
+        case '1':
+          if(userOptionResult[p].moduleStatus == 'A'){
+            profileVenta.setModulePr(true);
+            localStorage.setItem('1', 'A');
+            switch(userOptionResult[p].optionType){
+              case 'CONSULTA':
+                if(userOptionResult[p].optionStatus == 'A'){
+                  profileVenta.setConsultaPr(true);
+                }
+                break;
+              case 'CREACION':
+                if(userOptionResult[p].optionStatus == 'A'){
+                  profileVenta.setCreacionPr(true);
+                }
+                break;
+              case 'ACTUALIZACION':
+                if(userOptionResult[p].optionStatus == 'A'){
+                  profileVenta.setModificacionCompletaPr(true);
+                }
+                break;
+            }
+            this.profileUserOption[0] = profileVenta;
+          } else
+            localStorage.setItem('1', 'A');
+          break;
+        case '2':
+          if(userOptionResult[p].moduleStatus == 'A'){
+            profileComision.setModulePr(true);
+            switch(userOptionResult[p].optionType){
+              case 'CONSULTA':
+                if(userOptionResult[p].optionStatus == 'A'){
+                  profileComision.setConsultaPr(true);
+                }
+                break;
+              case 'CREACION':
+                if(userOptionResult[p].optionStatus == 'A'){
+                  profileComision.setCreacionPr(true);
+                }
+                break;
+              case 'ACTUALIZACION':
+                if(userOptionResult[p].optionStatus == 'A'){
+                  profileComision.setModificacionCompletaPr(true);
+                }
+                break;
+            }
+            this.profileUserOption[1] = profileComision;
+          } else
+            localStorage.setItem('2', 'A');
+          break;
+        case '3':
+          if(userOptionResult[p].moduleStatus == 'A'){
+            profileLote.setModulePr(true);
+            switch(userOptionResult[p].optionType){
+              case 'CONSULTA':
+                if(userOptionResult[p].optionStatus == 'A'){
+                  profileLote.setConsultaPr(true);
+                }
+                break;
+              case 'CREACION':
+                if(userOptionResult[p].optionStatus == 'A'){
+                  profileLote.setCreacionPr(true);
+                }
+                break;
+              case 'ACTUALIZACION':
+                if(userOptionResult[p].optionStatus == 'A'){
+                  profileLote.setModificacionCompletaPr(true);
+                }
+                break;
+            }
+            this.profileUserOption[2] = profileLote;
+          } else
+            localStorage.setItem('3', 'A');
+          break;
+        case '281':
+          if(userOptionResult[p].moduleStatus == 'A'){
+            profilePerfil.setModulePr(true);
+            switch(userOptionResult[p].optionType){
+              case 'CONSULTA':
+                if(userOptionResult[p].optionStatus == 'A'){
+                  profilePerfil.setConsultaPr(true);
+                }
+                break;
+              case 'CREACION':
+                if(userOptionResult[p].optionStatus == 'A'){
+                  profilePerfil.setCreacionPr(true);
+                }
+                break;
+              case 'ACTUALIZACION':
+                if(userOptionResult[p].optionStatus == 'A'){
+                  profilePerfil.setModificacionCompletaPr(true);
+                }
+                break;
+            }
+            this.profileUserOption[3] = profilePerfil;
+          } else
+            localStorage.setItem('281', 'A');
+          break;        
       }
+
     }
     this.disableRt.profileRoot = this.profileUserOption;
     localStorage.setItem('sales_module', JSON.stringify(this.disableRt.profileRoot[0]));
@@ -232,10 +258,10 @@ export class AuthService {
     localStorage.setItem('profiles_module', JSON.stringify(this.disableRt.profileRoot[3]));
     this.setSession();
   }
+  
 
   public logout(): void {
     localStorage.clear();
-    //this.setCookie('username','',1);
     this.disableRt.disableRoot = false;
     this.disableRt.refreshSession = false;
     this.router.navigate(['/login']);
@@ -295,9 +321,9 @@ export class AuthService {
     .pipe(
       map((res:any) => {
         salesOrderHistory = this.setValueOrdersDashboard(res.saleResumeResult);
-        console.log(salesOrderHistory);
+        //console.log(salesOrderHistory);
         localStorage.setItem('pieData', JSON.stringify(salesOrderHistory[0]));
-        this.setProfileUserOption(this.userOptionResult, this.optionResult);
+        this.setProfileUserOption(this.userOptionResult);
         return res.saleResumeResult;             
       })
     )
@@ -341,12 +367,5 @@ export class AuthService {
     pieData = [dataCard];
     return pieData;
   }
-
-/*  public setCookie(cname,cvalue,exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires=" + d.getDate();
-    document.cookie = cname + "=" + cvalue + ";" + expires;
-  }*/
 
 }

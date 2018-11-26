@@ -88,6 +88,7 @@ export class BatchesComponent implements OnInit {
   checkAllBox:boolean;
   radioDis: boolean = false;
   enableLotCreation:boolean = false;
+  enableLotConsult:boolean = false;
 
   display = 'none';
   displayOK = 'none';
@@ -109,6 +110,9 @@ export class BatchesComponent implements OnInit {
     this.disableRt.profileRoot[2] = JSON.parse(localStorage.getItem('batches_module'));    
     if(!this.flagRegularized)
         this.batches = [];
+
+    if(this.disableRt.profileRoot[2].consultaPr)
+        this.enableLotConsult = this.disableRt.profileRoot[2].consultaPr;
 
     if(this.disableRt.profileRoot[2].modificacionCompletaPr || 
         this.disableRt.profileRoot[2].modificacionRestringidaPr)

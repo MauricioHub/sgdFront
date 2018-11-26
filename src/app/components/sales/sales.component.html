@@ -11,7 +11,7 @@
               </ol>
           </nav>
       </div>
-      <div class="col-lg-3">
+      <div *ngIf="enableSaleConsult" class="col-lg-3">
             <button (click)="exportToExcel()"
                     class="btn btn-outline-danger float-right"
                     type="button" name="button">
