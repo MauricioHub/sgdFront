@@ -1,5 +1,7 @@
 import { Component, OnInit , Inject} from '@angular/core';
 import {NgForm } from "@angular/forms";
+import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import {ServcreatedService,} from '../../../servicios/servcreated/servcreated.service';
 import {ServicesgetService, } from '../../../servicios/serget/servicesget.service';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -21,7 +23,7 @@ export class CropcionesComponent implements OnInit {
   selectedValue: string;
   selectedCar: string;
 
-  constructor(private creopc:ServcreatedService,private gtopcio:ServicesgetService,public snackBar: MatSnackBar,public dialogRef: MatDialogRef<CropcionesComponent>,@Inject(MAT_DIALOG_DATA) public data: Opcion) {
+  constructor(public router:Router,private creopc:ServcreatedService,private gtopcio:ServicesgetService,public snackBar: MatSnackBar,public dialogRef: MatDialogRef<CropcionesComponent>,@Inject(MAT_DIALOG_DATA) public data: Opcion) {
 this.listaidsopc()
 
 
@@ -53,7 +55,10 @@ Nuevoopc(formanvopc:NgForm){
   this.openSnackBar(formanvopc.value.nombre);
   this.dialogRef.close();
 },
-err=>console.log(err)
+(err:HttpErrorResponse) => {
+  if(err.status == 0)
+    this.showAlert('ERROR DE CONEXION!');
+}
 );
 }
 
@@ -63,7 +68,19 @@ listaidsopc(){
     console.log(modules);
     this.modules=modules.modulos;
     },
-  err=>console.log(err))
+    (err:HttpErrorResponse) => {
+      if(err.status == 0)
+        this.showAlert('ERROR DE CONEXION!');
+
+    }
+  );
+  }
+  showAlert(message){
+    if(window.confirm(message)){
+      this.router.navigate(['/cropciones']);
+    } else{
+      this.router.navigate(['/cropciones']);
+    }
   }
 
 }

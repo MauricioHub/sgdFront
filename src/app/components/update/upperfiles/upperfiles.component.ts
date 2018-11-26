@@ -3,6 +3,8 @@ import {ServupdateService} from '../../../servicios/servupdate/servupdate.servic
 import {ServicesgetService,} from '../../../servicios/serget/servicesget.service';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {NgForm} from "@angular/forms";
+import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import {Perfil} from "../../../interface/perfil";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatSnackBar} from '@angular/material';
 @Component({
@@ -12,7 +14,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatSnackBar} from '@angular/mat
 })
 export class UpperfilesComponent implements OnInit {
 public perfs:Perfil;
-  constructor(private updperfil:ServupdateService,private getper:ServicesgetService,public snackBar: MatSnackBar,public dialogRef: MatDialogRef<UpperfilesComponent>,@Inject(MAT_DIALOG_DATA) public data: Perfil) {
+  constructor(public router:Router,private updperfil:ServupdateService,private getper:ServicesgetService,public snackBar: MatSnackBar,public dialogRef: MatDialogRef<UpperfilesComponent>,@Inject(MAT_DIALOG_DATA) public data: Perfil) {
  }
 
   ngOnInit() {
@@ -31,7 +33,11 @@ this.updperfil.updperfill(this.data.id,formaedper.value.nombre).subscribe(res=>{
   this.openSnackBar(formaedper.value.nombre);
     this.dialogRef.close();
 },
-err=>console.log(err)
+(err:HttpErrorResponse) => {
+  if(err.status == 0)
+    this.showAlert('ERROR DE CONEXION!');
+}
+
 );
 
 }
@@ -43,5 +49,12 @@ console.log('m')
   this.perfs=perfs;
   },
   err=>console.log(err))
+  }
+  showAlert(message){
+    if(window.confirm(message)){
+      this.router.navigate(['/upmodulos']);
+    } else{
+      this.router.navigate(['/upmodulos']);
+    }
   }
 }

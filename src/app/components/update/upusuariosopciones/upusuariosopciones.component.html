@@ -1,6 +1,6 @@
 
 <form (ngSubmit)="editaropcusers(formaedopcuser)" #formaedopcuser="ngForm" novalidate>
-  <h2 align="center">EDITAR USUARIO </h2>
+  <h2 align="center">EDITAR VINCULACIÓN </h2>
   <br>
   <div>
     <div class="example-container">
@@ -28,7 +28,7 @@
     </mat-form-field>
 
 
-    <mat-radio-group type="radio"   name="customRadio"   ngModel="{{data.status}}" #customRadio="ngModel" >
+    <mat-radio-group type="radio"   name="optionStatus"   ngModel="{{data.optionStatus}}" #optionStatus="ngModel" required>
       <mat-radio-button     value="A"  > ACTIVO </mat-radio-button>
       <mat-radio-button     value="I"  > INACTIVO </mat-radio-button>
     </mat-radio-group>

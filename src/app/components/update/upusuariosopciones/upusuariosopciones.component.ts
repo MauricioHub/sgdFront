@@ -30,7 +30,7 @@ export class UpusuariosopcionesComponent implements OnInit {
   console.log(this.data.userId);
   console.log(formaedopcuser.value.customRadio)
 
-  this.cruopcusu.updateUserOpc(this.data.userId,this.data.optionId,formaedopcuser.value.customRadio).subscribe(res=>{
+  this.cruopcusu.updateUserOpc(this.data.userId,this.data.optionId,formaedopcuser.value.optionStatus).subscribe(res=>{
     console.log(res);
       this.openSnackBar(formaedopcuser.value.nombre);
       this.dialogRef.close();

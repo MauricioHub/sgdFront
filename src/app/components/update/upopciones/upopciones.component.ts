@@ -1,6 +1,8 @@
 import { Component, OnInit,Inject } from '@angular/core';
 import { NgForm } from "@angular/forms";
 import {Opcion} from "../../../interface/opcion";
+import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {ServupdateService} from '../../../servicios/servupdate/servupdate.service';
 import {ServicesgetService, } from '../../../servicios/serget/servicesget.service';
@@ -21,7 +23,7 @@ public modules;
 public opciones;
 selectedValue: string;
 selectedCar: string;
-  constructor(private upOpcion:ServupdateService, private getopc:ServicesgetService,public snackBar: MatSnackBar,public dialogRef: MatDialogRef<UpopcionesComponent>,@Inject(MAT_DIALOG_DATA) public data: Opcion) {
+  constructor(public router:Router,private upOpcion:ServupdateService, private getopc:ServicesgetService,public snackBar: MatSnackBar,public dialogRef: MatDialogRef<UpopcionesComponent>,@Inject(MAT_DIALOG_DATA) public data: Opcion) {
 this.litstaidopcup(),
 this.litstaidmodup()
   }
@@ -50,7 +52,10 @@ this.litstaidmodup()
         this.openSnackBar(formaedopc.value.nombre);
           this.dialogRef.close();
     },
-    err=>console.log(err)
+    (err:HttpErrorResponse) => {
+      if(err.status == 0)
+        this.showAlert('ERROR DE CONEXION!');
+    }
   );
   }
 
@@ -69,4 +74,12 @@ this.litstaidmodup()
   },
   err=>console.log(err))
   }
+  showAlert(message){
+    if(window.confirm(message)){
+      this.router.navigate(['/upopciones']);
+    } else{
+      this.router.navigate(['/upopciones']);
+    }
+  }
+
 }
