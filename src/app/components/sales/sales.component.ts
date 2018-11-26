@@ -25,6 +25,7 @@ export class SalesComponent implements OnInit {
   cardFlag: boolean = false;
   flagBatched:boolean = false;
   enableSaleCreation:boolean = false;
+  enableSaleConsult:boolean = false;
 
   loggedUsername:string = "";
   v_records:string = "";
@@ -86,6 +87,8 @@ export class SalesComponent implements OnInit {
       this.disableRt.profileRoot[2] = JSON.parse(localStorage.getItem('batches_module'));            
       if(localStorage.getItem('disableRoot') == 'true')
         this.disableRt.disableRoot = true;
+      if(this.disableRt.profileRoot[0].consultaPr)
+        this.enableSaleConsult = this.disableRt.profileRoot[0].consultaPr;
       if(this.disableRt.profileRoot[0].creacionPr)
         this.enableSaleCreation = this.disableRt.profileRoot[0].creacionPr;
 

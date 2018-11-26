@@ -27,13 +27,13 @@ export class HeaderComponent implements OnInit {
     this.disableRt.profileRoot[3] = JSON.parse(localStorage.getItem('profiles_module'));
 
     //if(this.disableRt.profileRoot)
-    if(this.disableRt.profileRoot[0].consultaPr == true)
+    if(this.disableRt.profileRoot[0].modulePr == true)
       this.enableSalesModule = true;
-    if(this.disableRt.profileRoot[1].consultaPr == true)
+    if(this.disableRt.profileRoot[1].modulePr == true)
       this.enableFeesModule = true;
-    if(this.disableRt.profileRoot[2].consultaPr == true)
+    if(this.disableRt.profileRoot[2].modulePr == true)
       this.enableBatchesModule = true;
-    if(this.disableRt.profileRoot[3].consultaPr == true)
+    if(this.disableRt.profileRoot[3].modulePr == true)
       this.enableProfilesModule = true;
       
   /*  localStorage.setItem('sales_module', JSON.stringify(this.disableRt.profileRoot[0]));

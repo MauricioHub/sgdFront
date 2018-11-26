@@ -28,6 +28,7 @@ export class FeesComponent implements OnInit {
   radioAct: boolean = true;
   cardFlag: boolean = false;
   loggedUsername: string = "";
+  enableFeeConsult:boolean = false;
   v_records = '';
   startDate:any = {day:'', month:'', year:''}; 
   endDate:any = {day:'', month:'', year:''};
@@ -65,11 +66,13 @@ export class FeesComponent implements OnInit {
               private _excelService:ExcelService,
               private disableRt:Globals) {
     if(localStorage.getItem('disableRoot') == 'true')
-      this.disableRt.disableRoot = true;
+      this.disableRt.disableRoot = true;  
       
     this.disableRt.profileRoot[0] = JSON.parse(localStorage.getItem('sales_module'));
     this.disableRt.profileRoot[1] = JSON.parse(localStorage.getItem('fees_module'));
     this.disableRt.profileRoot[2] = JSON.parse(localStorage.getItem('batches_module'));
+    if(this.disableRt.profileRoot[1].consultaPr)
+      this.enableFeeConsult = this.disableRt.profileRoot[1].consultaPr;
 
         //this.fees = this._heroesService.getBrowseComisiones();
         this.fees = [];
