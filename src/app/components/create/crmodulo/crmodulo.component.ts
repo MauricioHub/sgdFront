@@ -1,4 +1,4 @@
-import { Component, OnInit,Inject } from '@angular/core';
+  import { Component, OnInit,Inject } from '@angular/core';
 import {ServcreatedService,} from '../../../servicios/servcreated/servcreated.service';
 import {ServicesgetService, } from '../../../servicios/serget/servicesget.service';
 import { NgForm } from "@angular/forms";
@@ -46,9 +46,9 @@ Nuevo(formanv:NgForm){
 }
 showAlert(message){
   if(window.confirm(message)){
-    this.router.navigate(['/crmodulo']);
+    this.router.navigate(['/rdmodulos']);
   } else{
-    this.router.navigate(['/crmodulo']);
+    this.router.navigate(['/rdmodulos']);
   }
 }
 

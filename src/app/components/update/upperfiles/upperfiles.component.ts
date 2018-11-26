@@ -52,9 +52,9 @@ console.log('m')
   }
   showAlert(message){
     if(window.confirm(message)){
-      this.router.navigate(['/upmodulos']);
+      this.router.navigate(['/rdperfiles']);
     } else{
-      this.router.navigate(['/upmodulos']);
+      this.router.navigate(['/rdperfiles']);
     }
   }
 }

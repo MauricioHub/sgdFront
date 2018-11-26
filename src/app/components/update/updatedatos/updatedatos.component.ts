@@ -3,6 +3,8 @@ import {ServcreatedService,} from '../../../servicios/servcreated/servcreated.se
 import { NgForm } from "@angular/forms";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {Usuario} from "../../../interface/usuario";
+import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import {Authorities} from "../../../interface/Authorities";
 import {ServicesgetService} from '../../../servicios/serget/servicesget.service';
 import {ServupdateService} from '../../../servicios/servupdate/servupdate.service';
@@ -15,7 +17,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatSnackBar} from '@angular/mat
 })
 export class UpdatedatosComponent implements OnInit {
 public usersss ;
-  constructor(private crusua: ServupdateService,private creusu: ServicesgetService,public snackBar: MatSnackBar,public dialogRef: MatDialogRef<UpdatedatosComponent>,@Inject(MAT_DIALOG_DATA) public data: Usuario) {
+  constructor(public router: Router,private crusua: ServupdateService,private creusu: ServicesgetService,public snackBar: MatSnackBar,public dialogRef: MatDialogRef<UpdatedatosComponent>,@Inject(MAT_DIALOG_DATA) public data: Usuario) {
     this.listaidus();
   }
 
@@ -37,8 +39,16 @@ public usersss ;
          this.openSnackBar(formanupdatos.value.username);
          this.dialogRef.close();
      },
-     err=>console.log(err)
-     );
+     (err:HttpErrorResponse) => {
+
+if(err.status == 0)
+
+this.showAlert('ERROR DE CONEXION!');
+
+}
+
+
+);
    }
    listaidus(){
 
@@ -48,5 +58,18 @@ public usersss ;
      },
      err=>console.log(err))
      }
+     showAlert(message){
+
+if(window.confirm(message)){
+
+this.router.navigate(['/crmodulo']);
+
+} else{
+
+this.router.navigate(['/crmodulo']);
+
+ }
+
+}
 
 }
