@@ -3,6 +3,6 @@ export interface Opcionusuario {
  optionId:string;
  startDate:string;
  endDate:string;
- status:string;
+ optionStatus:string;
 
 }
