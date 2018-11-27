@@ -33,10 +33,26 @@
             <a *ngIf="enableSalesModule" class="dropdown-item" routerLink="/sales" routerLinkActive="active">
               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
               Ventas</a>
+
             <div class="dropdown-divider"></div>
             <a *ngIf="enableBatchesModule" class="dropdown-item" routerLink="/batches" routerLinkActive="active">
               <i class="fa fa-retweet" aria-hidden="true"></i>
               Regularización</a>
+
+              <div class="dropdown-divider"></div>
+              <a  class="dropdown-item" routerLink="/digital" routerLinkActive="active">
+                <i class="fa fa-file" aria-hidden="true"></i>
+                Digitalización</a>
+
+            <div class="dropdown-divider"></div>
+            <a  class="dropdown-item" routerLink="/file" routerLinkActive="active">
+              <i class="fa fa-archive" aria-hidden="true"></i>
+              Archivador</a>
+
+              <div class="dropdown-divider"></div>
+              <a  class="dropdown-item" routerLink="/trazabilidad" routerLinkActive="active">
+                <i class="fa fa-paste" aria-hidden="true"></i>
+                Trazabilidad</a>
           </div>
         </li>
         <li class="nav-item dropdown" *ngIf="enableProfilesModule">
@@ -45,23 +61,23 @@
              Panel de Control
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a *ngIf="enableFeesModule" class="dropdown-item" routerLink="/rdmodulos" routerLinkActive="active">
+            <a *ngIf="enableProfilesModule" class="dropdown-item" routerLink="/rdmodulos" routerLinkActive="active">
               <i class="fa fa-briefcase" aria-hidden="true"></i>
                Módulos</a>
             <div class="dropdown-divider"></div>
-            <a *ngIf="enableSalesModule" class="dropdown-item" routerLink="/rdopciones" routerLinkActive="active">
+            <a *ngIf="enableProfilesModule" class="dropdown-item" routerLink="/rdopciones" routerLinkActive="active">
               <i class="fa fa-clipboard" aria-hidden="true"></i>
               Opciones</a>
             <div class="dropdown-divider"></div>
-            <a *ngIf="enableBatchesModule" class="dropdown-item" routerLink="/rdperfiles" routerLinkActive="active">
+            <a *ngIf="enableProfilesModule" class="dropdown-item" routerLink="/rdperfiles" routerLinkActive="active">
               <i class="fa fa-address-book" aria-hidden="true"></i>
               Perfiles</a>
               <div class="dropdown-divider"></div>
-              <a *ngIf="enableSalesModule" class="dropdown-item" routerLink="/rdusuarios" routerLinkActive="active">
+              <a *ngIf="enableProfilesModule" class="dropdown-item" routerLink="/rdusuarios" routerLinkActive="active">
                 <i class="fa fa-address-card" aria-hidden="true"></i>
                 Usuarios</a>
               <div class="dropdown-divider"></div>
-              <a *ngIf="enableBatchesModule" class="dropdown-item" routerLink="/rdusersopc" routerLinkActive="active">
+              <a *ngIf="enableProfilesModule" class="dropdown-item" routerLink="/rdusersopc" routerLinkActive="active">
                 <i class="fa fa-align-justify" aria-hidden="true"></i>
                 Opciones de usuarios</a>
           </div>

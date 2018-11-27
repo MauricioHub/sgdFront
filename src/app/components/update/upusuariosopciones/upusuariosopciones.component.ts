@@ -3,6 +3,8 @@ import {ServcreatedService,} from '../../../servicios/servcreated/servcreated.se
 import { NgForm,FormControl, Validators } from "@angular/forms";
 import {Opcionusuario} from "../../../interface/opcionusuario";
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import {ServicesgetService} from '../../../servicios/serget/servicesget.service';
 import {ServupdateService} from '../../../servicios/servupdate/servupdate.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatSnackBar} from '@angular/material';
@@ -15,7 +17,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatSnackBar} from '@angular/mat
 export class UpusuariosopcionesComponent implements OnInit {
   public users;
   public opciones;
-  constructor(private cruopcusu: ServupdateService,private getopcus: ServicesgetService,public snackBar: MatSnackBar,public dialogRef: MatDialogRef<UpusuariosopcionesComponent>,@Inject(MAT_DIALOG_DATA) public data: Opcionusuario) {
+  constructor(public router: Router,private cruopcusu: ServupdateService,private getopcus: ServicesgetService,public snackBar: MatSnackBar,public dialogRef: MatDialogRef<UpusuariosopcionesComponent>,@Inject(MAT_DIALOG_DATA) public data: Opcionusuario) {
     this.listaidus()
   this.litstaidopcup() }
 
@@ -35,8 +37,16 @@ export class UpusuariosopcionesComponent implements OnInit {
       this.openSnackBar(formaedopcuser.value.nombre);
       this.dialogRef.close();
   },
-  err=>console.log(err)
-  );
+  (err:HttpErrorResponse) => {
+
+if(err.status == 0)
+
+this.showAlert('ERROR DE CONEXION!');
+
+}
+
+
+);
   }
   listaidus(){
 
@@ -54,4 +64,18 @@ export class UpusuariosopcionesComponent implements OnInit {
       },
       err=>console.log(err))
     }
+
+    showAlert(message){
+
+if(window.confirm(message)){
+
+this.router.navigate(['/rdusersopc']);
+
+} else{
+
+this.router.navigate(['/rdusersopc']);
+
+ }
+
+}
 }

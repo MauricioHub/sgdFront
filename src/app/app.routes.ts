@@ -14,6 +14,9 @@ import { FeeComponent } from "./components/fees/fee.component";
 import { ProfilesComponent } from "./components/profiles/profiles.component";
 import { UsersdataComponent } from "./components/usersdata/usersdata.component";
 import { PanelComponent } from "./components/panel/panel.component";
+import { ControladorComponent } from "./components/controlador/controlador.component";
+import { ArchivosComponent } from "./components/archivos/archivos.component";
+import { DigitalizacionComponent } from "./components/digitalizacion/digitalizacion.component";
 
 import { ItemDetails } from './components/item-details/item-details';
 import { OrderComponent } from './components/order/order';
@@ -33,6 +36,7 @@ import { RdopcionesComponent } from './components/read/rdopciones/rdopciones.com
 import { RdperfilesComponent } from './components/read/rdperfiles/rdperfiles.component';
 import { RdusuariosComponent } from './components/read/rdusuarios/rdusuarios.component';
 import { RdusersopcComponent } from './components/read/rdusersopc/rdusersopc.component';
+
 
 
 //import de update
@@ -65,6 +69,22 @@ const APP_ROUTES: Routes = [
   { path: 'datatable', component: DataTableComponent },
   { path: 'profiles', component: ProfilesComponent },
   { path: 'usersdata', component: UsersdataComponent },
+  { path: 'digital', component: DigitalizacionComponent,	canActivate: [RoleguardService],data:{
+    rol:'42',
+    dig:'162',
+   }
+   },
+   { path: 'file', component: ArchivosComponent,	canActivate: [RoleguardService],data:{
+     rol:'42',
+     archi:'163',
+    }
+    },
+  { path: 'trazabilidad', component: ControladorComponent,	canActivate: [RoleguardService],data:{
+    rol:'42',
+    jefecac:'89',
+    cac:'81',
+   }
+   },
   { path: 'updrol', component: UpdaterolComponent,	canActivate: [RoleguardService],data:{
     rol:'42',
    }

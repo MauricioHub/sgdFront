@@ -1,6 +1,8 @@
 import { Component, OnInit,Inject } from '@angular/core';
 import {ServcreatedService,} from '../../../servicios/servcreated/servcreated.service';
 import { NgForm } from "@angular/forms";
+import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import {Opcionusuario} from "../../../interface/opcionusuario";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {ServicesgetService, } from '../../../servicios/serget/servicesget.service';
@@ -15,7 +17,7 @@ export class CrusersopcComponent implements OnInit {
 public usersop;
 public opciones;
 
-  constructor(private cruopcusu: ServcreatedService,private getopcus: ServicesgetService,  public snackBar: MatSnackBar,public dialogRef: MatDialogRef<CrusersopcComponent>,@Inject(MAT_DIALOG_DATA) public data: Opcionusuario) {
+  constructor(public router: Router,private cruopcusu: ServcreatedService,private getopcus: ServicesgetService,  public snackBar: MatSnackBar,public dialogRef: MatDialogRef<CrusersopcComponent>,@Inject(MAT_DIALOG_DATA) public data: Opcionusuario) {
   this.litstaidopcup()
   this.litstauser()
 }
@@ -35,8 +37,16 @@ public opciones;
       this.openSnackBar(formanvopcusers.value.idusuario);
           this.dialogRef.close();
   },
-  err=>console.log(err)
-  );
+  (err:HttpErrorResponse) => {
+
+if(err.status == 0)
+
+this.showAlert('ERROR DE CONEXION!');
+
+}
+
+
+);
   }
 
     litstaidopcup(){
@@ -54,4 +64,18 @@ litstauser(){
   },
   err=>console.log(err))
 }
+showAlert(message){
+
+if(window.confirm(message)){
+
+this.router.navigate(['/rdusersopc']);
+
+} else{
+
+this.router.navigate(['/rdusersopc']);
+
+}
+
+}
+
 }

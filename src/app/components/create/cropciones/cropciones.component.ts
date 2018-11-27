@@ -77,9 +77,9 @@ listaidsopc(){
   }
   showAlert(message){
     if(window.confirm(message)){
-      this.router.navigate(['/cropciones']);
+      this.router.navigate(['/rdopciones']);
     } else{
-      this.router.navigate(['/cropciones']);
+      this.router.navigate(['/rdopciones']);
     }
   }
 

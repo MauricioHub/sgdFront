@@ -248,7 +248,7 @@ export class AuthService {
             this.profileUserOption[3] = profilePerfil;
           } else
             localStorage.setItem('281', 'A');
-          break;        
+          break;
       }
 
     }
@@ -259,7 +259,7 @@ export class AuthService {
     localStorage.setItem('profiles_module', JSON.stringify(this.disableRt.profileRoot[3]));
     this.setSession();
   }
-  
+
 
   public logout(): void {
     localStorage.clear();
@@ -315,24 +315,24 @@ export class AuthService {
     let headers = new HttpHeaders({
       'Accept':'application/json',
       'Content-Type':'application/json',
-      'Access-Control-Allow-Origin':'*'      
-    });  
+      'Access-Control-Allow-Origin':'*'
+    });
 
-    return this.http.post( API_DASHBOARD, body, { headers }  )     
+    return this.http.post( API_DASHBOARD, body, { headers }  )
     .pipe(
       map((res:any) => {
         salesOrderHistory = this.setValueOrdersDashboard(res.saleResumeResult);
         //console.log(salesOrderHistory);
         localStorage.setItem('pieData', JSON.stringify(salesOrderHistory[0]));
         this.setProfileUserOption(this.userOptionResult);
-        return res.saleResumeResult;             
+        return res.saleResumeResult;
       })
     )
     .toPromise().then((data:any) => {
     });
   }
 
-  
+
   setValueOrdersDashboard(statusOrder){
     var i;
     var lenStatusOrder = statusOrder.length;
@@ -349,7 +349,7 @@ export class AuthService {
           break;
         case 'RECHAZADO':
           historyList[1] = statusOrder[i].orders;
-          break;    
+          break;
       }
     }
     var dataCard = {

@@ -76,9 +76,9 @@ this.litstaidmodup()
   }
   showAlert(message){
     if(window.confirm(message)){
-      this.router.navigate(['/upopciones']);
+      this.router.navigate(['/rdopciones']);
     } else{
-      this.router.navigate(['/upopciones']);
+      this.router.navigate(['/rdopciones']);
     }
   }
 

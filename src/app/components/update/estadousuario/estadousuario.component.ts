@@ -3,6 +3,9 @@ import {ServcreatedService,} from '../../../servicios/servcreated/servcreated.se
 import { NgForm,FormControl, Validators } from "@angular/forms";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {Usuario} from "../../../interface/usuario";
+import { Router } from '@angular/router';
+
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import {ServicesgetService} from '../../../servicios/serget/servicesget.service';
 import {ServupdateService} from '../../../servicios/servupdate/servupdate.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatSnackBar} from '@angular/material';
@@ -16,7 +19,7 @@ export class EstadousuarioComponent implements OnInit {
 
   public usersss;
 
-  constructor(private crusuaa: ServupdateService,private creusuu: ServicesgetService,public snackBar: MatSnackBar,public dialogReff: MatDialogRef<EstadousuarioComponent>,@Inject(MAT_DIALOG_DATA) public data: Usuario) {
+  constructor(public router: Router,private crusuaa: ServupdateService,private creusuu: ServicesgetService,public snackBar: MatSnackBar,public dialogReff: MatDialogRef<EstadousuarioComponent>,@Inject(MAT_DIALOG_DATA) public data: Usuario) {
     this.listaidus() }
 
   ngOnInit() {
@@ -35,8 +38,17 @@ export class EstadousuarioComponent implements OnInit {
       this.dialogReff.close();
 
   },
-  err=>console.log(err)
-  );
+  (err:HttpErrorResponse) => {
+
+if(err.status == 0)
+
+this.showAlert('ERROR DE CONEXION!');
+
+}
+
+
+);
+
   }
   listaidus(){
 
@@ -46,5 +58,18 @@ export class EstadousuarioComponent implements OnInit {
     },
     err=>console.log(err))
     }
+    showAlert(message){
+
+if(window.confirm(message)){
+
+this.router.navigate(['/crmodulo']);
+
+} else{
+
+this.router.navigate(['/crmodulo']);
+
+ }
+
+}
 
   }

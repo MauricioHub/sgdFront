@@ -56,9 +56,9 @@ err=>console.log(err))
 }
 showAlert(message){
   if(window.confirm(message)){
-    this.router.navigate(['/upmodulos']);
+    this.router.navigate(['/rdmodulos']);
   } else{
-    this.router.navigate(['/upmodulos']);
+    this.router.navigate(['/rdmodulos']);
   }
 }
 }

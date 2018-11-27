@@ -15,6 +15,11 @@ export class HeaderComponent implements OnInit {
   enableFeesModule:boolean= false;
   enableBatchesModule:boolean= false;
   enableProfilesModule:boolean= false;
+  /*enableDigModule:boolean= false;
+  enableArchiModule:boolean= false;
+  enableTrazabilidadModule:boolean= false;*/
+
+
 
   constructor(_auth:AuthService,
               private disableRt:Globals) {
@@ -35,11 +40,18 @@ export class HeaderComponent implements OnInit {
       this.enableBatchesModule = true;
     if(this.disableRt.profileRoot[3].modulePr == true)
       this.enableProfilesModule = true;
-      
+  /*  if(this.disableRt.profileRoot[4].modulePr == true)
+      this.enableDigModule = true;
+    if(this.disableRt.profileRoot[5].modulePr == true)
+      this.enableArchiModule = true;
+    if(this.disableRt.profileRoot[6].modulePr == true)
+      this.enableTrazabilidadModule = true;
+      */
+
   /*  localStorage.setItem('sales_module', JSON.stringify(this.disableRt.profileRoot[0]));
     localStorage.setItem('fees_module', JSON.stringify(this.disableRt.profileRoot[1]));
-    localStorage.setItem('batches_module', JSON.stringify(this.disableRt.profileRoot[2]));*/  
-                
+    localStorage.setItem('batches_module', JSON.stringify(this.disableRt.profileRoot[2]));*/
+
    /* console.log(this.disableRt.profileRoot[0]);
     console.log(this.disableRt.profileRoot[1]);
     console.log(this.disableRt.profileRoot[2]);*/
