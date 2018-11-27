@@ -40,6 +40,23 @@ public usersss ;
      err=>console.log(err)
      );
    }
+
+   updatedatosR(formanupdatos:NgForm){
+     let rolID = localStorage.getItem('rolID');
+    console.log(formanupdatos.value.username);
+  console.log(formanupdatos.value.nombre);
+   console.log(formanupdatos.value.apellido);
+    console.log(formanupdatos.value.emailusu);
+     console.log(formanupdatos.value.cell);
+  this.crusua.updatedatauserR(this.data.username,formanupdatos.value.nombre,formanupdatos.value.apellido,formanupdatos.value.emailusu,formanupdatos.value.cell,rolID).subscribe(res=>{
+    console.log(res);
+      this.openSnackBar(formanupdatos.value.username);
+      this.dialogRef.close();
+  },
+  err=>console.log(err)
+  );
+}
+
    listaidus(){
 
      this.creusu.getPerfile('','').subscribe((usersss:any)=>{

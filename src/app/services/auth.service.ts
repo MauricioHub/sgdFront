@@ -68,6 +68,7 @@ export class AuthService {
         map((res:any) => {
           this.sessionRoot = res;
           this.objIdRol = res.rolID;
+          localStorage.setItem('rolID', '' + this.objIdRol);
           this.getUserOption(this.sessionRoot.userID);
         } /*, (err:HttpErrorResponse) => {
           }*/

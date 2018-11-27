@@ -575,14 +575,32 @@ export class HeroesService {
                  lastname:string,email:string,
                  phonenumber:string){
 
-    let dataus={
+    let rolID = localStorage.getItem('rolID');
+
+    let body={
       username:username,
       firstname:firstname,
       lastname:lastname,
       email:email,
-      phonenumber:phonenumber
+      phonenumber:phonenumber,
+      authorities:[{
+        "id":rolID
+      }]
     }
-    return this.http.post(API_UPDATE_USUARIOSDATA,dataus);
+
+    let headers = new HttpHeaders({
+      'Accept':'application/json',
+      'Content-Type':'application/json',
+      'Access-Control-Allow-Origin':'*'      
+    });
+
+    return this.http.post(API_UPDATE_USUARIOSDATA, body, { headers })
+    .pipe(
+      map((res:any) => {
+        return res;             
+      })
+    );
+
   }
 
 

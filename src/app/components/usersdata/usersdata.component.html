@@ -5,7 +5,7 @@
             <div class="row">
               <div class="col-lg-4 text-right">
                   <img class="card-img-top" src="../../../assets/img/role.png" alt="Card image cap">
-                  <a href="#" class="card-link">SUBIR IMAGEN</a>
+                  <a routerLink="/usersdata" routerLinkActive="active" class="card-link">SUBIR IMAGEN</a>
               </div>
               <div class="col-lg-1 text-right">
               </div>
@@ -42,7 +42,8 @@
                       </li>
                     </ul>
                     <div class="card-body  text-right">
-                        <a href="#" class="card-link">EDITAR DATOS</a>
+                        <a routerLink="/usersdata" routerLinkActive="active" class="card-link">EDITAR DATOS</a>
+                        <button  mat-button matTooltip ="EDITAR DATOS" mat-button (click)="openDialogUpdate3(profileData)" ><i class="material-icons">contact_phone</i></button>
                     </div>
                 </div>
               </div>
