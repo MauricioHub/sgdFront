@@ -108,6 +108,9 @@ import { UpusuariosopcionesComponent } from './components/update/upusuariosopcio
 import { EstadousuarioComponent } from './components/update/estadousuario/estadousuario.component';
 import { UpdatedatosComponent } from './components/update/updatedatos/updatedatos.component';
 import { UpdaterolComponent } from './components/update/updaterol/updaterol.component';
+import { ControladorComponent } from './components/controlador/controlador.component';
+import { DigitalizacionComponent } from './components/digitalizacion/digitalizacion.component';
+import { ArchivosComponent } from './components/archivos/archivos.component';
 //import { BrowseComponentd } from './components/home/browse.component';
 
 @NgModule({
@@ -148,7 +151,10 @@ import { UpdaterolComponent } from './components/update/updaterol/updaterol.comp
     UpusuariosopcionesComponent,
     EstadousuarioComponent,
     UpdatedatosComponent,
-    UpdaterolComponent
+    UpdaterolComponent,
+    ControladorComponent,
+    DigitalizacionComponent,
+    ArchivosComponent
     
   ],
   imports: [

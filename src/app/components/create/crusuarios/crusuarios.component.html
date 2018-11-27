@@ -95,8 +95,8 @@
          name="cell"
          type="text"
          maxlength="15"
-         minlength="7"
-         pattern="[0-9]+"
+         minlength="10"
+         pattern="[0-9]+$"
          ngModel
          required
          #cell="ngModel">
@@ -104,7 +104,7 @@
          <strong>El número de telefono es requerido</strong>
          </mat-error>
          <mat-error *ngIf="cell.hasError('minlength')">
-         <strong>Minimo 7 digitos</strong>
+         <strong>Minimo 10 digitos</strong>
          </mat-error>
          <mat-error *ngIf="cell.hasError('pattern')">
          <strong>Solo valida digitos</strong>

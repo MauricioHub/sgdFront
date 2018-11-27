@@ -43,7 +43,7 @@ this.crusua.createUsuarios(formanvusu.value.usernombre,formanvusu.value.passwusu
 },
 (err:HttpErrorResponse) => {
   if(err.status == 500)
-    this.showAlert('USUARIO REPETIDO!');
+    this.showAlert('USUARIO REPETIDO O FALLA SEL SERVIDOR!');
 }
 
 );
