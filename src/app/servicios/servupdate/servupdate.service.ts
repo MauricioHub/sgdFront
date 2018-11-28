@@ -98,7 +98,34 @@ updatedatauser(username:string,firstname:string,lastname:string,email:string,pho
   return this.http.post(API_UPDATE_USUARIOSDATA,dataus);
 }
 
+<<<<<<< HEAD
 editarrol(username:string,firstname:string,lastname:string,email:string,phonenumber:string,authorities:string)
+=======
+updatedatauserR(username:string,firstname:string,lastname:string,email:string,phonenumber:string,rolID:string){
+  let dataus={
+    username:username,
+    firstname:firstname,
+    lastname:lastname,
+    email:email,
+    phonenumber:phonenumber,
+    authorities:[{
+      "id":rolID
+    }]
+  }
+  return this.http.post(API_UPDATE_USUARIOSDATA,dataus);
+}
+
+updperfill(id:string,name:string)
+{
+let perfill={
+  id:id,
+name:name
+}
+return this.http.post(API_UPDATE_PERFILES,perfill);
+}
+
+editarrol(username:string,firstname:string,lastname:string,email:string,phonenumber:string,authorities:any[])
+>>>>>>> 855f57fafe8f120b65dba34b02dbcc9d78c23b9c
 {
   let authorList:any[]= [];
   authorList = [{

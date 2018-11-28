@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HeroesService } from "../../services/heroes.service";
 import { AuthService } from "../../services/auth.service";
+import {MatTableDataSource,MatPaginator,MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatSort} from '@angular/material';
+import { UpdatedatosComponent } from '../update/updatedatos/updatedatos.component';
+import {Usuario} from "../../interface/usuario";
 import { Globals } from '../../app.globals';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-usersdata',
@@ -18,7 +22,9 @@ export class UsersdataComponent implements OnInit {
 
   constructor(private _heroesService:HeroesService,
               private authService:AuthService,
-              private disableRt:Globals) { 
+              private dialog:MatDialog,
+              private disableRt:Globals,
+              private router: Router) { 
     if(localStorage.getItem('disableRoot') == 'true')
       this.disableRt.disableRoot = true;
 
@@ -63,6 +69,27 @@ export class UsersdataComponent implements OnInit {
     console.log('SOY-CHOOSE-USER-PROFILE: ');
     console.log(this.profileData);
   }
+
+  openDialogUpdate3(element:any){
+    console.log('SOY-DIALOG-UPDATE-3:!');
+    console.log(element);
+
+    const dialogReff = this.dialog.open(UpdatedatosComponent, {
+      width: '500px',
+      disableClose:false,
+      data: element
+    });
+
+    dialogReff.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this._heroesService.getUsuarios()
+      .subscribe( data=>{
+          this.chooseUserProfile(data);
+      });
+      //this.listaidus();
+    });
+
+  }  
 
 
 }
