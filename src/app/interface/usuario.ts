@@ -8,7 +8,7 @@ export class Usuario {
  lastname : string;
   email : string;
  enabled :boolean;
- lastPasswordResetDate : string;
  phonenumber:string;
-authorities:any["id"]
+ authorities:any[]
+
 }
