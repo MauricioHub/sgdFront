@@ -47,6 +47,7 @@ import { UpusuariosComponent } from './components/update/upusuarios/upusuarios.c
 import { UpusuariosopcionesComponent } from './components/update/upusuariosopciones/upusuariosopciones.component';
 import { EstadousuarioComponent } from './components/update/estadousuario/estadousuario.component';
 import { UpdatedatosComponent } from './components/update/updatedatos/updatedatos.component';
+import { UpdatedatospComponent } from './components/update/updatedatosp/updatedatosp.component';
 import {UpdaterolComponent} from './components/update/updaterol/updaterol.component';
 
 
@@ -171,6 +172,9 @@ const APP_ROUTES: Routes = [
       { path: 'usuariosdatos', component: UpdatedatosComponent,	canActivate: [RoleguardService],data:{
         rol:'42',
        } },
+      { path: 'usuariosdatosp', component: UpdatedatospComponent,	canActivate: [RoleguardService],data:{
+        rol:'42',
+      } },
 
   { path: 'fee', component: FeeComponent },
   { path: 'itemd', component: ItemDetails },

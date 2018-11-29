@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { HeroesService } from "../../services/heroes.service";
 import { AuthService } from "../../services/auth.service";
 import {MatTableDataSource,MatPaginator,MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatSort} from '@angular/material';
-import { UpdatedatosComponent } from '../update/updatedatos/updatedatos.component';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { UpdatedatospComponent } from '../update/updatedatosp/updatedatosp.component';
 import {Usuario} from "../../interface/usuario";
 import { Globals } from '../../app.globals';
 import { Router } from '@angular/router';
+import * as bcrypt from 'bcrypt';
 
 @Component({
   selector: 'app-usersdata',
@@ -19,12 +21,20 @@ export class UsersdataComponent implements OnInit {
   private userId:string = '';
   private profileData:any;
   public dateee;
+  isLinear = false;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
+  passwordCl = 'admin123';
+  inputEnabledS:boolean = false;
+  inputEnabledT:boolean = false;
 
   constructor(private _heroesService:HeroesService,
               private authService:AuthService,
               private dialog:MatDialog,
               private disableRt:Globals,
-              private router: Router) { 
+              private router: Router,
+              private _formBuilder: FormBuilder) { 
     if(localStorage.getItem('disableRoot') == 'true')
       this.disableRt.disableRoot = true;
 
@@ -37,6 +47,15 @@ export class UsersdataComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
+    this.thirdFormGroup = this._formBuilder.group({
+      thirdCtrl: ['', Validators.required]
+    });
   }
 
   listaidus(){
@@ -63,8 +82,11 @@ export class UsersdataComponent implements OnInit {
     this.profileData = userEmpty;
   
     for(p=0; p<lenUsersL; p++){
-      if(this.userName == usersList[p].username)
+      if(this.userName == usersList[p].username){
         this.profileData = usersList[p];
+        localStorage.setItem('passWord',usersList[p].password);
+      }
+        
     }
     console.log('SOY-CHOOSE-USER-PROFILE: ');
     console.log(this.profileData);
@@ -74,7 +96,7 @@ export class UsersdataComponent implements OnInit {
     console.log('SOY-DIALOG-UPDATE-3:!');
     console.log(element);
 
-    const dialogReff = this.dialog.open(UpdatedatosComponent, {
+    const dialogReff = this.dialog.open(UpdatedatospComponent, {
       width: '500px',
       disableClose:false,
       data: element
@@ -89,7 +111,51 @@ export class UsersdataComponent implements OnInit {
       //this.listaidus();
     });
 
-  }  
+  }
+  
+  mostrarConsola(){
+    console.log("SOY-NOSTRAR-CONSOLA1: ");
+    console.log(this.firstFormGroup.value.firstCtrl);
+
+    console.log("SOY-NOSTRAR-CONSOLA2: ");
+    console.log(this.secondFormGroup.value.secondCtrl);
+
+    console.log("SOY-NOSTRAR-CONSOLA3: ");
+    console.log(this.thirdFormGroup.value.thirdCtrl);
+
+    if(this.firstFormGroup.value.firstCtrl == this.passwordCl){
+      console.log('CONTRASEÑAS COINCIDEN!!');
+      this.inputEnabledS = true;
+
+    } else{
+      console.log('CONTRASEÑAS NO-COINCIDEN!!');
+      this.inputEnabledS = false;
+
+    }
+
+    if(this.firstFormGroup.value.firstCtrl == this.firstFormGroup.value.secondCtrl){
+      console.log('CONTRASEÑAS COINCIDEN!!');
+      this.inputEnabledT = true;
+
+    } else{
+      console.log('CONTRASEÑAS NO-COINCIDEN!!');
+      this.inputEnabledT = false;
+
+    }
+      
+
+  /*  bcrypt.compare('somePassword', this.firstFormGroup.value.firstCtrl, function(err, res) {
+      if(res) {
+       // Passwords match
+       console.log('PASSWORD-MATCH!');
+      } else {
+       // Passwords don't match
+       console.log('PASSWORD-DONT-MATCH!');
+      } 
+    }); */
+
+
+  }
 
 
 }
