@@ -6,9 +6,9 @@ export class Usuario {
  password: string;
  firstname : string;
  lastname : string;
-  email : string;
+email : string;
  enabled :boolean;
- lastPasswordResetDate : string;
  phonenumber:string;
-authorities:any["id"]
+ authorities:any[];
+
 }

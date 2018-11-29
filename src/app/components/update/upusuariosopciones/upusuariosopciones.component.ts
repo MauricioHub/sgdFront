@@ -39,10 +39,14 @@ export class UpusuariosopcionesComponent implements OnInit {
   },
   (err:HttpErrorResponse) => {
 
-if(err.status == 0)
+if(err.status == 0){
 
 this.showAlert('ERROR DE CONEXION!');
+}
+if(err.status == 500){
 
+this.showAlert('ERROR DE CONEXION!');
+}
 }
 
 
