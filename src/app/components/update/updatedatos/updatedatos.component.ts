@@ -53,7 +53,6 @@ this.showAlert('ERROR DE CONEXION!');
 
 );
    }
-<<<<<<< HEAD
    listusuario(){
 this.creusu.getUsiarios('','').subscribe((usuario:any)=>{
 console.log(usuario);
@@ -61,7 +60,7 @@ this.users=usuario;
 },
 err=>console.log(err))
 }
-=======
+
 
    updatedatosR(formanupdatos:NgForm){
      let rolID = localStorage.getItem('rolID');
@@ -79,9 +78,7 @@ err=>console.log(err))
   );
 }
 
-   listaidus(){
->>>>>>> 855f57fafe8f120b65dba34b02dbcc9d78c23b9c
-
+   
 listaidus(){
 this.creusu.getPerfile('','').subscribe((usersss:any)=>{
 console.log(usersss);
