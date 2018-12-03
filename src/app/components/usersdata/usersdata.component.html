@@ -61,3 +61,55 @@
       <a href="#" class="card-link">EDITAR DATOS</a>
     </div> -->
 </div>
+<<<<<<< HEAD
+=======
+
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Contraseña actual</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Ingrese contraseña" formControlName="firstCtrl">
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Contraseña nueva</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Ingrese contraseña" formControlName="secondCtrl" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button *ngIf="inputEnabledS" mat-button matStepperNext>Next</button>
+        <button *ngIf="!inputEnabledS" mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="thirdFormGroup">
+    <form [formGroup]="thirdFormGroup">
+        <ng-template matStepLabel>Confirmar contraseña</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Ingrese contraseña" formControlName="thirdCtrl" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button *ngIf="inputEnabledT" mat-button matStepperNext>Next</button>
+          <button *ngIf="!inputEnabledT" mat-button (click)="stepper.reset()">Reset</button>
+
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+    </form>
+    <!-- <ng-template matStepLabel>Done</ng-template>
+    You are now done. -->
+  </mat-step>
+</mat-horizontal-stepper>
+
+<div>
+  <button (click)="mostrarConsola()">MOSTRAR INPUTS</button>
+</div>
+>>>>>>> 1ba45bba3aa65ae960dc153d672bf56d675984f6

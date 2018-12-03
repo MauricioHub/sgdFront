@@ -1,0 +1,109 @@
+<form (ngSubmit)="updatedatos(formanupdatos)" #formanupdatos="ngForm" novalidate>
+  <h2 align="center">EDITAR DATOS  </h2>
+  <br>
+  <div>
+    <div class="example-container">
+
+      <mat-form-field appearance="outline">
+      <mat-label>USUARIO</mat-label>
+       <input matInput placeholder="Nickname del Usuario" disabled=true
+       name="username"
+       ngModel="{{data.username}}"
+       #username="ngModel">
+       <mat-icon matSuffix>dehaze</mat-icon>
+      </mat-form-field>
+
+
+  <mat-form-field appearance="outline">
+  <mat-label>NOMBRE DEL USUARIO</mat-label>
+  <input matInput placeholder="NOMBRE DEL USUARIO"
+   name="nombre"
+  ngModel="{{data.firstname}}"
+   maxlength="25"
+   minlength="3"
+   required
+   #nombre="ngModel">
+   <mat-error *ngIf="nombre.hasError('minlength')">
+  <strong>Minimo 3 caracteres</strong>
+ </mat-error>
+ <mat-error *ngIf="nombre.hasError('required')">
+<strong>El nombre es requerido</strong>
+</mat-error>
+   <mat-icon matSuffix>person</mat-icon>
+     </mat-form-field>
+
+
+     <mat-form-field appearance="outline">
+     <mat-label>APELLIDO DEL USUARIO</mat-label>
+     <input matInput placeholder="APELLIDO DEL USUARIO"
+      name="apellido"
+      ngModel="{{data.lastname}}"
+      maxlength="25"
+      minlength="4"
+      required
+      #apellido="ngModel">
+      <mat-error *ngIf="apellido.hasError('minlength')">
+     <strong>Minimo 5 caracteres</strong>
+    </mat-error>
+    <mat-error *ngIf="apellido.hasError('required')">
+   <strong>El nombre es requerido</strong>
+   </mat-error>
+     <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+        <mat-label>TELEFONO DEL USUARIO</mat-label>
+        <input matInput placeholder="TELEFONO DEL USUARIO"
+         name="cell"
+         type="text"
+         maxlength="15"
+         minlength="10"
+         pattern="[0-9]+"
+         ngModel="{{data.phonenumber}}"
+         required
+         #cell="ngModel">
+         <mat-error *ngIf="cell.hasError('required')">
+         <strong>El número de telefono es requerido</strong>
+         </mat-error>
+         <mat-error *ngIf="cell.hasError('minlength')">
+         <strong>Minimo 10 digitos</strong>
+         </mat-error>
+         <mat-error *ngIf="cell.hasError('pattern')">
+         <strong>Solo valida digitos</strong>
+         </mat-error>
+        <mat-icon matSuffix>local_phone</mat-icon>
+           </mat-form-field>
+
+           <br>
+         <mat-form-field appearance="outline">
+         <mat-label>EMAIL</mat-label>
+         <input matInput placeholder="Nombre del modulo"
+          type="email"
+          name="emailusu"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+          ngModel="{{data.email}}"
+          required
+          #emailusu="ngModel">
+          <mat-error *ngIf="emailusu.hasError('pattern')">
+          <strong>formato de email invalido</strong>
+          </mat-error>
+          <mat-error *ngIf="emailusu.hasError('required')">
+          <strong>El email es requerido</strong>
+          </mat-error>
+         <mat-icon matSuffix>email</mat-icon>
+         </mat-form-field>
+
+        </div>
+
+            <button type="submit" id="guardar" class="btn btn-outline-primary" [disabled]="!formanupdatos.valid" mat-button matTooltip ="editar usuario"
+             ><mat-icon>how_to_reg</mat-icon>
+             </button>
+
+             <button id="delete" type="reset" mat-dialog-close class="btn btn-outline-primary" mat-button matTooltip ="SALIR"
+             ><mat-icon>exit_to_app</mat-icon>
+             </button>
+
+
+</div>
+</form>

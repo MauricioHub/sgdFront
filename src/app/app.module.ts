@@ -111,6 +111,7 @@ import { UpdaterolComponent } from './components/update/updaterol/updaterol.comp
 import { ControladorComponent } from './components/controlador/controlador.component';
 import { DigitalizacionComponent } from './components/digitalizacion/digitalizacion.component';
 import { ArchivosComponent } from './components/archivos/archivos.component';
+import { UpdatedatospComponent } from './components/update/updatedatosp/updatedatosp.component';
 //import { BrowseComponentd } from './components/home/browse.component';
 
 @NgModule({
@@ -154,7 +155,8 @@ import { ArchivosComponent } from './components/archivos/archivos.component';
     UpdaterolComponent,
     ControladorComponent,
     DigitalizacionComponent,
-    ArchivosComponent
+    ArchivosComponent,
+    UpdatedatospComponent
     
   ],
   imports: [

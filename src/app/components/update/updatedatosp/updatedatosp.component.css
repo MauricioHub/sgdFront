@@ -1,0 +1,42 @@
+h2{
+    background-color:#FA5858;
+    color: #FFFFFF;
+    font-style: italic;
+    height: 40px;
+    border-radius:30px;
+  }
+  
+  
+  .example-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-container > * {
+    width: 100%;
+  }
+  
+  input.example-right-align {
+    -moz-appearance: textfield;
+  }
+  
+  button{
+  
+  }
+  #guardar{
+    background-color:#AED6F1;
+    border-radius:30px;
+  }
+  
+  #delete{
+    margin-right: 8px;
+    background-color:#FA5858;
+    color: #FFFFFF;
+    border-radius:30px;
+  }
+  
+  .mat-form-field {
+    font-size: 15px;
+    width: 100%;
+  
+  }  
