@@ -76,8 +76,13 @@ export class AuthService {
       .subscribe((res:any) => {
 
       }, (err:HttpErrorResponse) => {
-        if(err.status == 401)
+        if(err.status == 401){
           this.showAlert('CREDENCIALES INCORRECTAS!');
+        }
+
+        if(err.status == 0){
+          this.showAlert('SIN INTERNET!');
+        }
      });
   }
 

@@ -4,6 +4,7 @@ import { HeroesService } from "../../services/heroes.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
 import { Sale } from '../../interfaces/sale.interface';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { ExcelService } from "../../services/excel.service";
 import { Globals } from '../../app.globals';
 
@@ -44,7 +45,7 @@ export class SalesComponent implements OnInit {
   cols:any[] = [];
 
   objLote:any = {
-    lotId: "", 
+    lotId: "",
     lotDate: "",
     lotDetail: []
   };
@@ -54,7 +55,7 @@ export class SalesComponent implements OnInit {
   display='none';
   displayOK='none';
   mdSalesLenght = '';
-  startDate:any = {day:'', month:'', year:''}; 
+  startDate:any = {day:'', month:'', year:''};
   endDate:any = {day:'', month:'', year:''};
   startDateStr:string = '';
   endDateStr:string = '';
@@ -74,7 +75,7 @@ export class SalesComponent implements OnInit {
   oficinas:any[] = [{officeId: "", officeName: ""}];
   selectedOficina:any = {officeId: "", officeName: ""};
   selectedEstado:any = {id: "", status: ""};
-  
+
     constructor(private _heroesService:HeroesService,
                 private router:Router,
                 private route:ActivatedRoute,
@@ -84,7 +85,7 @@ export class SalesComponent implements OnInit {
                 private disableRt:Globals) {
       this.disableRt.profileRoot[0] = JSON.parse(localStorage.getItem('sales_module'));
       this.disableRt.profileRoot[1] = JSON.parse(localStorage.getItem('fees_module'));
-      this.disableRt.profileRoot[2] = JSON.parse(localStorage.getItem('batches_module'));            
+      this.disableRt.profileRoot[2] = JSON.parse(localStorage.getItem('batches_module'));
       if(localStorage.getItem('disableRoot') == 'true')
         this.disableRt.disableRoot = true;
       if(this.disableRt.profileRoot[0].consultaPr)
@@ -101,7 +102,9 @@ export class SalesComponent implements OnInit {
       .subscribe((data:any) => {
         if(data.code == 200){
           this.batchSequence = data.sequence;
-        }          
+        }
+        
+
       });
 
       this.loggedUsername = localStorage.getItem('logged_username');
@@ -121,7 +124,7 @@ export class SalesComponent implements OnInit {
           { field: 'reason', header: 'Motivo' },
           { field: 'lotId', header: 'Código Lote' }
       ];
-       
+
   }
 
   ngOnInit() {
@@ -148,7 +151,7 @@ export class SalesComponent implements OnInit {
       firstDate = '';
     else
       firstDate = '' + this.startDate.day + '/' + this.startDate.month + '/' + this.startDate.year;
-      
+
     if(this.endDate.day == '')
       lastDate = '';
     else
@@ -159,7 +162,7 @@ export class SalesComponent implements OnInit {
                                      this.selectedChannel.channelId,
                                      this.selectedOficina.officeId,
                                      this.lotId,
-                                     this.selectedEstado.status                                     
+                                     this.selectedEstado.status
                                     )
     .toPromise().then(data => {
       if(data){
@@ -187,11 +190,11 @@ export class SalesComponent implements OnInit {
         this.browseParameters();
       else
         this.showAlert('RANGO FECHAS INVALIDAS!');
-    }      
+    }
   }
 
   endDateBrowse(newEndDate){
-    this.endDate = newEndDate; 
+    this.endDate = newEndDate;
     this.endDateStr = this.jsonDateToString(this.endDate);
     this.endDateStr = this.formatDateReport(new Date(this.endDateStr));
     this.endDateLng = this.strDateToLong(this.endDateStr);
@@ -206,14 +209,14 @@ export class SalesComponent implements OnInit {
         this.browseParameters();
       else
         this.showAlert('RANGO FECHAS INVALIDAS!');
-    }  
+    }
   }
 
   jsonDateToString(time){
     let newDate = '' + time.month + '/' + time.day + '/' + time.year;
     return newDate;
   }
-  
+
   strDateToLong(timeStr){
     let newDate = new Date(timeStr).valueOf();
     return newDate;
@@ -301,12 +304,12 @@ export class SalesComponent implements OnInit {
     let lsale = 0;
     lsale = this.loteList.length;
     localStorage.setItem('l_sale', '' + lsale);
-    
+
     if(lsale >= 1){
       let identificador = this.batchSequence;
       let codigoOficina = this.loteList[0].officceId;
       let nombreOficina = this.loteList[0].officce;
-  
+
       let re = / /g;
       let resultOficina = nombreOficina.replace(re, "_");
       lotIdent = '' + identificador + '_' + codigoOficina + '_' + resultOficina;
@@ -333,12 +336,12 @@ export class SalesComponent implements OnInit {
   }
 
 
-  formatDate(date) {   
-   return this._datePipeService.transform(date, 'yyyy-MM-ddTHH:mm:ss');   
+  formatDate(date) {
+   return this._datePipeService.transform(date, 'yyyy-MM-ddTHH:mm:ss');
   }
 
-  formatDateReport(date) {   
-    return this._datePipeService.transform(date, 'yyyy-MM-dd');   
+  formatDateReport(date) {
+    return this._datePipeService.transform(date, 'yyyy-MM-dd');
   }
 
 
@@ -361,7 +364,7 @@ export class SalesComponent implements OnInit {
     }
   }
 
-  
+
   onSelectionMarkAll(){
     console.log(this.radioActAll);
     let lenHeroes = this.heroes.length;
@@ -388,14 +391,14 @@ export class SalesComponent implements OnInit {
                 this.checkSales[r] = true;
                 this.radioAct2[r] = true;
                 this.onSelectionChange(this.heroes[r], r);
-            }          
+            }
           }
         }
       }
-      console.log('IFCHANGEALL-TAM: ' + this.loteList.length);  
+      console.log('IFCHANGEALL-TAM: ' + this.loteList.length);
     } else{
       let lenOrigin = this.heroes.length;
-      let lenArray = this.loteList.length;      
+      let lenArray = this.loteList.length;
       let q;
       this.temp = false;
 
@@ -406,7 +409,7 @@ export class SalesComponent implements OnInit {
           this.radioAct2[t] = false;
         }
         this.loteList.splice(0, lenArray);
-      }      
+      }
     }
   }
 
@@ -420,7 +423,7 @@ export class SalesComponent implements OnInit {
           if(this.isEmpty(this.heroes[r].lotId))
             this.enableSales[r] = false;
         } else
-          this.enableSales[r] = false;          
+          this.enableSales[r] = false;
       }
     }
   }
@@ -450,7 +453,7 @@ export class SalesComponent implements OnInit {
           this.openModalOK();
           console.log('COMPONENT-ASYN: ');
           console.log(this.heroes);
-        });      
+        });
   }
 
 
@@ -497,8 +500,8 @@ export class SalesComponent implements OnInit {
   }
 
   chargeOffices(selectedCanal){
-    this._heroesService.chargeOffices( 
-          selectedCanal                                     
+    this._heroesService.chargeOffices(
+          selectedCanal
     )
     .toPromise().then(data => {
       var dataList = this.dataListSort(data,2);
@@ -509,7 +512,7 @@ export class SalesComponent implements OnInit {
 
   browseParameters(){
     let firstDate = '';
-    let lastDate = ''; 
+    let lastDate = '';
     this.radioActAll = false;
     this.onSelectionMarkAll();
 
@@ -528,7 +531,7 @@ export class SalesComponent implements OnInit {
                                      this.selectedChannel.channelId,
                                      this.selectedOficina.officeId,
                                      this.lotId,
-                                     this.selectedEstado.status                                     
+                                     this.selectedEstado.status
                                     )
     .toPromise().then(data => {
       if(data){
@@ -536,7 +539,7 @@ export class SalesComponent implements OnInit {
         .subscribe((data:any) => {
           if(data.code == 200){
             this.batchSequence = data.sequence;
-          }          
+          }
         });
         this.heroes = data;
         this.v_records = localStorage.getItem('s_records');
@@ -548,20 +551,20 @@ export class SalesComponent implements OnInit {
     });
   }
 
-  
+
   openModal(){
     this.display='block';
   }
 
   onCloseHandled(){
-    this.display='none'; 
+    this.display='none';
   }
 
   openModalOK(){
     let lsale = '0';
     this.displayOK='block';
     lsale = localStorage.getItem('l_sale');
-    this.mdSalesLenght = lsale;    
+    this.mdSalesLenght = lsale;
   }
 
   onCloseHandledOK(){
@@ -573,7 +576,7 @@ export class SalesComponent implements OnInit {
   public exportToExcel(){
     let sales:any[] = [];
     sales = this.setHeaderSalesExcel();
-    this._excelService.exportAsExcelFile(sales, 'ventas');        
+    this._excelService.exportAsExcelFile(sales, 'ventas');
   }
 
   public downloadPDF(){
@@ -582,12 +585,12 @@ export class SalesComponent implements OnInit {
 
     this.columns = [
       'Signat ?', '1ra. Vez',
-      ' No. Orden', 'Producto', 
-      'Cliente', '#Identificación', 
+      ' No. Orden', 'Producto',
+      'Cliente', '#Identificación',
       'F. Activación', 'Forma Pago',
-      'Financiera', 
-      'Codigo O.', 'Oficina', 
-      'Estado', 'Motivo', 
+      'Financiera',
+      'Codigo O.', 'Oficina',
+      'Estado', 'Motivo',
       'Número Lote'
     ];
     this.rows = [];
@@ -690,7 +693,7 @@ export class SalesComponent implements OnInit {
                                      '',
                                      '',
                                      '',
-                                     ''                                     
+                                     ''
                                   )
       .toPromise().then(data => {
         if(data){
@@ -698,7 +701,7 @@ export class SalesComponent implements OnInit {
           .subscribe((data:any) => {
             if(data.code == 200){
               this.batchSequence = data.sequence;
-            }          
+            }
           });
           this.heroes = data;
           this.v_records = localStorage.getItem('s_records');

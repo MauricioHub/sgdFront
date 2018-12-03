@@ -13,7 +13,7 @@
 
                 <div class="card">
                     <div class="card-body">
-                      <h5 class="card-title">{{ userName }}</h5>
+                      <h5 class="card-title">{{profileData.username}}</h5>
                     </div>
                     <ul class="list-group list-group-flush">
                       <li class="list-group-item">
@@ -43,7 +43,7 @@
                     </ul>
                     <div class="card-body  text-right">
                         <a routerLink="/usersdata" routerLinkActive="active" class="card-link">EDITAR DATOS</a>
-                        <button  mat-button matTooltip ="EDITAR DATOS" mat-button (click)="openDialogUpdate3(profileData)" ><i class="material-icons">contact_phone</i></button>
+                        <button id="editor" mat-button matTooltip ="EDITAR DATOS" mat-button (click)="openDialogUpdate3(profileData)" ><i class="material-icons">contact_phone</i></button>
                     </div>
                 </div>
               </div>

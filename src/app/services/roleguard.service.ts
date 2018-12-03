@@ -21,15 +21,16 @@ export class RoleguardService implements CanActivate {
 
 
       if (  ((localStorage.getItem('logged_username')!=null) &&(localStorage.getItem('logged_username')!=''))&&
-      ((localStorage.getItem('objIdRol')==rol)||(localStorage.getItem('objIdRol')==vend))||/*nuevo ||*/
+      (((localStorage.getItem('objIdRol')==rol)||(localStorage.getItem('objIdRol')==vend))||/*nuevo ||*/
       ((localStorage.getItem('objIdRol')==cac)||(localStorage.getItem('objIdRol')==jefecac))||/*nuevo ||*/
-      ((localStorage.getItem('objIdRol')==comi)||(localStorage.getItem('objIdRol')==dig))||/*nuevo ||*/((localStorage.getItem('objIdRol')==archi))  /*finzaliza el if*/) {
+      ((localStorage.getItem('objIdRol')==comi)||(localStorage.getItem('objIdRol')==dig))||/*nuevo ||*/((localStorage.getItem('objIdRol')==archi)))  /*finzaliza el if*/) {
 
    console.log("paso el centinela");
     return true;
 
   }else{
     console.error("blqoueado por goku");
+     this.router.navigate(['login']);
     return false;
   }
 

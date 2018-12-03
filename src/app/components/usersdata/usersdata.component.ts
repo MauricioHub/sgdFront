@@ -24,7 +24,7 @@ export class UsersdataComponent implements OnInit {
               private authService:AuthService,
               private dialog:MatDialog,
               private disableRt:Globals,
-              private router: Router) { 
+              private router: Router) {
     if(localStorage.getItem('disableRoot') == 'true')
       this.disableRt.disableRoot = true;
 
@@ -46,6 +46,7 @@ export class UsersdataComponent implements OnInit {
       this.dateee=data;
     },
     err=>console.log(err));
+
   }
 
   chooseUserProfile(usersList:any[]){
@@ -61,7 +62,7 @@ export class UsersdataComponent implements OnInit {
       email:''
     };
     this.profileData = userEmpty;
-  
+
     for(p=0; p<lenUsersL; p++){
       if(this.userName == usersList[p].username)
         this.profileData = usersList[p];
@@ -89,7 +90,7 @@ export class UsersdataComponent implements OnInit {
       //this.listaidus();
     });
 
-  }  
+  }
 
 
 }

@@ -1,7 +1,9 @@
 h2{
-  background-color:#FA5858;
-  color: #FFFFFF;
+  background-color:#D6DBDF;
+  color: #17202A;
+  font-family: Century Gothic, sans-serif;
   height: 40px;
+
 }
 
 body{
@@ -15,32 +17,36 @@ input.example-right-align {
 }
 
 button{
-  background-color:#EC7063;
-  color: #FFFFFF;
+  background-color:#D6DBDF;
+  color: #17202A;
 }
 
 #delete{
-  background-color:#EC7063;
-  color: #FFFFFF;
-  margin-left:27% ;
+  background-color:#D6DBDF  ;
+  color: #17202A;
+  margin-left: 1%;
 }
 
 mat-paginator {
   width: 100%;
   margin: auto;
-  background-color: #FA5858;
-  color: #FFFFFF;
+  background-color: #D6DBDF  ;
+  color: #17202A;
 }
 
 th{
-  background-color: #FA5858;
-  color: #FFFFFF;
+  background-color: #D6DBDF    ;
+  color: #17202A;
+  font-weight:bold;
+  font-size: 75%;
+  font-family: Century Gothic, sans-serif;
 }
 
 #buscar{
-  width: 18.5%;
-  color: #FA5858;
-   margin-left: 25%;
+  width: 25%;
+  color: #17202A;
+   margin-left: 68%;
+
 }
 
 /
@@ -55,11 +61,12 @@ input{
 
 table {
   width: 100%;
-  margin: auto;
-  border: #FA5858 1px solid;
+
+  border: #D5D8DC 1px solid;
 }
 
 td, th {
-  width: 25%;
+  width: 20%;
   font-size: 75%;
+  font-family: Century Gothic, sans-serif;
 }

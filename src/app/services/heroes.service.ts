@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders,HttpErrorResponse } from '@angular/common/http';
 import { Heroe } from "../interfaces/heroe.interface";
 import { Fee } from "../interfaces/fee.interface";
 import { environment } from '../../environments/environment';
@@ -34,7 +34,7 @@ const API_UPDATE_USUARIOSDATA=environmentP.API_UPDATE_USUARIOSDATA;
 
 @Injectable()
 export class HeroesService {
-  
+
   heroesURL:string = "http://localhost:8086/salesRequest";
   heroeURL:string = "http://localhost:8083/regula/sale";
   saleURL:string = "http://localhost:8083/regula/sale";
@@ -48,14 +48,14 @@ export class HeroesService {
   sequenceURL:string = "http://10.225.13.18:9954/GetSequence";
 
   comissionURL:string = "http://10.225.13.18:9953/ComissionsInfo";
-  
+
   reasonsURL:string = "http://10.225.13.18:9956/GetReasons";
   officesURL:string = "http://10.225.13.18:9956/GetOffices";
   sellersURL:string = "http://10.225.13.18:9956/GetSellers";
   paymentsURL:string = "http://10.225.13.18:9956/GetPayments";
   channelsURL:string = "http://10.225.13.18:9956/GetChannels";
   penaltiesURL:string = "http://10.225.13.18:9956/GetPenalties";
-  
+
 
   flagDelete:boolean = true;
   flagVentas:number = 1;
@@ -66,13 +66,13 @@ export class HeroesService {
 
   testExcel:any[] = [];
   prueba: Object = {};
-  
+
   constructor( private http:HttpClient,
                public router: Router ) { }
 
 
-  public browseVenta( firstD:String, lastD:String, 
-                      canal:String, ofic:String, 
+  public browseVenta( firstD:String, lastD:String,
+                      canal:String, ofic:String,
                       lotId:string, status:string  ){
       console.log('SOY CONSOLE SERVER!!: ');
       console.log('fech ini: ' + firstD + ',');
@@ -87,7 +87,7 @@ export class HeroesService {
       let varCanal:string = "" + canal;
       let varOfic:string = "" + ofic;
       let varLotId:string = "" + lotId;
-      let varStatus:string = "" + status; 
+      let varStatus:string = "" + status;
 
       localStorage.setItem('s_firstD', templateDate);
       localStorage.setItem('s_lastD', templateDate2);
@@ -109,10 +109,10 @@ export class HeroesService {
       let headers = new HttpHeaders({
         'Accept':'application/json',
         'Content-Type':'application/json',
-        'Access-Control-Allow-Origin':'*'      
-      });  
+        'Access-Control-Allow-Origin':'*'
+      });
 
-      return this.http.post( API_SALES, body, { headers }  )     
+      return this.http.post( API_SALES, body, { headers }  )
       .pipe(
         map((res:any) => {
           console.log(res);
@@ -120,25 +120,27 @@ export class HeroesService {
           localStorage.setItem('s_records', (res).records);
           this.heroeServ = (res).salesResult;
           return (res).salesResult;
-          //this.router.navigate(['/sales']);             
+          //this.router.navigate(['/sales']);
+          //FFILTRO DEL MODULO VENTAS: ESTE ES EL METODO DE BUSQUEDA DE ORDENESS DE VENTAS PARAMETRO MAVIDOS VACIOS O CON CONTENIDO
         })
+
       );
   }
-  
+
   getBrowseHeroes(){
     return this.heroeServ;
   }
 
 
-  public browseVentaAsync( firstD:String, lastD:String, 
-                           canal:String, ofic:String, 
+  public browseVentaAsync( firstD:String, lastD:String,
+                           canal:String, ofic:String,
                            batch:string, status:string ){
     let templateDate:string = "" + firstD;
     let templateDate2:string = "" + lastD;
     let varCanal:string = "" + canal;
     let varOfic:string = "" + ofic;
     let varBatch:string = "" + batch;
-    let varStatus:string = "" + status; 
+    let varStatus:string = "" + status;
 
     let body = {
       order:"",
@@ -153,7 +155,7 @@ export class HeroesService {
     let headers = new HttpHeaders({
       'Accept':'application/json',
       'Content-Type':'application/json',
-      'Access-Control-Allow-Origin':'*'      
+      'Access-Control-Allow-Origin':'*'
     });
 
     return this.http.post( API_SALES, body, { headers }  )
@@ -161,8 +163,9 @@ export class HeroesService {
         map( (res:any)=>{
           localStorage.setItem('vE_records', (res).records);
           this.heroeServ = (res).salesResult;
-          return (res).salesResult;          
+          return (res).salesResult;
         })
+        //COPIA DE FILTRO VENTA FUNCION DE BSUQUEDA DE VENTA ACTUALIZA LA PAGINA
       );
   }
 
@@ -173,11 +176,11 @@ export class HeroesService {
     startDate:string,
     endDate:string ){
 
-    let templateCanal:string = "" + canal;                
+    let templateCanal:string = "" + canal;
     let templateSeller:string = "" + sellerId;
     let templatePenalty:string = "" + penaltyId;
     let templateStDate:string = "" + startDate;
-    let templateEnDate:string = "" + endDate; 
+    let templateEnDate:string = "" + endDate;
 
     if(templatePenalty == 'todos')
     templatePenalty = '';
@@ -187,24 +190,25 @@ export class HeroesService {
     sellerId: templateSeller,
     penaltyId: templatePenalty,
     startDate: templateStDate,
-    endDate: templateEnDate      
+    endDate: templateEnDate
     };
 
     let headers = new HttpHeaders({
     'Accept':'application/json',
     'Content-Type':'application/json',
-    'Access-Control-Allow-Origin':'*'      
+    'Access-Control-Allow-Origin':'*'
     });
 
     return this.http.post( API_COMISSION, body, { headers }  )
       .pipe(
         map( (res:any)=>{
           console.log("SOY SERVER COMISSION: ");
-          console.log(res);          
+          console.log(res);
           localStorage.setItem('f_records', (res).records);
           return (res).comission;
-          //this.router.navigate(['/fees']);          
+          //this.router.navigate(['/fees']);
         })
+        //FILTRO DE COMISIONES
       );
   }
 
@@ -213,8 +217,8 @@ export class HeroesService {
   }
 
 
-  browseBatch( firstD:String, lastD:String, 
-                batchIdentifier:String, orderIdentifier:String, 
+  browseBatch( firstD:String, lastD:String,
+                batchIdentifier:String, orderIdentifier:String,
                 officce:string, paymentType:string, status:string
               ){
     let templateDate1:string = "" + firstD;
@@ -223,7 +227,7 @@ export class HeroesService {
     let templateOrder:string = "" + orderIdentifier;
     let varOfficce:string = "" + officce;
     let varPayment:string = "" + paymentType;
-    let varStatus:string = "" + status; 
+    let varStatus:string = "" + status;
 
     localStorage.setItem('b_lotId', templateBatch);
     localStorage.setItem('b_startDate', templateDate1);
@@ -248,9 +252,9 @@ export class HeroesService {
     let headers = new HttpHeaders({
       'Accept':'application/json',
       'Content-Type':'application/json',
-      'Access-Control-Allow-Origin':'*'      
+      'Access-Control-Allow-Origin':'*'
     });
-    
+
     console.log('SOY SERVER bATCH: ');
     console.log(body);
 
@@ -267,6 +271,7 @@ export class HeroesService {
           return (res).lotResults;
         })
       );
+      //PARA FILTRAR LOTES
     }
 
   getBrowseBatch(){
@@ -274,9 +279,9 @@ export class HeroesService {
   }
 
 
-  public browseBatchAsync( firstD:String, lastD:String, 
+  public browseBatchAsync( firstD:String, lastD:String,
                           batchIdentifier:String,
-                          orderIdentifier:String, 
+                          orderIdentifier:String,
                           officce:string,
                           paymentType:string,
                           status:string
@@ -287,7 +292,7 @@ export class HeroesService {
     let templateOrder:string = "" + orderIdentifier;
     let varOfficce:string = "" + officce;
     let varPayment:string = "" + paymentType;
-    let varStatus:string = "" + status; 
+    let varStatus:string = "" + status;
 
     let body = {
       lotId:templateBatch,
@@ -304,7 +309,7 @@ export class HeroesService {
     let headers = new HttpHeaders({
       'Accept':'application/json',
       'Content-Type':'application/json',
-      'Access-Control-Allow-Origin':'*'      
+      'Access-Control-Allow-Origin':'*'
     });
 
     return this.http.post( API_BROWSE_BATCH, body, { headers }  )
@@ -327,21 +332,22 @@ export class HeroesService {
   }
 
 
-  
-  
+
+
   public nuevoLote( objLote ){
     let body = JSON.stringify( objLote );
     let headers = new HttpHeaders({
       'Accept':'application/json',
       'Content-Type':'application/json',
-      'Access-Control-Allow-Origin':'*'      
+      'Access-Control-Allow-Origin':'*'
     });
-    
+
     return this.http.post( API_BATCH, body, { headers }  )
       .pipe(
         map( (res:any)=>{
           return res;
         })
+        //REALIZA PROCESO DE GENERACION DE LOTES
       );
   }
 
@@ -352,9 +358,9 @@ export class HeroesService {
     let headers = new HttpHeaders({
       'Accept':'application/json',
       'Content-Type':'application/json',
-      'Access-Control-Allow-Origin':'*'      
+      'Access-Control-Allow-Origin':'*'
     });
-    
+
     console.log('NUEVO REGULAR: ');
     console.log(objRegular);
     return this.http.post( API_REGULAR, body, { headers }  )
@@ -367,12 +373,13 @@ export class HeroesService {
           return res;
           //console.log(res);
         })
+      //  HACE EL PROCESO DE REGULARAXION
       );
   }
 
 
   chargeOffices(canal){
-    let varCanal:string = "" + canal; 
+    let varCanal:string = "" + canal;
     let body = {
       channelId:varCanal
     };
@@ -380,22 +387,23 @@ export class HeroesService {
     let headers = new HttpHeaders({
        'Accept':'application/json',
        'Content-Type':'application/json',
-       'Access-Control-Allow-Origin':'*'      
-    });    
- 
+       'Access-Control-Allow-Origin':'*'
+    });
+
     return this.http.post( API_LOFFICES, body, { headers }  )
       .pipe(
         map( (res:any)=>{
           console.log(res);
-          return res.officeResults;          
+          return res.officeResults;
         })
+        //OBTIENE LOS REGISTRO DE OFICINAS
       );
 
   }
 
 
   chargeReasons(reason){
-    let varReason:string = "" + reason; 
+    let varReason:string = "" + reason;
     let body = {
       reason:varReason
     };
@@ -403,22 +411,23 @@ export class HeroesService {
     let headers = new HttpHeaders({
        'Accept':'application/json',
        'Content-Type':'application/json',
-       'Access-Control-Allow-Origin':'*'      
-    });    
- 
+       'Access-Control-Allow-Origin':'*'
+    });
+
     return this.http.post( API_LREASONS, body, { headers }  )
       .pipe(
         map( (res:any)=>{
           //console.log(res.json());
-          return res;          
+          return res;
         })
+        //SIRVE PARA ON=BTEBNER LOS REGSITROS DE MOTIVO DE LOTES DE VENTAS
       );
 
   }
 
 
   chargeSellers(){
-    let varSeller:string = ""; 
+    let varSeller:string = "";
     let body = {
       sellerId:varSeller
     };
@@ -426,20 +435,21 @@ export class HeroesService {
     let headers = new HttpHeaders({
        'Accept':'application/json',
        'Content-Type':'application/json',
-       'Access-Control-Allow-Origin':'*'      
-    });    
- 
+       'Access-Control-Allow-Origin':'*'
+    });
+
     return this.http.post( API_LSELLERS, body, { headers }  )
       .pipe(
         map( (res:any)=>{
           console.log(res);
-          return res.sellerResults;          
+          return res.sellerResults;
         })
+        //LO MIMSO DE LA NATERIOR CARGA DE VEDENORES
       );
   }
 
   chargePayments(){
-    let varPayment:string = ""; 
+    let varPayment:string = "";
     let body = {
       paymentId:varPayment
     };
@@ -447,21 +457,22 @@ export class HeroesService {
     let headers = new HttpHeaders({
        'Accept':'application/json',
        'Content-Type':'application/json',
-       'Access-Control-Allow-Origin':'*'      
-    });    
- 
+       'Access-Control-Allow-Origin':'*'
+    });
+
     return this.http.post( API_LPAYMENTS, body, { headers }  )
       .pipe(
         map( (res:any)=>{
           console.log(res);
-          return res.paymentResult;          
+          return res.paymentResult;
         })
+        //SIRVE APRA OBTENER LOS REGSITRO DE TIPOS DE PAGOS
       );
   }
 
 
   chargeChannels(){
-    let varChannel:string = ""; 
+    let varChannel:string = "";
     let body = {
       channelId:varChannel
     };
@@ -469,21 +480,22 @@ export class HeroesService {
     let headers = new HttpHeaders({
        'Accept':'application/json',
        'Content-Type':'application/json',
-       'Access-Control-Allow-Origin':'*'      
-    });    
- 
+       'Access-Control-Allow-Origin':'*'
+    });
+
     return this.http.post( API_LCHANNELS, body, { headers }  )
       .pipe(
         map( (res:any)=>{
           console.log(res);
-          return res.channelResults;          
+          return res.channelResults;
         })
+        //CARGA LOS CANALES
       );
   }
 
 
   chargePenalties(){
-    let varPenalty:string = ""; 
+    let varPenalty:string = "";
     let body = {
       penaltyId:varPenalty
     };
@@ -491,15 +503,16 @@ export class HeroesService {
     let headers = new HttpHeaders({
        'Accept':'application/json',
        'Content-Type':'application/json',
-       'Access-Control-Allow-Origin':'*'      
-    });    
- 
+       'Access-Control-Allow-Origin':'*'
+    });
+
     return this.http.post( API_LPENALTIES, body, { headers }  )
       .pipe(
         map( (res:any)=>{
           console.log(res);
-          return res.penaltiesResults;          
+          return res.penaltiesResults;
         })
+        //CARGA LOS DATOS DE LAS PENALIDADES
       );
   }
 
@@ -512,21 +525,22 @@ export class HeroesService {
       let headers = new HttpHeaders({
         'Accept':'application/json',
         'Content-Type':'application/json',
-        'Access-Control-Allow-Origin':'*'      
-      });  
+        'Access-Control-Allow-Origin':'*'
+      });
 
-      return this.http.post( API_DASHBOARD, body, { headers }  )     
+      return this.http.post( API_DASHBOARD, body, { headers }  )
       .pipe(
         map((res:any) => {
           return res.saleResumeResult;
           //console.log('soy dashboard SERVIDOR: ');
-          
+
         /*  this.flagVentas = 2;
           localStorage.setItem('s_records', (res).records);
           this.heroeServ = (res).salesResult;
           return (res).salesResult; */
-          //this.router.navigate(['/sales']);             
+          //this.router.navigate(['/sales']);
         })
+        //PERMITE HISTORIAL DE DE LAS ORDENES
       );
   }
 
@@ -541,19 +555,20 @@ export class HeroesService {
     let headers = new HttpHeaders({
       'Accept':'application/json',
       'Content-Type':'application/json',
-      'Access-Control-Allow-Origin':'*'      
-    });  
+      'Access-Control-Allow-Origin':'*'
+    });
 
-    return this.http.post( API_PROFILES, body, { headers }  )     
+    return this.http.post( API_PROFILES, body, { headers }  )
     .pipe(
       map((res:any) => {
         console.log('SOY HEROES-serv-PROFILE: ');
-        console.log(res);             
+        console.log(res);
       })
     )
     .subscribe( data=>{
 
     });
+    //CARAGA TODOS LOS PERFILES DE USUARIOS
   }
 
 
@@ -564,7 +579,7 @@ export class HeroesService {
     return this.http.get(API_GET_USUARIOS)
     .pipe(
       map((res:any) => {
-        return res;             
+        return res;
       })
     );
   }
@@ -591,17 +606,23 @@ export class HeroesService {
     let headers = new HttpHeaders({
       'Accept':'application/json',
       'Content-Type':'application/json',
-      'Access-Control-Allow-Origin':'*'      
+      'Access-Control-Allow-Origin':'*'
     });
 
     return this.http.post(API_UPDATE_USUARIOSDATA, body, { headers })
     .pipe(
       map((res:any) => {
-        return res;             
+        return res;
       })
     );
 
   }
-
+  showAlert(message){
+  if(window.confirm(message)){
+  this.router.navigate(['/crmodulo']);
+  } else{
+  this.router.navigate(['/crmodulo']);
+   }
+  }
 
 }
