@@ -7,7 +7,7 @@ import { UpdatedatospComponent } from '../update/updatedatosp/updatedatosp.compo
 import {Usuario} from "../../interface/usuario";
 import { Globals } from '../../app.globals';
 import { Router } from '@angular/router';
-import * as bcrypt from 'bcrypt';
+//import * as bcrypt from 'bcrypt';
 
 @Component({
   selector: 'app-usersdata',
@@ -34,7 +34,7 @@ export class UsersdataComponent implements OnInit {
               private dialog:MatDialog,
               private disableRt:Globals,
               private router: Router,
-              private _formBuilder: FormBuilder) { 
+              private _formBuilder: FormBuilder) {
     if(localStorage.getItem('disableRoot') == 'true')
       this.disableRt.disableRoot = true;
 
@@ -65,6 +65,7 @@ export class UsersdataComponent implements OnInit {
       this.dateee=data;
     },
     err=>console.log(err));
+
   }
 
   chooseUserProfile(usersList:any[]){
@@ -80,13 +81,13 @@ export class UsersdataComponent implements OnInit {
       email:''
     };
     this.profileData = userEmpty;
-  
+
     for(p=0; p<lenUsersL; p++){
       if(this.userName == usersList[p].username){
         this.profileData = usersList[p];
         localStorage.setItem('passWord',usersList[p].password);
       }
-        
+
     }
     console.log('SOY-CHOOSE-USER-PROFILE: ');
     console.log(this.profileData);
@@ -110,9 +111,8 @@ export class UsersdataComponent implements OnInit {
       });
       //this.listaidus();
     });
-
   }
-  
+
   mostrarConsola(){
     console.log("SOY-NOSTRAR-CONSOLA1: ");
     console.log(this.firstFormGroup.value.firstCtrl);
@@ -142,7 +142,7 @@ export class UsersdataComponent implements OnInit {
       this.inputEnabledT = false;
 
     }
-      
+
 
   /*  bcrypt.compare('somePassword', this.firstFormGroup.value.firstCtrl, function(err, res) {
       if(res) {
@@ -151,11 +151,10 @@ export class UsersdataComponent implements OnInit {
       } else {
        // Passwords don't match
        console.log('PASSWORD-DONT-MATCH!');
-      } 
+      }
     }); */
 
 
   }
-
 
 }

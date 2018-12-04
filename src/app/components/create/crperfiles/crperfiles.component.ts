@@ -32,10 +32,21 @@ Nuevoper(formanvper:NgForm){
       this.dialogRef.close();
 },
 (err:HttpErrorResponse) => {
-  if(err.status == 0)
-    this.showAlert('ERROR DE CONEXION!');
-}
-);
+  if(err.status == 0){
+  this.showAlert('ERROR DE CONEXION!');
+  }
+  if(err.status == 500){
+  this.showAlert('ERROR DEL SERVIDOR!');
+  }
+  if(err.status == 400){
+  this.showAlert('ERROR DE ACTUALIZAR LA PAGINA INTENTE DE NUEVO POR FAVOR!');
+  }
+  if(err.status == 401){
+  this.showAlert('ERROR DE CONTENIDO!');
+  }
+
+  }
+  );
 }
 showAlert(message){
   if(window.confirm(message)){

@@ -80,6 +80,13 @@ export class AuthService {
             this.showAlert('NO SE ENCUENTRA LA PÁGINA!');
           if(err.status == 401)
             this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');            
+        if(err.status == 401){
+          this.showAlert('CREDENCIALES INCORRECTAS!');
+        }
+
+        if(err.status == 0){
+          this.showAlert('SIN INTERNET!');
+        }
      });
   }
 

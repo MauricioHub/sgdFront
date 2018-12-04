@@ -14,10 +14,6 @@ import { FeeComponent } from "./components/fees/fee.component";
 import { ProfilesComponent } from "./components/profiles/profiles.component";
 import { UsersdataComponent } from "./components/usersdata/usersdata.component";
 import { PanelComponent } from "./components/panel/panel.component";
-import { ControladorComponent } from "./components/controlador/controlador.component";
-import { ArchivosComponent } from "./components/archivos/archivos.component";
-import { DigitalizacionComponent } from "./components/digitalizacion/digitalizacion.component";
-
 import { ItemDetails } from './components/item-details/item-details';
 import { OrderComponent } from './components/order/order';
 import { StatComponent } from './components/stat/stat.component';
@@ -36,6 +32,10 @@ import { RdopcionesComponent } from './components/read/rdopciones/rdopciones.com
 import { RdperfilesComponent } from './components/read/rdperfiles/rdperfiles.component';
 import { RdusuariosComponent } from './components/read/rdusuarios/rdusuarios.component';
 import { RdusersopcComponent } from './components/read/rdusersopc/rdusersopc.component';
+import { RdtrazabilidadComponent } from './components/read/rdtrazabilidad/rdtrazabilidad.component';
+import { RdarchivosComponent } from './components/read/rdarchivos/rdarchivos.component';
+import { RddigitalComponent } from './components/read/rddigital/rddigital.component';
+
 
 
 
@@ -70,17 +70,17 @@ const APP_ROUTES: Routes = [
   { path: 'datatable', component: DataTableComponent },
   { path: 'profiles', component: ProfilesComponent },
   { path: 'usersdata', component: UsersdataComponent },
-  { path: 'digital', component: DigitalizacionComponent,	canActivate: [RoleguardService],data:{
+  { path: 'digital', component: RddigitalComponent,	canActivate: [RoleguardService],data:{
     rol:'42',
     dig:'162',
    }
    },
-   { path: 'file', component: ArchivosComponent,	canActivate: [RoleguardService],data:{
+   { path: 'file', component: RdarchivosComponent,	canActivate: [RoleguardService],data:{
      rol:'42',
      archi:'163',
     }
     },
-  { path: 'trazabilidad', component: ControladorComponent,	canActivate: [RoleguardService],data:{
+  { path: 'trazabilidad', component: RdtrazabilidadComponent,	canActivate: [RoleguardService],data:{
     rol:'42',
     jefecac:'89',
     cac:'81',
