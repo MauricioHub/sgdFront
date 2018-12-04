@@ -42,9 +42,9 @@ import {
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
-  
+
   } from '@angular/material';
-  
+
 
 
 //external modules
@@ -108,15 +108,15 @@ import { UpusuariosopcionesComponent } from './components/update/upusuariosopcio
 import { EstadousuarioComponent } from './components/update/estadousuario/estadousuario.component';
 import { UpdatedatosComponent } from './components/update/updatedatos/updatedatos.component';
 import { UpdaterolComponent } from './components/update/updaterol/updaterol.component';
-import { ControladorComponent } from './components/controlador/controlador.component';
-import { DigitalizacionComponent } from './components/digitalizacion/digitalizacion.component';
-import { ArchivosComponent } from './components/archivos/archivos.component';
 import { UpdatedatospComponent } from './components/update/updatedatosp/updatedatosp.component';
+import { RdtrazabilidadComponent } from './components/read/rdtrazabilidad/rdtrazabilidad.component';
+import { RddigitalComponent } from './components/read/rddigital/rddigital.component';
+import { RdarchivosComponent } from './components/read/rdarchivos/rdarchivos.component';
 //import { BrowseComponentd } from './components/home/browse.component';
 
 @NgModule({
   declarations: [
-    AppComponent,    
+    AppComponent,
     HeaderComponent,
     FooterComponent,
     HomeComponent,
@@ -153,11 +153,11 @@ import { UpdatedatospComponent } from './components/update/updatedatosp/updateda
     EstadousuarioComponent,
     UpdatedatosComponent,
     UpdaterolComponent,
-    ControladorComponent,
-    DigitalizacionComponent,
-    ArchivosComponent,
-    UpdatedatospComponent
-    
+    UpdatedatospComponent,
+    RdtrazabilidadComponent,
+    RddigitalComponent,
+    RdarchivosComponent
+
   ],
   imports: [
     BrowserModule,
@@ -208,7 +208,7 @@ import { UpdatedatospComponent } from './components/update/updatedatosp/updateda
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatTreeModule,    
+    MatTreeModule,
   ],
   providers: [
     HeroesService,
