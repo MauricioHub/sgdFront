@@ -210,11 +210,14 @@
                     </p-column>       
             <p-column header="Solicitud" field="orderId" 
                       [sortable]="true" [style]="{width:'20px'}">
+                <ng-template let-roworder="rowData" pTemplate type="body">
+                    {{ roworder.id.orderId }}
+                </ng-template>      
                     </p-column>
-            <p-column header="No. Lote" field="lotId" 
+            <p-column header="No. Lote" field="id" 
                       [sortable]="true" [style]="{width:'35px'}">
                 <ng-template let-rowlote="rowData" pTemplate type="body">
-                    {{ brokeBatchesCode(rowlote.lotId) }}
+                    {{ brokeBatchesCode(rowlote.id.lotId) }}
                 </ng-template>      
                     </p-column>
             <p-column header="Oficina" field="officce" [sortable]="true" 
@@ -306,7 +309,8 @@
   
     <div *ngIf="enableLotCreation" class="row">
         <div class="col-md-12 text-right">
-          <button (click)="openModal()"
+        <!--  <button (click)="openModal()" -->
+          <button (click)="openModal()"    
                   class="btn btn-outline-danger"
                   type="button" name="button">
             Regularizar

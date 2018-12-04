@@ -3,9 +3,6 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Router } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { Profile } from ".././interfaces/profile.interface";
-//import { tokenNotExpired } from 'angular2-jwt';
-//import { Observable } from 'rxjs/Observable';
-//import * as auth0 from 'auth0-js';
 import { environment } from '../../environments/environment';
 import { environmentP } from '../../environments/environment.prod';
 import { Globals } from '../app.globals';
@@ -24,15 +21,11 @@ declare var Auth0Lock: any;
 
 @Injectable()
 export class AuthService {
-
-  heroeURL:string = "http://localhost:8082/v1/pass";
-  apiLogin:string = 'http://10.225.13.18:9951/login/authenticate';
   disableRoot:boolean = true;
   sessionRoot:any;
   username:String = '';
   profileUserOption: Profile[] = [];
   objIdRol=[];
-
   userOptionResult:any[] = [];
   optionResult:any[] = [];
   public userProfile:any;
@@ -66,27 +59,34 @@ export class AuthService {
       return this.http.post( API_LOGIN, body, { headers }  )
       .pipe(
         map((res:any) => {
-          this.sessionRoot = res;
-          this.objIdRol = res.rolID;
-          localStorage.setItem('rolID', '' + this.objIdRol);
-          this.getUserOption(this.sessionRoot.userID);
-        } /*, (err:HttpErrorResponse) => {
-          }*/
+          try{
+            this.sessionRoot = res;
+            this.objIdRol = res.rolID;
+            localStorage.setItem('rolID', '' + this.objIdRol);
+            this.getUserOption(this.sessionRoot.userID);
+          } catch(error){
+            console.log(error);
+          }
+        }
       ))
       .subscribe((res:any) => {
-
       }, (err:HttpErrorResponse) => {
-        if(err.status == 401)
-          this.showAlert('CREDENCIALES INCORRECTAS!');
+          console.log('Intento de autenticación.');
+          if(err.status == 0)
+            this.showAlert('ERROR DE CONEXION!');
+          if(err.status == 500)
+            this.showAlert('ERROR DEL SERVIDOR!');
+          if(err.status == 400)
+            this.showAlert('NO SE ENCUENTRA LA PÁGINA!');
+          if(err.status == 401)
+            this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');            
      });
   }
 
   public handleAuthentication(authResult, flag:boolean): void {
-   // this.auth0.parseHash((err, authResult) => {
       if (authResult.code == 200) {
         window.location.hash = '';
       } else {
-      //  this.router.navigate(['/login']);
           this.showAlert('CREDENCIALES INCORRECTAS!');
           console.log('CREDENCIALES INCORRECTAS!');
       }
@@ -94,19 +94,22 @@ export class AuthService {
 
 
   private setSession(): void {
-    var authResult = this.sessionRoot;
-    const expiresAt = new Date(authResult.fechaExpiracion).getTime();
-    localStorage.setItem('access_token', authResult.token);
-    localStorage.setItem('expires_at', '' + expiresAt);
-    localStorage.setItem('logged_username', '' + this.username);
-    localStorage.setItem('objIdRol', '' + this.objIdRol);
-    console.log(this.objIdRol)
-    localStorage.setItem('disableRoot', 'true');
-    localStorage.setItem('objIdRol', '' + this.objIdRol);
+    try{
+      var authResult = this.sessionRoot;
+      const expiresAt = new Date(authResult.fechaExpiracion).getTime();
+      localStorage.setItem('access_token', authResult.token);
+      localStorage.setItem('expires_at', '' + expiresAt);
+      localStorage.setItem('logged_username', '' + this.username);
+      localStorage.setItem('objIdRol', '' + this.objIdRol);
+      localStorage.setItem('disableRoot', 'true');
+      localStorage.setItem('objIdRol', '' + this.objIdRol);
+      this.disableRt.disableRoot = true;
+      this.disableRt.refreshSession = true;
+      this.router.navigate(['/home']);
 
-    this.disableRt.disableRoot = true;
-    this.disableRt.refreshSession = true;
-    this.router.navigate(['/home']);
+    } catch(error){
+      console.log(error);
+    }
   }
 
 
@@ -123,16 +126,27 @@ export class AuthService {
       return this.http.post( API_USEROPTION, body, { headers }  )
       .pipe(
         map((res:any) => {
-          this.userOptionResult = res.userOptionResult;
-          this.getSalesOrderHistory();
+          try{
+            this.userOptionResult = res.userOptionResult;
+            this.getSalesOrderHistory();
+          } catch(error){
+            console.log(error);
+          }
         }
       ))
       .subscribe((res:any) => {
 
       }, (err:HttpErrorResponse) => {
+        console.log('Obtención de opciones de usuario.');
+        if(err.status == 0)
+          this.showAlert('ERROR DE CONEXION!');
+        if(err.status == 500)
+          this.showAlert('ERROR DEL SERVIDOR!');
+        if(err.status == 400)
+          this.showAlert('NO SE ENCUENTRA LA PÁGINA!');
         if(err.status == 401)
-          this.showAlert('CREDENCIALES INCORRECTAS!');
-    });
+          this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');            
+   });
 
   }
 
@@ -150,122 +164,134 @@ export class AuthService {
     this.profileUserOption[2] = profileLote;
     this.profileUserOption[3] = profilePerfil;
 
-    for(p=0;p<lenOResult;p++){
-      switch(userOptionResult[p].moduleId){
-        case '1':
-          if(userOptionResult[p].moduleStatus == 'A'){
-            profileVenta.setModulePr(true);
-            localStorage.setItem('1', 'A');
-            switch(userOptionResult[p].optionType){
-              case 'CONSULTA':
-                if(userOptionResult[p].optionStatus == 'A'){
-                  profileVenta.setConsultaPr(true);
-                }
-                break;
-              case 'CREACION':
-                if(userOptionResult[p].optionStatus == 'A'){
-                  profileVenta.setCreacionPr(true);
-                }
-                break;
-              case 'ACTUALIZACION':
-                if(userOptionResult[p].optionStatus == 'A'){
-                  profileVenta.setModificacionCompletaPr(true);
-                }
-                break;
-            }
-            this.profileUserOption[0] = profileVenta;
-          } else
-            localStorage.setItem('1', 'A');
-          break;
-        case '2':
-          if(userOptionResult[p].moduleStatus == 'A'){
-            profileComision.setModulePr(true);
-            switch(userOptionResult[p].optionType){
-              case 'CONSULTA':
-                if(userOptionResult[p].optionStatus == 'A'){
-                  profileComision.setConsultaPr(true);
-                }
-                break;
-              case 'CREACION':
-                if(userOptionResult[p].optionStatus == 'A'){
-                  profileComision.setCreacionPr(true);
-                }
-                break;
-              case 'ACTUALIZACION':
-                if(userOptionResult[p].optionStatus == 'A'){
-                  profileComision.setModificacionCompletaPr(true);
-                }
-                break;
-            }
-            this.profileUserOption[1] = profileComision;
-          } else
-            localStorage.setItem('2', 'A');
-          break;
-        case '3':
-          if(userOptionResult[p].moduleStatus == 'A'){
-            profileLote.setModulePr(true);
-            switch(userOptionResult[p].optionType){
-              case 'CONSULTA':
-                if(userOptionResult[p].optionStatus == 'A'){
-                  profileLote.setConsultaPr(true);
-                }
-                break;
-              case 'CREACION':
-                if(userOptionResult[p].optionStatus == 'A'){
-                  profileLote.setCreacionPr(true);
-                }
-                break;
-              case 'ACTUALIZACION':
-                if(userOptionResult[p].optionStatus == 'A'){
-                  profileLote.setModificacionCompletaPr(true);
-                }
-                break;
-            }
-            this.profileUserOption[2] = profileLote;
-          } else
-            localStorage.setItem('3', 'A');
-          break;
-        case '281':
-          if(userOptionResult[p].moduleStatus == 'A'){
-            profilePerfil.setModulePr(true);
-            switch(userOptionResult[p].optionType){
-              case 'CONSULTA':
-                if(userOptionResult[p].optionStatus == 'A'){
-                  profilePerfil.setConsultaPr(true);
-                }
-                break;
-              case 'CREACION':
-                if(userOptionResult[p].optionStatus == 'A'){
-                  profilePerfil.setCreacionPr(true);
-                }
-                break;
-              case 'ACTUALIZACION':
-                if(userOptionResult[p].optionStatus == 'A'){
-                  profilePerfil.setModificacionCompletaPr(true);
-                }
-                break;
-            }
-            this.profileUserOption[3] = profilePerfil;
-          } else
-            localStorage.setItem('281', 'A');
-          break;
-      }
+    try{
+      for(p=0;p<lenOResult;p++){
+        switch(userOptionResult[p].moduleId){
 
+          case '1':
+            if(userOptionResult[p].moduleStatus == 'A'){
+              profileVenta.setModulePr(true);
+              localStorage.setItem('1', 'A');
+              switch(userOptionResult[p].optionType){
+                case 'CONSULTA':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    profileVenta.setConsultaPr(true);
+                  }
+                  break;
+                case 'CREACION':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    profileVenta.setCreacionPr(true);
+                  }
+                  break;
+                case 'ACTUALIZACION':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    profileVenta.setModificacionCompletaPr(true);
+                  }
+                  break;
+              }
+              this.profileUserOption[0] = profileVenta;
+            } else
+              localStorage.setItem('1', 'A');
+            break;
+
+          case '2':
+            if(userOptionResult[p].moduleStatus == 'A'){
+              profileComision.setModulePr(true);
+              switch(userOptionResult[p].optionType){
+                case 'CONSULTA':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    profileComision.setConsultaPr(true);
+                  }
+                  break;
+                case 'CREACION':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    profileComision.setCreacionPr(true);
+                  }
+                  break;
+                case 'ACTUALIZACION':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    profileComision.setModificacionCompletaPr(true);
+                  }
+                  break;
+              }
+              this.profileUserOption[1] = profileComision;
+            } else
+              localStorage.setItem('2', 'A');
+            break;
+
+          case '3':
+            if(userOptionResult[p].moduleStatus == 'A'){
+              profileLote.setModulePr(true);
+              switch(userOptionResult[p].optionType){
+                case 'CONSULTA':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    profileLote.setConsultaPr(true);
+                  }
+                  break;
+                case 'CREACION':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    profileLote.setCreacionPr(true);
+                  }
+                  break;
+                case 'ACTUALIZACION':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    profileLote.setModificacionCompletaPr(true);
+                  }
+                  break;
+              }
+              this.profileUserOption[2] = profileLote;
+            } else
+              localStorage.setItem('3', 'A');
+            break;
+
+          case '281':
+            if(userOptionResult[p].moduleStatus == 'A'){
+              profilePerfil.setModulePr(true);
+              switch(userOptionResult[p].optionType){
+                case 'CONSULTA':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    profilePerfil.setConsultaPr(true);
+                  }
+                  break;
+                case 'CREACION':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    profilePerfil.setCreacionPr(true);
+                  }
+                  break;
+                case 'ACTUALIZACION':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    profilePerfil.setModificacionCompletaPr(true);
+                  }
+                  break;
+              }
+              this.profileUserOption[3] = profilePerfil;
+            } else
+              localStorage.setItem('281', 'A');
+            break;
+        }
+      }
+      this.disableRt.profileRoot = this.profileUserOption;
+      localStorage.setItem('sales_module', JSON.stringify(this.disableRt.profileRoot[0]));
+      localStorage.setItem('fees_module', JSON.stringify(this.disableRt.profileRoot[1]));
+      localStorage.setItem('batches_module', JSON.stringify(this.disableRt.profileRoot[2]));
+      localStorage.setItem('profiles_module', JSON.stringify(this.disableRt.profileRoot[3]));
+      this.setSession();
+
+    } catch(error){
+      console.log(error);
     }
-    this.disableRt.profileRoot = this.profileUserOption;
-    localStorage.setItem('sales_module', JSON.stringify(this.disableRt.profileRoot[0]));
-    localStorage.setItem('fees_module', JSON.stringify(this.disableRt.profileRoot[1]));
-    localStorage.setItem('batches_module', JSON.stringify(this.disableRt.profileRoot[2]));
-    localStorage.setItem('profiles_module', JSON.stringify(this.disableRt.profileRoot[3]));
-    this.setSession();
   }
 
 
   public logout(): void {
-    localStorage.clear();
-    this.disableRt.disableRoot = false;
-    this.disableRt.refreshSession = false;
-    this.router.navigate(['/login']);
+    try{
+      localStorage.clear();
+      this.disableRt.disableRoot = false;
+      this.disableRt.refreshSession = false;
+      this.router.navigate(['/login']);
+    } catch(error){
+      console.log(error);
+    }
   }
 
 
@@ -321,52 +347,64 @@ export class AuthService {
     return this.http.post( API_DASHBOARD, body, { headers }  )
     .pipe(
       map((res:any) => {
-        salesOrderHistory = this.setValueOrdersDashboard(res.saleResumeResult);
-        //console.log(salesOrderHistory);
-        localStorage.setItem('pieData', JSON.stringify(salesOrderHistory[0]));
-        this.setProfileUserOption(this.userOptionResult);
-        return res.saleResumeResult;
+        try{
+          salesOrderHistory = this.setValueOrdersDashboard(res.saleResumeResult);
+          localStorage.setItem('pieData', JSON.stringify(salesOrderHistory[0]));
+          this.setProfileUserOption(this.userOptionResult);
+          return res.saleResumeResult;
+        } catch(error){
+          console.log(error);
+        }
       })
     )
     .toPromise().then((data:any) => {
+    }, (err:HttpErrorResponse) => {
+      console.log('Obtención de historial de Órdenes.');
+      if(err.status == 0)
+        this.showAlert('ERROR DE CONEXION!');
+      if(err.status == 500)
+        this.showAlert('ERROR DEL SERVIDOR!');
+      if(err.status == 400)
+        this.showAlert('NO SE ENCUENTRA LA PÁGINA!');
+      if(err.status == 401)
+        this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');            
     });
   }
 
 
   setValueOrdersDashboard(statusOrder){
     var i;
-    var lenStatusOrder = statusOrder.length;
+    var lenStatusOrder = 0;
     var historyList = [];
     var pieData = [];
 
-    for(i=0; i<lenStatusOrder; i++){
-      switch(statusOrder[i].status){
-        case 'PENDIENTE':
-          historyList[2] = statusOrder[i].orders;
-          break;
-        case 'REGULARIZADO':
-          historyList[0] = statusOrder[i].orders;
-          break;
-        case 'RECHAZADO':
-          historyList[1] = statusOrder[i].orders;
-          break;
-      }
-    }
-    var dataCard = {
-      "data": []
-    }
-
-    if(historyList.length == 0)
-      dataCard = {
-        "data": [0,0,0]
-      }
-    else
-      dataCard = {
-        "data": historyList
+    try{
+      lenStatusOrder = statusOrder.length;
+      for(i=0; i<lenStatusOrder; i++){
+        switch(statusOrder[i].status){
+          case 'PENDIENTE':
+            historyList[2] = statusOrder[i].orders;
+            break;
+          case 'REGULARIZADO':
+            historyList[0] = statusOrder[i].orders;
+            break;
+          case 'RECHAZADO':
+            historyList[1] = statusOrder[i].orders;
+            break;
+        }
       }
 
-    pieData = [dataCard];
-    return pieData;
+      var dataCard = {"data": []}
+      if(historyList.length == 0)
+        dataCard = {"data": [0,0,0]}
+      else
+        dataCard = {"data": historyList}
+      pieData = [dataCard];
+      return pieData;
+
+    } catch(error){
+      console.log(error);
+    }
   }
 
 }

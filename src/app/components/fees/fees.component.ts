@@ -29,7 +29,7 @@ export class FeesComponent implements OnInit {
   cardFlag: boolean = false;
   loggedUsername: string = "";
   enableFeeConsult:boolean = false;
-  v_records = '';
+  f_records = '0';
   startDate:any = {day:'', month:'', year:''}; 
   endDate:any = {day:'', month:'', year:''};
   startDateStr = '';
@@ -79,9 +79,9 @@ export class FeesComponent implements OnInit {
         this.formatDateReport();
         this.loading = false;
         this.loggedUsername = localStorage.getItem('logged_username');
-        this.v_records = localStorage.getItem('vE_records');
+        //this.v_records = localStorage.getItem('vE_records');
         if(this.fees.length == 0)
-          this.v_records = '0';
+          this.f_records = '0';
 
         this.cardFlag = false;
 
@@ -212,9 +212,9 @@ export class FeesComponent implements OnInit {
     .toPromise().then(data => {                                  
         if(data){
           this.fees = data;
-          this.v_records = localStorage.getItem('f_records');
+          this.f_records = localStorage.getItem('f_records');
           if(this.fees.length == 0)
-            this.v_records = '0';
+            this.f_records = '0';
         }
     }); 
   }
@@ -332,31 +332,58 @@ export class FeesComponent implements OnInit {
     let lenFees = this.fees.length;
     let p;
 
-    for(p=0; p<lenFees; p++){
-      let objFeesNew = {
-        'Signature ??':this.fees[p].claroSignature === ''? '': (this.fees[p].claroSignature === 'S'? 'SI': 'NO'),
-        '1era. Vez ??':this.fees[p].signatureFirstTime === ''? '': (this.fees[p].signatureFirstTime === 'S'? 'SI': 'NO'),
-        'Código Vendedor':this.fees[p].sellerId,
-        'Nombre Vendedor':this.fees[p].sellerName,
-        'Localidad':this.fees[p].locationId,
-        'Número Orden':this.fees[p].idOrder,
-        'Nombre Cliente':this.fees[p].customerName,
-        'Identificación Cliente':this.fees[p].customerId,
-        'Tipo Plan':this.fees[p].plan,
-        'Número Cuenta':this.fees[p].account,
-        'Fecha Ingreso':this.formatDate(this.fees[p].registerDate),
-        'Fecha Regularización':this.formatDate(this.fees[p].regularizationDate),
-        'Usuario Regularización':this.fees[p].regularizationUser,
-        'Equipo':this.fees[p].device,
-        'Cantidad Teléfonos':this.fees[p].quantity,
-        'Fecha Activación':this.formatDate(this.fees[p].activationDate),
-        'Fecha Inconsistencia':this.formatDate(this.fees[p].inconsistencyDate),
-        'Usuario Inconsistencia':this.fees[p].inconsistencyUser,
-        'Inconsistencia':this.fees[p].penalty,
-        'Penalización':this.fees[p].penaltyValue,
-        'Multa Aplicada':this.fees[p].comissionValue
-      };
-      fees.push(objFeesNew);
+    if(lenFees > 0){
+      for(p=0; p<lenFees; p++){
+        let objFeesNew = {
+          'Signature ??':this.fees[p].claroSignature === ''? '': (this.fees[p].claroSignature === 'S'? 'SI': 'NO'),
+          '1era. Vez ??':this.fees[p].signatureFirstTime === ''? '': (this.fees[p].signatureFirstTime === 'S'? 'SI': 'NO'),
+          'Código Vendedor':this.fees[p].sellerId,
+          'Nombre Vendedor':this.fees[p].sellerName,
+          'Localidad':this.fees[p].locationId,
+          'Número Orden':this.fees[p].idOrder,
+          'Nombre Cliente':this.fees[p].customerName,
+          'Identificación Cliente':this.fees[p].customerId,
+          'Tipo Plan':this.fees[p].plan,
+          'Número Cuenta':this.fees[p].account,
+          'Fecha Ingreso':this.formatDate(this.fees[p].registerDate),
+          'Fecha Regularización':this.formatDate(this.fees[p].regularizationDate),
+          'Usuario Regularización':this.fees[p].regularizationUser,
+          'Equipo':this.fees[p].device,
+          'Cantidad Teléfonos':this.fees[p].quantity,
+          'Fecha Activación':this.formatDate(this.fees[p].activationDate),
+          'Fecha Inconsistencia':this.formatDate(this.fees[p].inconsistencyDate),
+          'Usuario Inconsistencia':this.fees[p].inconsistencyUser,
+          'Inconsistencia':this.fees[p].penalty,
+          'Penalización':this.fees[p].penaltyValue,
+          'Multa Aplicada':this.fees[p].comissionValue
+        };
+        fees.push(objFeesNew);
+      }
+    } else {
+        let objFeesNew = {
+          'Signature ??':'',
+          '1era. Vez ??':'',
+          'Código Vendedor':'',
+          'Nombre Vendedor':'',
+          'Localidad':'',
+          'Número Orden':'',
+          'Nombre Cliente':'',
+          'Identificación Cliente':'',
+          'Tipo Plan':'',
+          'Número Cuenta':'',
+          'Fecha Ingreso':'',
+          'Fecha Regularización':'',
+          'Usuario Regularización':'',
+          'Equipo':'',
+          'Cantidad Teléfonos':'',
+          'Fecha Activación':'',
+          'Fecha Inconsistencia':'',
+          'Usuario Inconsistencia':'',
+          'Inconsistencia':'',
+          'Penalización':'',
+          'Multa Aplicada':''
+        };
+        fees.push(objFeesNew);
     }
     return fees;
   }
@@ -391,11 +418,10 @@ export class FeesComponent implements OnInit {
         .toPromise().then(data => {                                  
           if(data){
             this.fees = data;
-            this.v_records = localStorage.getItem('f_records');
+            this.f_records = localStorage.getItem('f_records');
             if(this.fees.length == 0)
-              this.v_records = '0';
+              this.f_records = '0';
           }
-        //console.log('SOY RESPONSE COMPONENT');
         });
   }
 
@@ -405,7 +431,6 @@ export class FeesComponent implements OnInit {
     var lenDataSource = dataListSource.length;
     var p;
 
-    // {penaltyId: "", description: "todos"}
     for(p=0; p<=lenDataSource; p++){
       if(code == 1){
         if(p == 0)
