@@ -35,6 +35,8 @@ import { RdusersopcComponent } from './components/read/rdusersopc/rdusersopc.com
 import { RdtrazabilidadComponent } from './components/read/rdtrazabilidad/rdtrazabilidad.component';
 import { RdarchivosComponent } from './components/read/rdarchivos/rdarchivos.component';
 import { RddigitalComponent } from './components/read/rddigital/rddigital.component';
+import { UserrolComponent } from './components/read/userrol/userrol.component';
+import { RolmoduleComponent } from './components/read/rolmodule/rolmodule.component';
 
 
 
@@ -116,6 +118,15 @@ const APP_ROUTES: Routes = [
       comi:'102'
      }
       },
+      //////////////////////////////////////////
+      /////////////////////////////////////////
+      ////////RUTAS DEL PANEL DE CONTROL//////
+      ///////////////////////////////////////
+      //////////////////////////////////////
+
+      /////////////////////////////////////
+      ///////TABLAS///////////////////////
+      ///////////////////////////////////
       { path: 'rdmodulos', component: RdmodulosComponent,	canActivate: [RoleguardService],data:{
         rol:'42',
        } },
@@ -131,8 +142,15 @@ const APP_ROUTES: Routes = [
       { path: 'rdusersopc', component: RdusersopcComponent,	canActivate: [RoleguardService],data:{
         rol:'42',
        } },
-
-      //created
+       { path: 'userrol', component: UserrolComponent,	canActivate: [RoleguardService],data:{
+         rol:'42',
+        } },
+        { path: 'roldomule', component: RolmoduleComponent,	canActivate: [RoleguardService],data:{
+          rol:'42',
+         } },
+       //////////////////////////////////
+      ///////NUEVOS INGRESOS////////////
+      /////////////////////////////////
       { path: 'crmodulo', component: CrmoduloComponent,	canActivate: [RoleguardService],data:{
         rol:'42',
        } },

@@ -73,9 +73,17 @@
               <i class="fa fa-address-book" aria-hidden="true"></i>
               Perfiles</a>
               <div class="dropdown-divider"></div>
+              <a *ngIf="enableProfilesModule" class="dropdown-item" routerLink="/roldomule" routerLinkActive="active">
+                <i class="fa fa-address-book" aria-hidden="true"></i>
+                Roles de Módulos</a>
+              <div class="dropdown-divider"></div>
               <a *ngIf="enableProfilesModule" class="dropdown-item" routerLink="/rdusuarios" routerLinkActive="active">
                 <i class="fa fa-address-card" aria-hidden="true"></i>
                 Usuarios</a>
+                <div class="dropdown-divider"></div>
+                <a *ngIf="enableProfilesModule" class="dropdown-item" routerLink="/userrol" routerLinkActive="active">
+                  <i class="fa fa-address-card" aria-hidden="true"></i>
+                  Roles de usuarios</a>
               <div class="dropdown-divider"></div>
               <a *ngIf="enableProfilesModule" class="dropdown-item" routerLink="/rdusersopc" routerLinkActive="active">
                 <i class="fa fa-align-justify" aria-hidden="true"></i>

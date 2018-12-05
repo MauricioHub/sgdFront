@@ -8,7 +8,10 @@ const API_GET_MODULE=environment.API_GET_MODULE;
 const API_GET_OPCIONES=environment.API_GET_OPCIONES;
 const API_GET_PERFILES=environment.API_GET_PERFILES;
 const API_GET_USUARIOS=environment.API_GET_USUARIOS;
-const API_GET_USEROPC=environment.API_GET_USEROPC
+const API_GET_USEROPC=environment.API_GET_USEROPC;
+const API_GET_FILETRACE=environment.API_GET_FILETRACE;
+const API_GET_USERROL=environment.API_GET_USERROL;
+
 
 
 @Injectable({
@@ -73,5 +76,30 @@ getUserOpc(userId:string)
     userId:userId
   }
   return this.http.post(API_GET_USEROPC,UserOptionInputsCheck);
+}
+
+///////////////////////////////////////////
+//SERVICIO DE CONSULTA DE TRAZABILIDAD DE DOCUMENTOS///////
+/////////////////////////////////////////
+getfiletrace(traceStartDate:string, traceEndDate:string, orderId:string, traceStatus:string, traceUserId:string)
+{
+  let bodyfile={
+traceStartDate:traceStartDate,
+traceEndDate:traceEndDate,
+orderId:orderId,
+traceStatus:traceStatus,
+traceUserId:traceUserId
+  }
+return this.http.post(API_GET_FILETRACE,bodyfile);
+}
+
+getuserrol(userId:string,userName:string,authorityId:string,authorityName:string,){
+  let usrol={
+    userId:userId,
+  userName:userName,
+    authorityId:authorityId,
+    authorityName:authorityName
+  }
+  return this.http.get(API_GET_USERROL);
 }
 }

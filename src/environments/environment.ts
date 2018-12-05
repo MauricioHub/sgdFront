@@ -58,10 +58,22 @@ API_CREATE_MODULE:'http://10.225.13.19:9960/ModuleCreation',
   API_GET_USEROPC:'http://10.225.13.19:9960/GetUserOption',
   API_UPDATE_USEROPC:'http://10.225.13.19:9960/UpdateUserOption',
 
+  //---------------------------------------------------------
 
+  //USUARIOS-ROLES
+  //---------------------------------------------------------
+API_GET_USERROL:'http://10.225.13.19:9960/GetUserProfile',
+
+//USUARIOS-ROLES
+//---------------------------------------------------------
+API_GET_ROLMODULE:'http://10.225.13.19:9960/GetProfileModule ',
 
 //AUTENTICACION
-API_LOGIN:'http://10.225.13.19:9961/auth/'
+API_LOGIN:'http://10.225.13.19:9961/auth/',
+
+
+//DIGITALIZACION TRABABILIDAD Y ARCHIVAMIENTO
+API_GET_FILETRACE:'http://10.225.13.19:9964/GetFileTrace',
 
 };
 

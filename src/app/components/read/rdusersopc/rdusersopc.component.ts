@@ -9,7 +9,8 @@ import {ResponseModule} from "../../../interface/response-module";
 import {MatTableModule} from '@angular/material';
 import {DataSource} from '@angular/cdk/collections';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {Observable} from 'rxjs';import { CrusersopcComponent } from '../../create/crusersopc/crusersopc.component';
+import {Observable} from 'rxjs';
+import { CrusersopcComponent } from '../../create/crusersopc/crusersopc.component';
 import { Globals } from '../../../app.globals';
 @Component({
   selector: 'app-rdusersopc',
