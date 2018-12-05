@@ -7,6 +7,7 @@ import { ExcelService } from "../../services/excel.service";
 import { Batch } from "../../interfaces/batch.interface";
 import {FormControl, FormGroup} from '@angular/forms';
 import { Globals } from '../../app.globals';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 declare var jsPDF: any;
 
@@ -49,6 +50,7 @@ export class BatchesComponent implements OnInit {
   
   selectedLote:any[] = [{id: "" , name: ""}];
   selectedReason:any[] = [{idReason: "", description: ""}];
+  selectedLoteCopy:any[] = [{id: "" , name: ""}];
 
   batchIdentifier:string = "";
   orderIdentifier:string = "";  
@@ -130,7 +132,7 @@ export class BatchesComponent implements OnInit {
     
     this.v_lotId = localStorage.getItem('v_lotId');
     this.v_lotDate = localStorage.getItem('v_lotDate');
-    this.v_records = localStorage.getItem('v_records');
+    //this.v_records = localStorage.getItem('v_records');
     this.chargeOffices("");
     this.chargePayments();
     
@@ -147,7 +149,6 @@ export class BatchesComponent implements OnInit {
     ngOnInit() {
         if(localStorage.getItem('disableRoot') == 'true')
             this.disableRt.disableRoot = true;
-        //this.batches = this._heroesService.getBrowseBatch();
         if(!this.flagRegularized)
             this.batches = [];
 
@@ -195,10 +196,12 @@ export class BatchesComponent implements OnInit {
                 this.loadBatchesText();
                 this.loadBatchesStatus();
                 this.enableFlagVariable(false);
+                this.loadBatchesStatusCopy();
                 if(this.flagUser)
                     this.enableFlagUser(true);
                 
-                this.v_records = localStorage.getItem('b_records');
+                this.v_records = localStorage.getItem('v_records');
+                //this.v_records = '0';
                 if(this.batches.length == 0)
                   this.v_records = '0';
             }
@@ -305,16 +308,13 @@ export class BatchesComponent implements OnInit {
                 this.loadBatchesText();
                 this.loadBatchesStatus();
                 this.enableFlagVariable(false);
+                this.loadBatchesStatusCopy();
                 if(this.flagUser)
                     this.enableFlagUser(true);                    
                 
-               // this.loadBatchesReason();
-                this.v_records = localStorage.getItem('b_records');
+                this.v_records = localStorage.getItem('v_records');
                 if(this.batches.length == 0)
                   this.v_records = '0';
-                //console.log('SIGNATURE: ');
-                //console.log(this.batches[0].claroSignature + ', FIRST TIME: ');
-                //console.log(this.batches[0].signatureFirstTime);
             }
           });
     }
@@ -340,17 +340,19 @@ export class BatchesComponent implements OnInit {
     onSelectionChange(lote, index: number){
     
         if(this.radioActAr[index]){
+            this.selectedLote[index] = this.loteEstado[1];
             let batchNew = new Batch(
-            '' + lote.orderId,
+            '' + lote.id.orderId,
             '' + this.selectedLote[index].name,
             '' + this.selectedReason[index].description,
             index,
             '' + this.batchObservation[index],
-            '' + lote.lotId
+            '' + lote.id.lotId
             );
             this.batchRegular.push(batchNew);
         } else{
             let indexReal = this.indexOfBatch(this.batchRegular,lote.orderId);
+            this.selectedLote[index] = this.selectedLoteCopy[index];
             if (indexReal !== -1)
                 this.batchRegular.splice(indexReal, 1);
             else
@@ -378,13 +380,12 @@ export class BatchesComponent implements OnInit {
             let q;
             if(lenOrigin >= 1){
                 let t;
-                //this.ngOnInit();
-                for(t=0; t<lenOrigin; t++)
+                for(t=0; t<lenOrigin; t++){
                     this.radioActAr[t] = false;
-                
+                    this.selectedLote[t] = this.selectedLoteCopy[t];
+                }
                 this.batchRegular.splice(0, lenArray);
-            }
-            console.log('ELSECHANGEALL-TAM: ' + this.batchRegular.length);      
+            }      
         }
     }  
 
@@ -413,7 +414,6 @@ export class BatchesComponent implements OnInit {
                 this.batchRegular[p].observation = this.batchObservation[indexReg];
             }
         }
-        //this.objRegular.lotId = this.v_lotId;
         this.objRegular.regularized_user = lotIdent;
         this.objRegular.regularizedDate = today;
         this.objRegular.updateLotDetail = this.batchRegular;
@@ -421,7 +421,6 @@ export class BatchesComponent implements OnInit {
         this._heroesService.nuevoRegular( this.objRegular )
         .subscribe( data=>{
            if(data.code == 201){
-                console.log('COMPON-201: ');
                 this.garbageCollectorBash();
                 this.flagRegularized = true;
                 this.browseBatchAsync();
@@ -576,10 +575,8 @@ export class BatchesComponent implements OnInit {
         let salesChannel = localStorage.getItem('b_salesChannel');
         let paymentType = localStorage.getItem('b_paymentType');
         let statusId = localStorage.getItem('b_statusId');
-
         this.v_lotId = localStorage.getItem('v_lotId');
         this.v_lotDate = localStorage.getItem('v_lotDate');
-        this.v_records = localStorage.getItem('v_records');
 
         this._heroesService
         .browseBatchAsync(startDate,
@@ -599,6 +596,7 @@ export class BatchesComponent implements OnInit {
             this.enableSelectReason(true);
             this.loadBatchesReason();
             this.enableFlagVariable(false);
+            this.v_records = localStorage.getItem('v_records');
             if(this.flagUser)
                 this.enableFlagUser(true);
         });
@@ -620,13 +618,14 @@ export class BatchesComponent implements OnInit {
 
     garbageCollectorBash(){
         let radioLen = this.radioActAr.length;
-        let bRegular = this.batchRegular.length;
+       // let bRegular = this.batchRegular.length;
         this.flagCheck = false;
         let p, q;
         for(p=0; p<radioLen; p++){
             this.radioActAr[p] = false;
         }
-        this.batchRegular.splice(0,bRegular-1);
+        //this.batchRegular.splice(0,bRegular-1);
+        this.batchRegular = [];
         this.loadBatchesText();
     }
 
@@ -703,13 +702,12 @@ export class BatchesComponent implements OnInit {
                 this.chargeReasons('');
                 this.loadBatchesText();
                 this.loadBatchesStatus();
-                console.log('FLAG-USER-TODOS: ');
-                console.log(this.flagUser);
                 this.enableFlagVariable(false);
+                this.loadBatchesStatusCopy();
                 if(this.flagUser)
                     this.enableFlagUser(true);
 
-                this.v_records = localStorage.getItem('b_records');
+                this.v_records = localStorage.getItem('v_records');
                 if(this.batches.length == 0)
                     this.v_records = '0';
             }
@@ -781,26 +779,47 @@ export class BatchesComponent implements OnInit {
         let batches:any[] = [];
         let lenBatches = this.batches.length;
         let p;
-    
-        for(p=0; p<lenBatches; p++){
-          let objBatchesNew = {
-            'Signature ??':this.batches[p].claroSignature === ''? '': (this.batches[p].claroSignature === 'S'? 'SI': 'NO'),
-            '1era. Vez ??':this.batches[p].signatureFirstTime === ''? '': (this.batches[p].signatureFirstTime === 'S'? 'SI': 'NO'),
-            'Número Orden':this.batches[p].orderId,
-            'Identificación Cliente':this.batches[p].customerId,
-            'Fecha Creación':this.batches[p].lotDate,
-            'Usuario Ingreso':this.batches[p].loggedUser,
-            'Forma Pago':this.batches[p].paymentType,
-            'Banco':this.batches[p].financialInstitution,
-            'Código Oficina':this.batches[p].officceId,
-            'Nombre Oficina':this.batches[p].officce,
-            'Número Dias':this.batches[p].days,
-            'Número Lote':this.batches[p].lotId,
-            'Estado':this.batches[p].status,
-            'Observación':this.batches[p].observation,
-            'Motivo':this.batches[p].reason
-          };
-          batches.push(objBatchesNew);
+
+        if(lenBatches > 0){
+            for(p=0; p<lenBatches; p++){
+                let objBatchesNew = {
+                  'Signature ??':this.batches[p].claroSignature === ''? '': (this.batches[p].claroSignature === 'S'? 'SI': 'NO'),
+                  '1era. Vez ??':this.batches[p].signatureFirstTime === ''? '': (this.batches[p].signatureFirstTime === 'S'? 'SI': 'NO'),
+                  'Número Orden':this.batches[p].orderId,
+                  'Identificación Cliente':this.batches[p].customerId,
+                  'Fecha Creación':this.batches[p].lotDate,
+                  'Usuario Ingreso':this.batches[p].loggedUser,
+                  'Forma Pago':this.batches[p].paymentType,
+                  'Banco':this.batches[p].financialInstitution,
+                  'Código Oficina':this.batches[p].officceId,
+                  'Nombre Oficina':this.batches[p].officce,
+                  'Número Dias':this.batches[p].days,
+                  'Número Lote':this.batches[p].lotId,
+                  'Estado':this.batches[p].status,
+                  'Observación':this.batches[p].observation,
+                  'Motivo':this.batches[p].reason
+                };
+                batches.push(objBatchesNew);
+              }
+        } else {
+                let objBatchesNew = {
+                  'Signature ??':'',
+                  '1era. Vez ??':'',
+                  'Número Orden':'',
+                  'Identificación Cliente':'',
+                  'Fecha Creación':'',
+                  'Usuario Ingreso':'',
+                  'Forma Pago':'',
+                  'Banco':'',
+                  'Código Oficina':'',
+                  'Nombre Oficina':'',
+                  'Número Dias':'',
+                  'Número Lote':'',
+                  'Estado':'',
+                  'Observación':'',
+                  'Motivo':''
+                };
+                batches.push(objBatchesNew);
         }
         return batches;
       }
@@ -833,5 +852,28 @@ export class BatchesComponent implements OnInit {
         let resultLote = nombreLote.replace(re, " ");
         return resultLote;
       }
+
+
+      loadBatchesStatusCopy(){
+        let len = this.batches.length;
+        let p;
+        for(p=0; p<len; p++)
+            this.selectedLoteCopy[p] = this.selectedLote[p];
+      }
+
+    /*  verifyObservationByRecord(){
+          let batchLen = this.batchRegular.length;
+          let p;
+          
+          for (p=0; p<batchLen; p++){
+              let index = this.batchRegular[p].indexOld;
+              let observationR = this.batchObservation[index];
+              console.log('SOY-PRUEBA-OBSERVATION: ');
+              console.log(observationR);
+              if(this.isEmpty(observationR))
+                console.log('NO-HAY-OBSERVACION!');
+          }
+
+      } */
 
 }

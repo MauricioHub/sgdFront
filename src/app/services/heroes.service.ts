@@ -5,8 +5,6 @@ import { Fee } from "../interfaces/fee.interface";
 import { environment } from '../../environments/environment';
 import { environmentP } from '../../environments/environment.prod';
 import { Router } from '@angular/router';
-//import * as FileSaver from 'file-saver';
-//import * as XLSX from 'xlsx';
 import { filter, map } from 'rxjs/operators';
 
 const API_COMISSION=environmentP.comissionURL;
@@ -15,7 +13,6 @@ const API_BROWSE_BATCH=environmentP.browseBatchURL;
 const API_BATCH=environmentP.loteURL;
 const API_REGULAR=environmentP.regularURL;
 const API_SEQUENCE=environmentP.sequenceURL;
-
 const API_LREASONS=environmentP.reasonsURL;
 const API_LOFFICES=environmentP.officesURL;
 const API_LSELLERS=environmentP.sellersURL;
@@ -24,13 +21,9 @@ const API_LCHANNELS=environmentP.channelsURL;
 const API_LPENALTIES=environmentP.penaltiesURL;
 const API_DASHBOARD=environmentP.dashboardURL;
 const API_PROFILES=environmentP.profilesURL;
-
 const API_GET_USUARIOS=environmentP.API_GET_USUARIOS;
 const API_UPDATE_USUARIOSDATA=environmentP.API_UPDATE_USUARIOSDATA;
 
-
-//const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-//const EXCEL_EXTENSION = '.xls';
 
 @Injectable()
 export class HeroesService {
@@ -39,7 +32,6 @@ export class HeroesService {
   heroeURL:string = "http://localhost:8083/regula/sale";
   saleURL:string = "http://localhost:8083/regula/sale";
   salesExcel:string = "http://localhost:8085/ExcelExport";
-
   browseURL:string = "http://10.225.13.18:9952/SalesInfo";
 
   browseBatchURL:string = "http://10.225.13.18:9954/LotInfo";
@@ -74,13 +66,13 @@ export class HeroesService {
   public browseVenta( firstD:String, lastD:String,
                       canal:String, ofic:String,
                       lotId:string, status:string  ){
-      console.log('SOY CONSOLE SERVER!!: ');
+    /*  console.log('SOY CONSOLE SERVER!!: ');
       console.log('fech ini: ' + firstD + ',');
       console.log('fech fin: ' + lastD  + ',');
       console.log('canal: ' + canal  + ',');
       console.log('ofic: ' + ofic  + ',');
       console.log('lot: ' + lotId  + ',');
-      console.log('estado: ' + status  + '');
+      console.log('estado: ' + status  + '');*/
 
       let templateDate:string = "" + firstD;
       let templateDate2:string = "" + lastD;
@@ -161,7 +153,8 @@ export class HeroesService {
     return this.http.post( API_SALES, body, { headers }  )
       .pipe(
         map( (res:any)=>{
-          localStorage.setItem('vE_records', (res).records);
+          //localStorage.setItem('vE_records', (res).records);
+          localStorage.setItem('s_records', (res).records);
           this.heroeServ = (res).salesResult;
           return (res).salesResult;
         })
@@ -202,8 +195,8 @@ export class HeroesService {
     return this.http.post( API_COMISSION, body, { headers }  )
       .pipe(
         map( (res:any)=>{
-          console.log("SOY SERVER COMISSION: ");
-          console.log(res);
+          //console.log("SOY SERVER COMISSION: ");
+          //console.log(res);          
           localStorage.setItem('f_records', (res).records);
           return (res).comission;
           //this.router.navigate(['/fees']);
@@ -254,10 +247,6 @@ export class HeroesService {
       'Content-Type':'application/json',
       'Access-Control-Allow-Origin':'*'
     });
-
-    console.log('SOY SERVER bATCH: ');
-    console.log(body);
-
     return this.http.post( API_BROWSE_BATCH, body, { headers }  )
       .pipe(
         map( (res:any)=>{
@@ -266,8 +255,7 @@ export class HeroesService {
           this.batchServ = (res).lotResults;
           localStorage.setItem('v_lotId', (res).lotId);
           localStorage.setItem('v_lotDate', (res).lotDate);
-          localStorage.setItem('b_records', (res).records);
-        //  this.router.navigate(['/batches']);
+          localStorage.setItem('v_records', (res).records);
           return (res).lotResults;
         })
       );
