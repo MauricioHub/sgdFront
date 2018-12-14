@@ -15,6 +15,9 @@ import { EstadousuarioComponent } from '../../update/estadousuario/estadousuario
 import { UpdatedatosComponent } from '../../update/updatedatos/updatedatos.component';
 import { Globals } from '../../../app.globals';
 import {UpdaterolComponent} from '../../update/updaterol/updaterol.component';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 
 
 
@@ -28,7 +31,7 @@ export class RdusuariosComponent implements OnInit {
   @ViewChild(MatPaginator) paginator:MatPaginator;
   public userslist = new MatTableDataSource();
   public perfs;
-  constructor(private rdusuarios:ServicesgetService, public dialog:MatDialog,private disableRt:Globals ){
+  constructor(public router: Router,private rdusuarios:ServicesgetService, public dialog:MatDialog,private disableRt:Globals ){
     if(localStorage.getItem('disableRoot') == 'true')
       this.disableRt.disableRoot = true;
   this.listaiduss()
@@ -43,9 +46,23 @@ listaiduss(){
   this.userslist.data=userslist;
     this.userslist.paginator = this.paginator;
   },
-  err=>console.log(err))
-}
+  (err:HttpErrorResponse) => {
+    if(err.status == 0){
+    this.showAlert('ERROR DE CONEXION!');
+    }
+    if(err.status == 500){
+    this.showAlert('ERROR DEL SERVIDOR!');
+    }
+    if(err.status == 400){
+    this.showAlert('ERROR DE ACTUALIZAR LA PAGINA INTENTE DE NUEVO POR FAVOR!');
+    }
+    if(err.status == 401){
+    this.showAlert('ERROR DE CONTENIDO!');
+    }
 
+    }
+    );
+  }
 
   openDialogUpdate(element:Usuario){
     const dialogRef = this.dialog.open(UpusuariosComponent, {
@@ -112,7 +129,13 @@ listaiduss(){
            this.listaiduss()
          });
        }
-
+       showAlert(message){
+         if(window.confirm(message)){
+           this.router.navigate(['/home']);
+         } else{
+           this.router.navigate(['/home']);
+         }
+       }
 
 
 }

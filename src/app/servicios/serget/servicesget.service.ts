@@ -11,6 +11,11 @@ const API_GET_USUARIOS=environment.API_GET_USUARIOS;
 const API_GET_USEROPC=environment.API_GET_USEROPC;
 const API_GET_FILETRACE=environment.API_GET_FILETRACE;
 const API_GET_USERROL=environment.API_GET_USERROL;
+const API_GET_ROLMODULE=environment.API_GET_ROLMODULE;
+const API_GET_DIGITALTRACE=environment.API_GET_DIGITALTRACE;
+const API_GET_FILESTORE=environment.API_GET_FILESTORE;
+
+
 
 
 
@@ -102,4 +107,34 @@ getuserrol(userId:string,userName:string,authorityId:string,authorityName:string
   }
   return this.http.get(API_GET_USERROL);
 }
+getrolmodule(authorityId:string,authorityName:string,moduleId:string,moduleName:string,){
+  let usrolmod={
+    authorityId:authorityId,
+  authorityName:authorityName,
+    moduleId:moduleId,
+    moduleName:moduleName
+  }
+  return this.http.get(API_GET_ROLMODULE);
+}
+gettracedigital(digitalStartDate:string,digitalEndDate:string,digitalStatus:string,digitalUserId:string,digitalOrderID:string){
+let digbody={
+  digitalStartDate:digitalStartDate,
+  digitalEndDate:digitalEndDate,
+  digitalStatus:digitalStatus,
+  digitalUserId:digitalUserId,
+  digitalOrderID:digitalOrderID
+  }
+  return this.http.post(API_GET_DIGITALTRACE,digbody);
+}
+getfilestore(storeStartDate:string,storeEndDate:string,storeStatus:string,storeUserId:string,storeOrderId:string){
+  let filesto={
+    storeStartDate:storeStartDate,
+    storeEndDate:storeEndDate,
+    storeStatus:storeStatus,
+    storeUserId:storeUserId,
+    storeOrderId:storeOrderId
+  }
+    return this.http.post(API_GET_FILESTORE,filesto);
+}
+
 }

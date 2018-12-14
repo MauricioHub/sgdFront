@@ -1,0 +1,72 @@
+h2{
+  background-color:#D6DBDF;
+  font-family: Century Gothic, sans-serif;
+  color: #17202A;
+  height: 40px;
+
+}
+
+body{
+    width: 100%;
+}
+
+
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
+
+button{
+  background-color:#D6DBDF;
+  color: #17202A;
+}
+
+#delete{
+  background-color:#D6DBDF  ;
+  color: #17202A;
+  margin-left: 1%;
+}
+
+mat-paginator {
+  width: 100%;
+  margin: auto;
+  background-color: #D6DBDF  ;
+  color: #17202A;
+}
+
+th{
+  background-color: #D6DBDF    ;
+  color: #17202A;
+  font-weight:bold;
+  font-size: 75%;
+  font-family: Century Gothic, sans-serif;
+}
+
+#buscar{
+  width: 25%;
+  color: #17202A;
+   margin-left: 68%;
+
+}
+
+/
+.mat-form-field {
+  font-size: 20px;
+  width: 100%;
+  color: #FA5858;
+}
+input{
+  color: #FA5858;
+}
+
+table {
+  width: 100%;
+
+  border: #D6DBDF 1px solid;
+}
+
+td, th {
+  width: 10%;
+  font-size: 75%;
+  font-family: Century Gothic, sans-serif;
+}

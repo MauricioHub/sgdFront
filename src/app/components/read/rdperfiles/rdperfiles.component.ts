@@ -12,6 +12,8 @@ import {Observable} from 'rxjs';
 import {UpperfilesComponent} from '../../update/upperfiles/upperfiles.component';
 import { CrperfilesComponent } from '../../create/crperfiles/crperfiles.component';
 import { Globals } from '../../../app.globals';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rdperfiles',
@@ -24,7 +26,7 @@ displayedColumns: string[] = ['position', 'name','editar']
 @ViewChild(MatSort) sort: MatSort;
 public perfs= new MatTableDataSource();
 public valid:boolean=false;
-  constructor(private srdperfiles:ServicesgetService,public dialog:MatDialog,private disableRt:Globals ) {
+  constructor(public router: Router,private srdperfiles:ServicesgetService,public dialog:MatDialog,private disableRt:Globals ) {
     if(localStorage.getItem('disableRoot') == 'true')
       this.disableRt.disableRoot = true;
     this.listaidus()
@@ -41,7 +43,22 @@ listaidus(){
   this.perfs.data=perfs;
   this.perfs.paginator=this.paginator;
   },
-  err=>console.log(err))
+  (err:HttpErrorResponse) => {
+    if(err.status == 0){
+    this.showAlert('ERROR DE CONEXION!');
+    }
+    if(err.status == 500){
+    this.showAlert('ERROR DEL SERVIDOR!');
+    }
+    if(err.status == 400){
+    this.showAlert('ERROR DE ACTUALIZAR LA PAGINA INTENTE DE NUEVO POR FAVOR!');
+    }
+    if(err.status == 401){
+    this.showAlert('ERROR DE CONTENIDO!');
+    }
+
+    }
+    );
   }
   openDialogUpdate(element:Perfil){
     const dialogRef = this.dialog.open(UpperfilesComponent, {
@@ -79,6 +96,13 @@ listaidus(){
          console.log('The dialog was closed');
          this.listaidus()
        });
+     }
+     showAlert(message){
+       if(window.confirm(message)){
+         this.router.navigate(['/home']);
+       } else{
+         this.router.navigate(['/home']);
+       }
      }
 
 }

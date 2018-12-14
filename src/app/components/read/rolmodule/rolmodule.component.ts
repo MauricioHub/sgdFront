@@ -9,6 +9,9 @@ import {DataSource} from '@angular/cdk/collections';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {Observable} from 'rxjs';
 import { Globals } from '../../../app.globals';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-rolmodule',
   templateUrl: './rolmodule.component.html',
@@ -16,29 +19,51 @@ import { Globals } from '../../../app.globals';
 })
 export class RolmoduleComponent implements OnInit {
 displayedColumns: string[] = ['IDUSUARIO', 'USUARIO','IDROL','ROL'];
-public usersrol= new MatTableDataSource();
+public rolmod= new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private rduserrol:ServicesgetService,public dialog: MatDialog,private disableRt:Globals ) {
+  constructor(public router: Router,private rduserrol:ServicesgetService,public dialog: MatDialog,private disableRt:Globals ) {
     if(localStorage.getItem('disableRoot') == 'true')
       this.disableRt.disableRoot = true;
-  this.listaids()
-  this.applyFilter('') }
+  this.listaids();
+}
   applyFilter(filterValue: string) {
-     this.usersrol.filter = filterValue.trim().toLowerCase();
+     this.rolmod.filter = filterValue.trim().toLowerCase();
 }
   ngOnInit() {
   }
   listaids(){
 
-    this.rduserrol.getuserrol('','','','').subscribe((usersrol:any)=>{
-    console.log(usersrol);
-    this.usersrol.data=usersrol.usersrol;
-    this.usersrol.paginator = this.paginator;
-    this.usersrol.sort = this.sort;
+    this.rduserrol.getrolmodule('','','','').subscribe((rolmod:any)=>{
+    console.log(rolmod);
+    this.rolmod.data=rolmod;
+    this.rolmod.paginator = this.paginator;
+    this.rolmod.sort = this.sort;
   },
-  err=>console.log(err))
+  (err:HttpErrorResponse) => {
+    if(err.status == 0){
+    this.showAlert('ERROR DE CONEXION!');
+    }
+    if(err.status == 500){
+    this.showAlert('ERROR DEL SERVIDOR!');
+    }
+    if(err.status == 400){
+    this.showAlert('ERROR DE ACTUALIZAR LA PAGINA INTENTE DE NUEVO POR FAVOR!');
+    }
+    if(err.status == 401){
+    this.showAlert('ERROR DE CONTENIDO!');
+    }
+
+    }
+    );
+  }
+  showAlert(message){
+    if(window.confirm(message)){
+      this.router.navigate(['/home']);
+    } else{
+      this.router.navigate(['/home']);
+    }
   }
 }

@@ -17,7 +17,7 @@ export class RoleguardService implements CanActivate {
   const cac = next.data.cac;
   const comi = next.data.comi;
   const dig = next.data.dig;
-    const archi = next.data.archi;
+  const archi = next.data.archi;
 
 
       if (  ((localStorage.getItem('logged_username')!=null) &&(localStorage.getItem('logged_username')!=''))&&
@@ -29,7 +29,7 @@ export class RoleguardService implements CanActivate {
     return true;
 
   }else{
-    console.error("blqoueado por goku");
+    console.error("NO TIENE PERMISOS PARA INGRESAR A ESTA RUTA");
      this.router.navigate(['login']);
     return false;
   }

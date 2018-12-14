@@ -13,6 +13,9 @@ import {UpopcionesComponent} from '../../update/upopciones/upopciones.component'
 import { CrmoduloComponent } from '../../create/crmodulo/crmodulo.component';
 import { CropcionesComponent } from '../../create/cropciones/cropciones.component';
 import { Globals } from '../../../app.globals';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-rdopciones',
@@ -28,7 +31,7 @@ export class RdopcionesComponent implements OnInit {
   public opciones = new MatTableDataSource();
   public modulos = new MatTableDataSource();
   public valid:boolean=false;
-  constructor(private srdopciones:ServicesgetService, public dialog:MatDialog,private disableRt:Globals ) {
+  constructor(public router: Router,private srdopciones:ServicesgetService, public dialog:MatDialog,private disableRt:Globals ) {
     if(localStorage.getItem('disableRoot') == 'true')
       this.disableRt.disableRoot = true;
   this.litstaidopcup()
@@ -46,15 +49,29 @@ export class RdopcionesComponent implements OnInit {
     console.log(opciones);
     this.opciones.data=opciones.options;
     this.opciones.paginator = this.paginator;
-    },
-    err=>console.log(err))
+  },
+  (err:HttpErrorResponse) => {
+    if(err.status == 0){
+    this.showAlert('ERROR DE CONEXION!');
+    }
+    if(err.status == 500){
+    this.showAlert('ERROR DEL SERVIDOR!');
+    }
+    if(err.status == 400){
+    this.showAlert('ERROR DE ACTUALIZAR LA PAGINA INTENTE DE NUEVO POR FAVOR!');
+    }
+    if(err.status == 401){
+    this.showAlert('ERROR DE CONTENIDO!');
+    }
+
+    }
+    );
   }
 
   litstamodulo(){
     this.srdopciones.getModule('','').subscribe((modulos:any)=>{
     console.log(modulos);
     this.modulos.data=modulos.modules;
-    this.modulos.paginator = this.paginator;
     },
     err=>console.log(err))
   }
@@ -81,6 +98,13 @@ export class RdopcionesComponent implements OnInit {
         console.log('The dialog was closed');
         this.litstaidopcup()
       });
+    }
+    showAlert(message){
+      if(window.confirm(message)){
+        this.router.navigate(['/home']);
+      } else{
+        this.router.navigate(['/home']);
+      }
     }
 
 }

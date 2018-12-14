@@ -1,4 +1,4 @@
-  import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 import {ServcreatedService,} from '../../../servicios/servcreated/servcreated.service';
 import {ServicesgetService, } from '../../../servicios/serget/servicesget.service';
 import { NgForm } from "@angular/forms";

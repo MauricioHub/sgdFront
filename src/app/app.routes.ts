@@ -25,6 +25,7 @@ import { CropcionesComponent } from './components/create/cropciones/cropciones.c
 import { CrperfilesComponent } from './components/create/crperfiles/crperfiles.component';
 import { CrusuariosComponent } from './components/create/crusuarios/crusuarios.component';
 import { CrusersopcComponent } from './components/create/crusersopc/crusersopc.component';
+import { CruserproComponent } from './components/create/cruserpro/cruserpro.component';
 
 //import de read
 import { RdmodulosComponent } from './components/read/rdmodulos/rdmodulos.component';
@@ -68,28 +69,29 @@ const APP_ROUTES: Routes = [
   { path: 'home', component: HomeComponent,	canActivate: [ AuthguardService ] },
   { path: 'login', component: LoginComponent },
   { path: 'browse', component: BrowseComponent },
-  { path: 'browseBatch', component: BrowsebatchComponent },
-  { path: 'datatable', component: DataTableComponent },
-  { path: 'profiles', component: ProfilesComponent },
-  { path: 'usersdata', component: UsersdataComponent },
-  { path: 'digital', component: RddigitalComponent,	canActivate: [RoleguardService],data:{
+  { path: 'browseBatch', component: BrowsebatchComponent},
+  { path: 'datatable', component: DataTableComponent},
+  { path: 'profiles', component: ProfilesComponent,	canActivate: [ AuthguardService ] },
+  { path: 'usersdata', component: UsersdataComponent,	canActivate: [ AuthguardService ] },
+  { path: 'digital', component: RddigitalComponent,canActivate: [RoleguardService],data:{
     rol:'42',
+    cac:'81',
     dig:'162',
    }
    },
-   { path: 'file', component: RdarchivosComponent,	canActivate: [RoleguardService],data:{
-     rol:'42',
-     archi:'163',
-    }
-    },
-  { path: 'trazabilidad', component: RdtrazabilidadComponent,	canActivate: [RoleguardService],data:{
+  { path: 'file', component: RdarchivosComponent,canActivate: [RoleguardService],data:{
     rol:'42',
-    jefecac:'89',
+   }
+   },
+  { path: 'trazabilidad', component: RdtrazabilidadComponent,canActivate: [RoleguardService],data:{
+    rol:'42',
+    archi:'163',
     cac:'81',
    }
    },
   { path: 'updrol', component: UpdaterolComponent,	canActivate: [RoleguardService],data:{
     rol:'42',
+    cac:'81',
    }
    },
 
@@ -142,12 +144,8 @@ const APP_ROUTES: Routes = [
       { path: 'rdusersopc', component: RdusersopcComponent,	canActivate: [RoleguardService],data:{
         rol:'42',
        } },
-       { path: 'userrol', component: UserrolComponent,	canActivate: [RoleguardService],data:{
-         rol:'42',
-        } },
-        { path: 'roldomule', component: RolmoduleComponent,	canActivate: [RoleguardService],data:{
-          rol:'42',
-         } },
+       { path: 'userrol', component: UserrolComponent,	 },
+        { path: 'roldomule', component: RolmoduleComponent},
        //////////////////////////////////
       ///////NUEVOS INGRESOS////////////
       /////////////////////////////////
@@ -166,6 +164,10 @@ const APP_ROUTES: Routes = [
       { path: 'crusersopc', component: CrusersopcComponent,	canActivate: [RoleguardService],data:{
         rol:'42',
        } },
+
+       { path: 'putuserrol', component: CruserproComponent,	canActivate: [RoleguardService],data:{
+         rol:'42',
+        } },
 
 
       //update
@@ -193,6 +195,7 @@ const APP_ROUTES: Routes = [
       { path: 'usuariosdatosp', component: UpdatedatospComponent,	canActivate: [RoleguardService],data:{
         rol:'42',
       } },
+
 
   { path: 'fee', component: FeeComponent },
   { path: 'itemd', component: ItemDetails },

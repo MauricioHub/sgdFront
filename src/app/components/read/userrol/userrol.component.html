@@ -6,10 +6,10 @@
 
 <hr>
 
-  <button mat-button id="delete"  mat-button matTooltip ="REGISTRAR UN NUEVO MODULO" ><i class="material-icons">note_add</i></button>
+  <button mat-button id="delete" (click)="openDialogcreate()" mat-button matTooltip ="ASIGNAR UN NUVEO ROL" ><i class="material-icons">contacts</i></button>
 
 <mat-form-field appearance="outline" id="buscar">
-  <mat-label>BUSCAR MODULO</mat-label>
+  <mat-label>BUSCAR RELACIÓN</mat-label>
   <input matInput   (keyup)="applyFilter($event.target.value)" placeholder="BUSCAR" maxlength="25">
   <mat-icon matSuffix>search</mat-icon>
 </mat-form-field>
@@ -37,9 +37,9 @@
   </ng-container>
 
 
-  <ng-container matColumnDef="editar">
-    <th mat-header-cell *matHeaderCellDef > EDITAR </th>
-    <td mat-cell *matCellDef="let element"> <button mat-button  mat-button matTooltip ="EDITAR ESTE MODULO" ><i class="material-icons">edit</i></button> </td>
+  <ng-container matColumnDef="DELETE">
+    <th mat-header-cell *matHeaderCellDef > ELIMINAR </th>
+    <td mat-cell *matCellDef="let element"> <button mat-button  mat-button matTooltip ="ELIMINAR ESTE VINCULO" ><i class="material-icons">delete</i></button> </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

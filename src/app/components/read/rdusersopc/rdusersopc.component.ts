@@ -12,6 +12,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {Observable} from 'rxjs';
 import { CrusersopcComponent } from '../../create/crusersopc/crusersopc.component';
 import { Globals } from '../../../app.globals';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-rdusersopc',
   templateUrl: './rdusersopc.component.html',
@@ -22,7 +25,7 @@ export class RdusersopcComponent implements OnInit {
   @ViewChild(MatPaginator) paginator:MatPaginator;
   public usersopclist= new MatTableDataSource();
 public valid:boolean=false;
-  constructor(private rsuseropc:ServicesgetService,public dialog: MatDialog,private disableRt:Globals ) {
+  constructor(public router: Router,private rsuseropc:ServicesgetService,public dialog: MatDialog,private disableRt:Globals ) {
     if(localStorage.getItem('disableRoot') == 'true')
       this.disableRt.disableRoot = true;
 this.listatbOU()
@@ -44,8 +47,23 @@ listatbOU(){
   console.log(usersopclist);
   this.usersopclist.data=usersopclist.userOptionResult;
   this.usersopclist.paginator = this.paginator;
-  },
-  err=>console.log(err))
+},
+(err:HttpErrorResponse) => {
+  if(err.status == 0){
+  this.showAlert('ERROR DE CONEXION!');
+  }
+  if(err.status == 500){
+  this.showAlert('ERROR DEL SERVIDOR!');
+  }
+  if(err.status == 400){
+  this.showAlert('ERROR DE ACTUALIZAR LA PAGINA INTENTE DE NUEVO POR FAVOR!');
+  }
+  if(err.status == 401){
+  this.showAlert('ERROR DE CONTENIDO!');
+  }
+
+  }
+  );
 }
 openDialogUpdate(element:Opcionusuario){
   const dialogRef = this.dialog.open(UpusuariosopcionesComponent, {
@@ -71,5 +89,11 @@ openDialogUpdate(element:Opcionusuario){
       this.listatbOU()
     });
   }
-
+  showAlert(message){
+    if(window.confirm(message)){
+      this.router.navigate(['/home']);
+    } else{
+      this.router.navigate(['/home']);
+    }
+  }
 }
