@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RdmodulosComponent } from './rdmodulos.component';
+import { UppromodComponent } from './uppromod.component';
 
-describe('RdmodulosComponent', () => {
-  let component: RdmodulosComponent;
-  let fixture: ComponentFixture<RdmodulosComponent>;
+describe('UppromodComponent', () => {
+  let component: UppromodComponent;
+  let fixture: ComponentFixture<UppromodComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RdmodulosComponent ]
+      declarations: [ UppromodComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RdmodulosComponent);
+    fixture = TestBed.createComponent(UppromodComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

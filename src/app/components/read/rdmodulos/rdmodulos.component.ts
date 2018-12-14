@@ -12,6 +12,9 @@ import {Observable} from 'rxjs';
 import {UpmodulosComponent} from '../../update/upmodulos/upmodulos.component';
 import { CrmoduloComponent } from '../../create/crmodulo/crmodulo.component';
 import { Globals } from '../../../app.globals';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-rdmodulos',
@@ -27,7 +30,7 @@ value = 'Clear me';
 
 public modules= new MatTableDataSource();
 public valid:boolean=false;
-  constructor(private srdmodulo:ServicesgetService,public dialog: MatDialog,private disableRt:Globals ){
+  constructor(public router: Router,private srdmodulo:ServicesgetService,public dialog: MatDialog,private disableRt:Globals ){
     if(localStorage.getItem('disableRoot') == 'true')
       this.disableRt.disableRoot = true;
   this.listaids()
@@ -50,9 +53,23 @@ listaids(){
   this.modules.paginator = this.paginator;
   this.modules.sort = this.sort;
 },
-err=>console.log(err))
-}
+(err:HttpErrorResponse) => {
+  if(err.status == 0){
+  this.showAlert('ERROR DE CONEXION!');
+  }
+  if(err.status == 500){
+  this.showAlert('ERROR DEL SERVIDOR!');
+  }
+  if(err.status == 400){
+  this.showAlert('ERROR DE ACTUALIZAR LA PAGINA INTENTE DE NUEVO POR FAVOR!');
+  }
+  if(err.status == 401){
+  this.showAlert('ERROR DE CONTENIDO!');
+  }
 
+  }
+  );
+}
 openDialogUpdate(element:Modulo){
   const dialogRef = this.dialog.open(UpmodulosComponent, {
      width: '500px',
@@ -78,6 +95,13 @@ openDialogUpdate(element:Modulo){
       console.log('The dialog was closed');
       this.listaids()
     });
+  }
+  showAlert(message){
+    if(window.confirm(message)){
+      this.router.navigate(['/home']);
+    } else{
+      this.router.navigate(['/home']);
+    }
   }
 
 }

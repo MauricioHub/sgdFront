@@ -112,6 +112,12 @@ import { UpdatedatospComponent } from './components/update/updatedatosp/updateda
 import { RdtrazabilidadComponent } from './components/read/rdtrazabilidad/rdtrazabilidad.component';
 import { RddigitalComponent } from './components/read/rddigital/rddigital.component';
 import { RdarchivosComponent } from './components/read/rdarchivos/rdarchivos.component';
+import { UserrolComponent } from './components/read/userrol/userrol.component';
+import { RolmoduleComponent } from './components/read/rolmodule/rolmodule.component';
+import { CrpromodComponent } from './components/create/crpromod/crpromod.component';
+import { CruserproComponent } from './components/create/cruserpro/cruserpro.component';
+import { UppromodComponent } from './components/update/uppromod/uppromod.component';
+import { UpuserproComponent } from './components/update/upuserpro/upuserpro.component';
 //import { BrowseComponentd } from './components/home/browse.component';
 
 @NgModule({
@@ -156,7 +162,13 @@ import { RdarchivosComponent } from './components/read/rdarchivos/rdarchivos.com
     UpdatedatospComponent,
     RdtrazabilidadComponent,
     RddigitalComponent,
-    RdarchivosComponent
+    RdarchivosComponent,
+    UserrolComponent,
+    RolmoduleComponent,
+    CrpromodComponent,
+    CruserproComponent,
+    UppromodComponent,
+    UpuserproComponent
 
   ],
   imports: [

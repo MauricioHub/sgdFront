@@ -1,9 +1,12 @@
 export const environmentP = {
   production: true,
-  
+
   apiLogin:'http://10.225.13.19:9961/auth/',
-  //userOptions:'http://10.225.13.19:9960/GetUserOption',
+  userOptions:'http://10.225.13.19:9960/GetUserOption',
+  dashboardURL: "http://10.225.13.19:9963/GetSalesResume",
+
   userOptionsURL:'http://10.225.13.19:9960/GetUserOption',
+
   optionsURL:'http://10.225.13.19:9960/GetOption',
 
   apiSearch:'http://localhost:8083/v1/client',
@@ -23,7 +26,6 @@ export const environmentP = {
   paymentsURL: "http://10.225.13.19:9956/GetPayments",
   channelsURL: "http://10.225.13.19:9956/GetChannels",
   penaltiesURL: "http://10.225.13.19:9956/GetPenalties",
-  dashboardURL: "http://10.225.13.19:9963/GetSalesResume",
 
   profilesURL:'http://10.225.13.19:9962',
 

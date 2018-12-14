@@ -54,14 +54,99 @@ API_CREATE_MODULE:'http://10.225.13.19:9960/ModuleCreation',
 
 //USUARIOS-OPCIONES
 //---------------------------------------------------------
-  API_CREATE_USEROPC:'http://10.225.13.19:9960/SetUserOption',
-  API_GET_USEROPC:'http://10.225.13.19:9960/GetUserOption',
-  API_UPDATE_USEROPC:'http://10.225.13.19:9960/UpdateUserOption',
+API_CREATE_USEROPC:'http://10.225.13.19:9960/SetUserOption',
+API_GET_USEROPC:'http://10.225.13.19:9960/GetUserOption',
+API_UPDATE_USEROPC:'http://10.225.13.19:9960/UpdateUserOption',
+
+  //---------------------------------------------------------
+
+  //USUARIOS-ROLES
+  //---------------------------------------------------------
+API_GET_USERROL:'http://10.225.13.19:9960/GetUserProfile',
+API_PUT_USERROL:'http://10.225.13.19:9960/PutUserProfile',
+API_DELETE_USERROL:'http://10.225.13.19:9960/DeleteProfileModule',
+
+//ROLES-MODULOS
+//---------------------------------------------------------
+API_GET_ROLMODULE:'http://10.225.13.19:9960/GetProfileModule',
+API_PUT_ROLMODULE:'http://10.225.13.19:9960/PutProfileModule',
+API_DELETE_ROLMODULE:'http://10.225.13.19:9960/DeleteUserProfile ',
+//AUTENTICACION
+API_LOGIN:'http://10.225.13.19:9961/auth/',
 
 
+//DIGITALIZACION TRABABILIDAD Y ARCHIVAMIENTO
+API_GET_FILETRACE:'http://10.225.13.19:9964/GetFileTrace',
+API_GET_DIGITALTRACE:'http://10.225.13.19:9964/GetDigitalTrace',
+API_GET_FILESTORE:'http://10.225.13.19:9964/GetFileStore',
+
+/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////LEVANTADOS DE MANERA LOCAL//////////////////'http://localhost:8088/login/authenticate'
+///////////////////////////////////////////////////////////
+/*
+  //MODULOS
+//---------------------------------------------------------
+API_CREATE_MODULE:'http://localhost:8090/ModuleCreation',
+API_GET_MODULE:'http://localhost:8090/GetModule',
+API_UPDATE_MODULE:'http://localhost:8090/ModuleUpdate',
+
+//----------------------------------------------------------
+
+//OPCIONES
+//---------------------------------------------------------
+  API_CREATE_OPCIONES:'http://localhost:8090/OptionCreation',
+  API_GET_OPCIONES:'http://localhost:8090/GetOption',
+  API_UPDATE_OPCIONES:'http://localhost:8090/OptionUpdate',
+
+//---------------------------------------------------------
+
+//PERFILES
+//---------------------------------------------------------
+  API_CREATE_PERFILES:'http://localhost:9998/authority/',
+  API_GET_PERFILES:'http://localhost:9998/authority/',
+  API_UPDATE_PERFILES:'http://localhost:9998/authorityUpdate/',
+
+//---------------------------------------------------------
+
+
+//USUARIOS
+//---------------------------------------------------------
+  API_CREATE_USUARIOS:'http://localhost:9998/users/',
+  API_UPDATE_USUARIOSDATA:'http://localhost:9998/userUpdate',
+  API_GET_USUARIOS:'http://localhost:9998/users/',
+  API_UPDATE_USUARIOS:'http://localhost:9998/users/',
+  API_DELETE_USUARIOS:'http://localhost:9998/users/',
+
+//---------------------------------------------------------
+
+//USUARIOS-OPCIONES
+//---------------------------------------------------------
+  API_CREATE_USEROPC:'http://localhost:8090/SetUserOption',
+  API_GET_USEROPC:'http://localhost:8090/GetUserOption',
+  API_UPDATE_USEROPC:'http://localhost:8090/UpdateUserOption',
+
+  //---------------------------------------------------------
+
+  //USUARIOS-ROLES
+  //---------------------------------------------------------
+API_GET_USERROL:'http://localhost:8090/GetUserProfile',
+
+//ROLES-MODULOS
+//---------------------------------------------------------
+API_GET_ROLMODULE:'http://localhost:8090/GetProfileModule ',
 
 //AUTENTICACION
-API_LOGIN:'http://10.225.13.19:9961/auth/'
+API_LOGIN:'http://10.225.13.19:9961/auth/',
+
+
+//DIGITALIZACION TRABABILIDAD Y ARCHIVAMIENTO
+API_GET_FILETRACE:'http://localhost:8095/GetFileTrace',
+API_GET_DIGITALTRACE:'http://localhost:8095/GetDigitalTrace',
+API_GET_FILESTORE:'http://localhost:8095/GetFileStore'
+*/
+
 
 };
 

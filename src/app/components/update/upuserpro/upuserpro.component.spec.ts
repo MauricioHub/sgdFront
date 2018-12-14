@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CrusersopcComponent } from './crusersopc.component';
+import { UpuserproComponent } from './upuserpro.component';
 
-describe('CrusersopcComponent', () => {
-  let component: CrusersopcComponent;
-  let fixture: ComponentFixture<CrusersopcComponent>;
+describe('UpuserproComponent', () => {
+  let component: UpuserproComponent;
+  let fixture: ComponentFixture<UpuserproComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CrusersopcComponent ]
+      declarations: [ UpuserproComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CrusersopcComponent);
+    fixture = TestBed.createComponent(UpuserproComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

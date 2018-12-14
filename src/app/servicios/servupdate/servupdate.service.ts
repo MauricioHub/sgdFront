@@ -9,6 +9,8 @@ const  API_UPDATE_USUARIOS=environment.API_UPDATE_USUARIOS;
 const  API_UPDATE_USEROPC=environment.API_UPDATE_USEROPC;
 const  API_DELETE_USUARIOS=environment.API_DELETE_USUARIOS;
 const  API_UPDATE_USUARIOSDATA=environment.API_UPDATE_USUARIOSDATA;
+const  API_DELETE_USERROL=environment.API_DELETE_USERROL;
+const  API_DELETE_ROLMODULE=environment.API_DELETE_ROLMODULE;
 
 @Injectable({
   providedIn: 'root'
@@ -132,6 +134,7 @@ editarrol(username:string,firstname:string,lastname:string,email:string,phonenum
   return this.http.post(API_UPDATE_USUARIOSDATA,uproles);
 
  }
+
  updperfill(id:string,name:string)
  {
  let perfill={
@@ -141,4 +144,19 @@ editarrol(username:string,firstname:string,lastname:string,email:string,phonenum
  return this.http.post(API_UPDATE_PERFILES,perfill);
  }
 
+ delepromod(profileId:string,moduleId:string){
+   let delrolmod ={
+     profileId:profileId,
+     moduleId:moduleId
+   }
+   return this.http.post(API_DELETE_ROLMODULE,delrolmod);
+   }
+
+   deleuserrol(profileId:string,userId:string){
+     let deluserpro ={
+       profileId:profileId,
+       userId:userId
+     }
+     return this.http.post(API_DELETE_USERROL,deluserpro);
+     }
 }

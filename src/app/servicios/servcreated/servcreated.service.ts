@@ -6,7 +6,11 @@ const API_CREATE_MODULE=environment.API_CREATE_MODULE;
 const API_CREATE_OPCIONES=environment.API_CREATE_OPCIONES;
 const API_CREATE_PERFILES=environment.API_CREATE_PERFILES;
 const API_CREATE_USUARIOS=environment.API_CREATE_USUARIOS;
-const API_CREATE_USEROPC=environment.API_CREATE_USEROPC
+const API_CREATE_USEROPC=environment.API_CREATE_USEROPC;
+const API_PUT_ROLMODULE=environment.API_PUT_ROLMODULE;
+const API_PUT_USERROL=environment.API_PUT_USERROL
+
+
 
 
 @Injectable({
@@ -93,5 +97,22 @@ userId:userId,
 optionId:optionId,
 }
   return this.http.post(API_CREATE_USEROPC,UserOptionInputs);
+}
+
+putuserpro(userId:string,profileId:string){
+let userbod ={
+  userId:userId,
+  profileId:profileId
+}
+return this.http.post(API_PUT_USERROL,userbod)
+}
+
+putrolmod(profileId:string,moduleId:string)
+{
+let userbodd ={
+profileId:profileId,
+moduleId:moduleId
+}
+return this.http.post(API_PUT_ROLMODULE,userbodd)
 }
 }
