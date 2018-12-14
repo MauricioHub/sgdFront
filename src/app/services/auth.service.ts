@@ -14,6 +14,8 @@ const API_OPTION=environmentP.optionsURL;
 const API_SEARCH=environment.apiSearch;
 const API_BANDEJA=environment.apiBandeja;
 const API_DASHBOARD=environmentP.dashboardURL;
+const API_GET_USER_PROFILE=environmentP.API_GET_USER_PROFILE;
+const API_GET_PROFILE_MODULE=environmentP.API_GET_PROFILE_MODULE;
 
 // Avoid name not found warnings
 declare var Auth0Lock: any;
@@ -29,6 +31,13 @@ export class AuthService {
   userOptionResult:any[] = [];
   optionResult:any[] = [];
   public userProfile:any;
+  userID:number = 0;
+  profileIDList:number[] = [];
+
+  profileVenta = new Profile(false,false,false,false,false);
+  profileComision = new Profile(false,false,false,false,false);
+  profileLote = new Profile(false,false,false,false,false);
+  profilePerfil = new Profile(false,false,false,false,false);
 
   constructor(public router: Router,
               private http: HttpClient,
@@ -60,10 +69,12 @@ export class AuthService {
       .pipe(
         map((res:any) => {
           try{
+            this.userID = res.userID;                        
             this.sessionRoot = res;
             this.objIdRol = res.rolID;
-            localStorage.setItem('rolID', '' + this.objIdRol);
-            this.getUserOption(this.sessionRoot.userID);
+            localStorage.setItem('userID', res.userID);
+            localStorage.setItem('rolID', '' + this.objIdRol);            
+            this.getUserProfile();
           } catch(error){
             console.log(error);
           }
@@ -84,40 +95,109 @@ export class AuthService {
           this.showAlert('CREDENCIALES INCORRECTAS!');
         }
 
-        if(err.status == 0){
-          this.showAlert('SIN INTERNET!');
-        }
      });
   }
 
-  public handleAuthentication(authResult, flag:boolean): void {
-      if (authResult.code == 200) {
-        window.location.hash = '';
-      } else {
-          this.showAlert('CREDENCIALES INCORRECTAS!');
-          console.log('CREDENCIALES INCORRECTAS!');
+
+
+  public getUserProfile(){
+    return this.http.get( API_GET_USER_PROFILE  )
+    .pipe(
+      map((res:any) => {
+        try{
+          let p;
+          let lenUserProfile = res.length;
+          for(p =0; p<lenUserProfile; p++){
+            if(this.userID == res[p].userId)
+              this.profileIDList.push(res[p].authorityId);
+          }          
+          this.getProfileModule();
+        } catch(error){
+          console.log(error);
+        }
       }
-  };
+    ))
+    .subscribe((res:any) => {
+    }, (err:HttpErrorResponse) => {
+        console.log('Intento de autenticación.');
+        if(err.status == 0)
+          this.showAlert('ERROR DE CONEXION!');
+        if(err.status == 500)
+          this.showAlert('ERROR DEL SERVIDOR!');
+        if(err.status == 400)
+          this.showAlert('NO SE ENCUENTRA LA PÁGINA!');
+        if(err.status == 401)
+          this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');            
+      if(err.status == 401){
+        this.showAlert('CREDENCIALES INCORRECTAS!');
+      }
+    });
 
-
-  private setSession(): void {
-    try{
-      var authResult = this.sessionRoot;
-      const expiresAt = new Date(authResult.fechaExpiracion).getTime();
-      localStorage.setItem('access_token', authResult.token);
-      localStorage.setItem('expires_at', '' + expiresAt);
-      localStorage.setItem('logged_username', '' + this.username);
-      localStorage.setItem('objIdRol', '' + this.objIdRol);
-      localStorage.setItem('disableRoot', 'true');
-      localStorage.setItem('objIdRol', '' + this.objIdRol);
-      this.disableRt.disableRoot = true;
-      this.disableRt.refreshSession = true;
-      this.router.navigate(['/home']);
-
-    } catch(error){
-      console.log(error);
-    }
   }
+
+
+
+  public getProfileModule(){
+    return this.http.get( API_GET_PROFILE_MODULE  )
+    .pipe(
+      map((res:any) => {
+        try{
+          let p, q;
+          let lenProfileModule = res.length;
+          let lenProfileID = this.profileIDList.length;
+          this.profileUserOption[0] = this.profileVenta;
+          this.profileUserOption[1] = this.profileComision;
+          this.profileUserOption[2] = this.profileLote;
+          this.profileUserOption[3] = this.profilePerfil;
+
+          for(p =0; p<lenProfileID; p++){
+            for(q=0; q<lenProfileModule; q++){
+              if(this.profileIDList[p] == res[q].authorityId){
+                switch(res[q].moduleId){
+                  case '1':
+                    this.profileVenta.setModulePr(true);
+                    this.profileUserOption[0] = this.profileVenta;
+                    break;
+                  case '2':
+                    this.profileComision.setModulePr(true);
+                    this.profileUserOption[1] = this.profileComision;
+                    break;
+                  case '3':
+                    this.profileLote.setModulePr(true);
+                    this.profileUserOption[2] = this.profileLote;
+                    break;
+                  case '281':
+                    this.profilePerfil.setModulePr(true);
+                    this.profileUserOption[3] = this.profilePerfil;
+                    break;  
+                }
+              }
+            }
+          }
+          this.getUserOption('' + this.userID);
+        } catch(error){
+          console.log(error);
+        }
+      }
+    ))
+    .subscribe((res:any) => {
+    }, (err:HttpErrorResponse) => {
+        console.log('Intento de autenticación.');
+        if(err.status == 0)
+          this.showAlert('ERROR DE CONEXION!');
+        if(err.status == 500)
+          this.showAlert('ERROR DEL SERVIDOR!');
+        if(err.status == 400)
+          this.showAlert('NO SE ENCUENTRA LA PÁGINA!');
+        if(err.status == 401)
+          this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');            
+      if(err.status == 401){
+        this.showAlert('CREDENCIALES INCORRECTAS!');
+      }
+    });
+
+  }
+
 
 
   public getUserOption(userId:string){
@@ -142,7 +222,6 @@ export class AuthService {
         }
       ))
       .subscribe((res:any) => {
-
       }, (err:HttpErrorResponse) => {
         console.log('Obtención de opciones de usuario.');
         if(err.status == 0)
@@ -156,175 +235,8 @@ export class AuthService {
    });
 
   }
+  
 
-
-  public setProfileUserOption(userOptionResult:any[]){
-    var lenOResult = userOptionResult.length;
-    var p, q;
-
-    let profileVenta = new Profile(false,false,false,false,false);
-    let profileComision = new Profile(false,false,false,false,false);
-    let profileLote = new Profile(false,false,false,false,false);
-    let profilePerfil = new Profile(false,false,false,false,false);
-    this.profileUserOption[0] = profileVenta;
-    this.profileUserOption[1] = profileComision;
-    this.profileUserOption[2] = profileLote;
-    this.profileUserOption[3] = profilePerfil;
-
-    try{
-      for(p=0;p<lenOResult;p++){
-        switch(userOptionResult[p].moduleId){
-
-          case '1':
-            if(userOptionResult[p].moduleStatus == 'A'){
-              profileVenta.setModulePr(true);
-              localStorage.setItem('1', 'A');
-              switch(userOptionResult[p].optionType){
-                case 'CONSULTA':
-                  if(userOptionResult[p].optionStatus == 'A'){
-                    profileVenta.setConsultaPr(true);
-                  }
-                  break;
-                case 'CREACION':
-                  if(userOptionResult[p].optionStatus == 'A'){
-                    profileVenta.setCreacionPr(true);
-                  }
-                  break;
-                case 'ACTUALIZACION':
-                  if(userOptionResult[p].optionStatus == 'A'){
-                    profileVenta.setModificacionCompletaPr(true);
-                  }
-                  break;
-              }
-              this.profileUserOption[0] = profileVenta;
-            } else
-              localStorage.setItem('1', 'A');
-            break;
-
-          case '2':
-            if(userOptionResult[p].moduleStatus == 'A'){
-              profileComision.setModulePr(true);
-              switch(userOptionResult[p].optionType){
-                case 'CONSULTA':
-                  if(userOptionResult[p].optionStatus == 'A'){
-                    profileComision.setConsultaPr(true);
-                  }
-                  break;
-                case 'CREACION':
-                  if(userOptionResult[p].optionStatus == 'A'){
-                    profileComision.setCreacionPr(true);
-                  }
-                  break;
-                case 'ACTUALIZACION':
-                  if(userOptionResult[p].optionStatus == 'A'){
-                    profileComision.setModificacionCompletaPr(true);
-                  }
-                  break;
-              }
-              this.profileUserOption[1] = profileComision;
-            } else
-              localStorage.setItem('2', 'A');
-            break;
-
-          case '3':
-            if(userOptionResult[p].moduleStatus == 'A'){
-              profileLote.setModulePr(true);
-              switch(userOptionResult[p].optionType){
-                case 'CONSULTA':
-                  if(userOptionResult[p].optionStatus == 'A'){
-                    profileLote.setConsultaPr(true);
-                  }
-                  break;
-                case 'CREACION':
-                  if(userOptionResult[p].optionStatus == 'A'){
-                    profileLote.setCreacionPr(true);
-                  }
-                  break;
-                case 'ACTUALIZACION':
-                  if(userOptionResult[p].optionStatus == 'A'){
-                    profileLote.setModificacionCompletaPr(true);
-                  }
-                  break;
-              }
-              this.profileUserOption[2] = profileLote;
-            } else
-              localStorage.setItem('3', 'A');
-            break;
-
-          case '281':
-            if(userOptionResult[p].moduleStatus == 'A'){
-              profilePerfil.setModulePr(true);
-              switch(userOptionResult[p].optionType){
-                case 'CONSULTA':
-                  if(userOptionResult[p].optionStatus == 'A'){
-                    profilePerfil.setConsultaPr(true);
-                  }
-                  break;
-                case 'CREACION':
-                  if(userOptionResult[p].optionStatus == 'A'){
-                    profilePerfil.setCreacionPr(true);
-                  }
-                  break;
-                case 'ACTUALIZACION':
-                  if(userOptionResult[p].optionStatus == 'A'){
-                    profilePerfil.setModificacionCompletaPr(true);
-                  }
-                  break;
-              }
-              this.profileUserOption[3] = profilePerfil;
-            } else
-              localStorage.setItem('281', 'A');
-            break;
-        }
-      }
-      this.disableRt.profileRoot = this.profileUserOption;
-      localStorage.setItem('sales_module', JSON.stringify(this.disableRt.profileRoot[0]));
-      localStorage.setItem('fees_module', JSON.stringify(this.disableRt.profileRoot[1]));
-      localStorage.setItem('batches_module', JSON.stringify(this.disableRt.profileRoot[2]));
-      localStorage.setItem('profiles_module', JSON.stringify(this.disableRt.profileRoot[3]));
-      this.setSession();
-
-    } catch(error){
-      console.log(error);
-    }
-  }
-
-
-  public logout(): void {
-    try{
-      localStorage.clear();
-      this.disableRt.disableRoot = false;
-      this.disableRt.refreshSession = false;
-      this.router.navigate(['/login']);
-    } catch(error){
-      console.log(error);
-    }
-  }
-
-
-
-  public loadSearch(){
-    return this.http.post(API_SEARCH,null);
-  }
-
-  public getBandeja(){
-    return this.http.post(API_BANDEJA,null);
-  }
-
-  logout2() {
-      // remove user from local storage to log user out
-      localStorage.removeItem('username');
-      this.router.navigate(['/login']);
-  }
-
-
-  showAlert(message){
-    if(window.confirm(message)){
-      this.router.navigate(['/']);
-    } else{
-      this.router.navigate(['/']);
-    }
-  }
 
   public getSalesOrderHistory(){
     var dayEnd, monthStart, yearStart;
@@ -376,7 +288,166 @@ export class AuthService {
       if(err.status == 401)
         this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');            
     });
+
   }
+
+
+
+  public setProfileUserOption(userOptionResult:any[]){
+    var lenOResult = userOptionResult.length;
+    var p, q;
+    try{
+      for(p=0;p<lenOResult;p++){
+        switch(userOptionResult[p].moduleId){
+
+          case '1':
+            //  localStorage.setItem('1', 'A');
+              switch(userOptionResult[p].optionType){
+                case 'CONSULTA':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    this.profileVenta.setConsultaPr(true);
+                  }
+                  break;
+                case 'CREACION':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    this.profileVenta.setCreacionPr(true);
+                  }
+                  break;
+                case 'ACTUALIZACION':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    this.profileVenta.setModificacionCompletaPr(true);
+                  }
+                  break;
+              }
+              this.profileUserOption[0] = this.profileVenta;
+            break;
+
+          case '2':
+              switch(userOptionResult[p].optionType){
+                case 'CONSULTA':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    this.profileComision.setConsultaPr(true);
+                  }
+                  break;
+                case 'CREACION':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    this.profileComision.setCreacionPr(true);
+                  }
+                  break;
+                case 'ACTUALIZACION':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    this.profileComision.setModificacionCompletaPr(true);
+                  }
+                  break;
+              }
+              this.profileUserOption[1] = this.profileComision;
+            break;
+
+          case '3':
+              switch(userOptionResult[p].optionType){
+                case 'CONSULTA':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    this.profileLote.setConsultaPr(true);
+                  }
+                  break;
+                case 'CREACION':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    this.profileLote.setCreacionPr(true);
+                  }
+                  break;
+                case 'ACTUALIZACION':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    this.profileLote.setModificacionCompletaPr(true);
+                  }
+                  break;
+              }
+              this.profileUserOption[2] = this.profileLote;
+            break;
+
+          case '281':
+              switch(userOptionResult[p].optionType){
+                case 'CONSULTA':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    this.profilePerfil.setConsultaPr(true);
+                  }
+                  break;
+                case 'CREACION':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    this.profilePerfil.setCreacionPr(true);
+                  }
+                  break;
+                case 'ACTUALIZACION':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    this.profilePerfil.setModificacionCompletaPr(true);
+                  }
+                  break;
+              }
+              this.profileUserOption[3] = this.profilePerfil;
+            break;
+        }
+      }
+      this.disableRt.profileRoot = this.profileUserOption;
+      localStorage.setItem('sales_module', JSON.stringify(this.disableRt.profileRoot[0]));
+      localStorage.setItem('fees_module', JSON.stringify(this.disableRt.profileRoot[1]));
+      localStorage.setItem('batches_module', JSON.stringify(this.disableRt.profileRoot[2]));
+      localStorage.setItem('profiles_module', JSON.stringify(this.disableRt.profileRoot[3]));
+      this.setSession();
+    } catch(error){
+      console.log(error);
+    }
+  }
+
+
+
+  public logout(): void {
+    try{
+      this.disableRt.disableRoot = false;
+      this.disableRt.refreshSession = false;
+      this.profileUserOption = [];
+      this.userOptionResult = [];
+      this.profileIDList = [];
+
+      this.profileVenta = new Profile(false,false,false,false,false);
+      this.profileComision = new Profile(false,false,false,false,false);
+      this.profileLote = new Profile(false,false,false,false,false);
+      this.profilePerfil = new Profile(false,false,false,false,false);
+
+      localStorage.removeItem('sales_module');
+      localStorage.removeItem('fees_module');
+      localStorage.removeItem('batches_module');
+      localStorage.removeItem('profiles_module');
+      localStorage.clear();
+      this.router.navigate(['/login']);
+    } catch(error){
+      console.log(error);
+    }
+  }
+
+
+
+  public loadSearch(){
+    return this.http.post(API_SEARCH,null);
+  }
+
+  public getBandeja(){
+    return this.http.post(API_BANDEJA,null);
+  }
+
+  logout2() {
+      // remove user from local storage to log user out
+      localStorage.removeItem('username');
+      this.router.navigate(['/login']);
+  }
+
+
+  showAlert(message){
+    if(window.confirm(message)){
+      this.router.navigate(['/']);
+    } else{
+      this.router.navigate(['/']);
+    }
+  }
+
 
 
   setValueOrdersDashboard(statusOrder){
@@ -408,6 +479,26 @@ export class AuthService {
         dataCard = {"data": historyList}
       pieData = [dataCard];
       return pieData;
+
+    } catch(error){
+      console.log(error);
+    }
+  }
+
+
+  private setSession(): void {
+    try{
+      var authResult = this.sessionRoot;
+      const expiresAt = new Date(authResult.fechaExpiracion).getTime();
+      localStorage.setItem('access_token', authResult.token);
+      localStorage.setItem('expires_at', '' + expiresAt);
+      localStorage.setItem('logged_username', '' + this.username);
+      localStorage.setItem('objIdRol', '' + this.objIdRol);
+      localStorage.setItem('disableRoot', 'true');
+      localStorage.setItem('objIdRol', '' + this.objIdRol);
+      this.disableRt.disableRoot = true;
+      this.disableRt.refreshSession = true;
+      this.router.navigate(['/home']);
 
     } catch(error){
       console.log(error);
