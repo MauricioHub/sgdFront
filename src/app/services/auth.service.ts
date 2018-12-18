@@ -72,8 +72,11 @@ export class AuthService {
             this.userID = res.userID;                        
             this.sessionRoot = res;
             this.objIdRol = res.rolID;
+            window.name = 'Ventana2';
             localStorage.setItem('userID', res.userID);
-            localStorage.setItem('rolID', '' + this.objIdRol);            
+            localStorage.setItem('rolID', '' + this.objIdRol);
+            console.log('SOY-WINDOW-AUTH-SERVICE:');
+            console.log(window.name);            
             this.getUserProfile();
           } catch(error){
             console.log(error);
@@ -488,6 +491,7 @@ export class AuthService {
 
   private setSession(): void {
     try{
+      var historySession = history.length;
       var authResult = this.sessionRoot;
       const expiresAt = new Date(authResult.fechaExpiracion).getTime();
       localStorage.setItem('access_token', authResult.token);
@@ -496,13 +500,27 @@ export class AuthService {
       localStorage.setItem('objIdRol', '' + this.objIdRol);
       localStorage.setItem('disableRoot', 'true');
       localStorage.setItem('objIdRol', '' + this.objIdRol);
+      localStorage.setItem('historySession', '' + historySession);
       this.disableRt.disableRoot = true;
       this.disableRt.refreshSession = true;
+
+      this.setCookie('serv','w1',30);
+      console.log('SOY-AUTH-SERVICE:');
+      console.log(historySession);
       this.router.navigate(['/home']);
 
     } catch(error){
       console.log(error);
     }
   }
+
+
+  public setCookie(cname,cvalue,exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires=" + d.getDate();
+    document.cookie = cname + "=" + cvalue + ";" + expires;
+  }
+
 
 }

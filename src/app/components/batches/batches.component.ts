@@ -106,6 +106,8 @@ export class BatchesComponent implements OnInit {
               private disableRt:Globals) {
     if(localStorage.getItem('disableRoot') == 'true')
         this.disableRt.disableRoot = true;
+    this.checkHistory();
+    this.checkToken();
 
     this.disableRt.profileRoot[0] = JSON.parse(localStorage.getItem('sales_module'));
     this.disableRt.profileRoot[1] = JSON.parse(localStorage.getItem('fees_module'));
@@ -860,6 +862,35 @@ export class BatchesComponent implements OnInit {
         for(p=0; p<len; p++)
             this.selectedLoteCopy[p] = this.selectedLote[p];
       }
+
+
+      public checkHistory() {
+        if(window.history.state.navigationId == 1){
+          this.disableRt.disableRoot = false;
+          this.router.navigate(['/login']);
+        } 
+      }
+    
+    
+      public checkToken(){
+        let batchesToken = '';
+        let accessToken = '';
+        if(this.isEmpty(localStorage.getItem('batches_token')))
+          localStorage.setItem('batches_token','');
+        batchesToken = localStorage.getItem('batches_token');
+        accessToken = localStorage.getItem('access_token');
+
+        if(batchesToken != ''){
+          if((batchesToken != accessToken)){
+            localStorage.setItem('access_token', localStorage.getItem('batches_token'));
+            this.disableRt.disableRoot = false;
+            this.router.navigate(['/login']);
+          }
+    
+        } else{
+          localStorage.setItem('batches_token', accessToken);
+        }
+      }  
 
     /*  verifyObservationByRecord(){
           let batchLen = this.batchRegular.length;

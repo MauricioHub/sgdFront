@@ -16,7 +16,10 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router,
               private authService:AuthService,
-              private disableRt:Globals) { 
+              private disableRt:Globals) {
+                
+      console.log('soy-PRUEBITAloGIN-HISTORY: ');
+      console.log(window.history);            
 
     /*  setInterval(function(refreshSession){
         /*if(!refreshSession){
@@ -29,7 +32,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if(localStorage.getItem("access_token")!=null){
-    this.router.navigate(['/home']);
+    //this.router.navigate(['/home']);
     }
   }
 

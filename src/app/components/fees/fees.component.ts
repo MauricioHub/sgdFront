@@ -66,7 +66,9 @@ export class FeesComponent implements OnInit {
               private _excelService:ExcelService,
               private disableRt:Globals) {
     if(localStorage.getItem('disableRoot') == 'true')
-      this.disableRt.disableRoot = true;  
+      this.disableRt.disableRoot = true;
+    this.checkHistory();
+    this.checkToken();  
       
     this.disableRt.profileRoot[0] = JSON.parse(localStorage.getItem('sales_module'));
     this.disableRt.profileRoot[1] = JSON.parse(localStorage.getItem('fees_module'));
@@ -452,6 +454,35 @@ export class FeesComponent implements OnInit {
       }
     }
     return dataListSorted;
+  }
+  
+  
+  public checkHistory() {
+    if(window.history.state.navigationId == 1){
+      this.disableRt.disableRoot = false;
+      this.router.navigate(['/login']);
+    } 
+  }
+
+
+  public checkToken(){
+    let feesToken = '';
+    let accessToken = '';
+    if(this.isEmpty(localStorage.getItem('fees_token')))
+      localStorage.setItem('fees_token','');
+    feesToken = localStorage.getItem('fees_token');
+    accessToken = localStorage.getItem('access_token');
+
+    if(feesToken != ''){
+      if((feesToken != accessToken)){
+        localStorage.setItem('access_token', localStorage.getItem('fees_token'));
+        this.disableRt.disableRoot = false;
+        this.router.navigate(['/login']);
+      }
+
+    } else{
+      localStorage.setItem('fees_token', accessToken);
+    }
   }  
 
 
