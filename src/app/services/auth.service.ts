@@ -79,7 +79,7 @@ export class AuthService {
           if(err.status == 400)
             this.showAlert('NO SE ENCUENTRA LA PÁGINA!');
           if(err.status == 401)
-            this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');            
+            this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');
         if(err.status == 401){
           this.showAlert('CREDENCIALES INCORRECTAS!');
         }
@@ -109,7 +109,6 @@ export class AuthService {
       localStorage.setItem('logged_username', '' + this.username);
       localStorage.setItem('objIdRol', '' + this.objIdRol);
       localStorage.setItem('disableRoot', 'true');
-      localStorage.setItem('objIdRol', '' + this.objIdRol);
       this.disableRt.disableRoot = true;
       this.disableRt.refreshSession = true;
       this.router.navigate(['/home']);
@@ -152,7 +151,7 @@ export class AuthService {
         if(err.status == 400)
           this.showAlert('NO SE ENCUENTRA LA PÁGINA!');
         if(err.status == 401)
-          this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');            
+          this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');
    });
 
   }
@@ -374,7 +373,7 @@ export class AuthService {
       if(err.status == 400)
         this.showAlert('NO SE ENCUENTRA LA PÁGINA!');
       if(err.status == 401)
-        this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');            
+        this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');
     });
   }
 

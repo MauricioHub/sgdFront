@@ -52,19 +52,20 @@ import { EstadousuarioComponent } from './components/update/estadousuario/estado
 import { UpdatedatosComponent } from './components/update/updatedatos/updatedatos.component';
 import { UpdatedatospComponent } from './components/update/updatedatosp/updatedatosp.component';
 import {UpdaterolComponent} from './components/update/updaterol/updaterol.component';
+import {UpuserproComponent} from './components/update/upuserpro/upuserpro.component';
+import { CrpromodComponent } from './components/create/crpromod/crpromod.component';
+import {UppromodComponent} from './components/update/uppromod/uppromod.component';
 
 
 
-//import { BrowseComponentd } from './components/home/browse.component';
-/*
-//import { PreciosComponent } from "./components/precios/precios.component";
-//import { ProtegidaComponent } from "./components/protegida/protegida.component";
-//import { AuthGuardService } from './services/auth-guard.service'; */
+
 
 
 const APP_ROUTES: Routes = [
 //  { path: 'heroes', component: HeroesComponent },
 //  { path: 'heroe/:id', component: HeroeComponent },
+
+
   { path: 'approot', component: AppComponent,	canActivate: [ AuthguardService ] },
   { path: 'home', component: HomeComponent,	canActivate: [ AuthguardService ] },
   { path: 'login', component: LoginComponent },
@@ -77,7 +78,7 @@ const APP_ROUTES: Routes = [
     rol:'42',
     cac:'81',
     dig:'162',
-   }
+  }
    },
   { path: 'file', component: RdarchivosComponent,canActivate: [RoleguardService],data:{
     rol:'42',
@@ -106,20 +107,8 @@ const APP_ROUTES: Routes = [
       cac:'81',
      }
      },
-    { path: 'batches', component: BatchesComponent,	canActivate: [ RoleguardService ],data:{
-      rol:'42',
-      jefecac:'89',
-      cac:'81',
-
-     }
-     },
-    { path: 'fees', component: FeesComponent,	canActivate: [ RoleguardService ],data:{
-      rol:'42',
-      jefecac:'89',
-      cac:'81',
-      comi:'102'
-     }
-      },
+    { path: 'batches', component: BatchesComponent,	canActivate: [ RoleguardService ],data:{rol:'42',jefecac:'89',cac:'81'}},
+    { path: 'fees', component: FeesComponent,	canActivate: [ RoleguardService ],data:{rol:'42',jefecac:'89',cac:'81',comi:'102'}},
       //////////////////////////////////////////
       /////////////////////////////////////////
       ////////RUTAS DEL PANEL DE CONTROL//////
@@ -144,8 +133,12 @@ const APP_ROUTES: Routes = [
       { path: 'rdusersopc', component: RdusersopcComponent,	canActivate: [RoleguardService],data:{
         rol:'42',
        } },
-       { path: 'userrol', component: UserrolComponent,	 },
-        { path: 'roldomule', component: RolmoduleComponent},
+       { path: 'userrol', component: UserrolComponent,	canActivate: [RoleguardService],data:{
+         rol:'42',
+        } },
+        { path: 'roldomule', component: RolmoduleComponent,	canActivate: [RoleguardService],data:{
+          rol:'42',
+         } },
        //////////////////////////////////
       ///////NUEVOS INGRESOS////////////
       /////////////////////////////////
@@ -168,6 +161,10 @@ const APP_ROUTES: Routes = [
        { path: 'putuserrol', component: CruserproComponent,	canActivate: [RoleguardService],data:{
          rol:'42',
         } },
+
+        { path: 'putrolmodul', component: CrpromodComponent,	canActivate: [RoleguardService],data:{
+          rol:'42',
+         } },
 
 
       //update
@@ -193,6 +190,13 @@ const APP_ROUTES: Routes = [
         rol:'42',
        } },
       { path: 'usuariosdatosp', component: UpdatedatospComponent,	canActivate: [RoleguardService],data:{
+        rol:'42',
+      } },
+
+      { path: 'deleteuserrol', component: UpuserproComponent,	canActivate: [RoleguardService],data:{
+        rol:'42',
+      } },
+      { path: 'deleterolmod', component: UppromodComponent,	canActivate: [RoleguardService],data:{
         rol:'42',
       } },
 

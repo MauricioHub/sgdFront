@@ -13,6 +13,7 @@ import {Usuario} from "../../../interface/usuario";
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CruserproComponent } from '../../create/cruserpro/cruserpro.component';
+import {UpuserproComponent} from '../../update/upuserpro/upuserpro.component';
 
 @Component({
   selector: 'app-userrol',
@@ -73,6 +74,19 @@ export class UserrolComponent implements OnInit {
        this.listaids()
      });
    }
+
+   openDialogUpdate(element:Usuario){
+     const dialogRef = this.dialog.open(UpuserproComponent, {
+        width: '500px',
+        disableClose:true,
+        data: element
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        this.listaids()
+      });
+    }
 
   showAlert(message){
     if(window.confirm(message)){

@@ -64,13 +64,13 @@ API_UPDATE_USEROPC:'http://10.225.13.19:9960/UpdateUserOption',
   //---------------------------------------------------------
 API_GET_USERROL:'http://10.225.13.19:9960/GetUserProfile',
 API_PUT_USERROL:'http://10.225.13.19:9960/PutUserProfile',
-API_DELETE_USERROL:'http://10.225.13.19:9960/DeleteProfileModule',
+API_DELETE_USERROL:'http://10.225.13.19:9960/DeleteUserProfile',
 
 //ROLES-MODULOS
 //---------------------------------------------------------
 API_GET_ROLMODULE:'http://10.225.13.19:9960/GetProfileModule',
 API_PUT_ROLMODULE:'http://10.225.13.19:9960/PutProfileModule',
-API_DELETE_ROLMODULE:'http://10.225.13.19:9960/DeleteUserProfile ',
+API_DELETE_ROLMODULE:'http://10.225.13.19:9960/DeleteProfileModule',
 //AUTENTICACION
 API_LOGIN:'http://10.225.13.19:9961/auth/',
 
@@ -80,11 +80,11 @@ API_GET_FILETRACE:'http://10.225.13.19:9964/GetFileTrace',
 API_GET_DIGITALTRACE:'http://10.225.13.19:9964/GetDigitalTrace',
 API_GET_FILESTORE:'http://10.225.13.19:9964/GetFileStore',
 
-/////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
-////////////////LEVANTADOS DE MANERA LOCAL//////////////////'http://localhost:8088/login/authenticate'
-///////////////////////////////////////////////////////////
+////////////////LEVANTADOS DE MANERA LOCAL/////////////////
+//////////////////////////////////////////////////////////
 /*
   //MODULOS
 //---------------------------------------------------------

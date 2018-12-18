@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 //IMPORTACIONES DE MATERIAL ANGULAR
 import {
     MatOptionModule,
@@ -41,8 +40,7 @@ import {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatTreeModule,
-
+    MatTreeModule
   } from '@angular/material';
 
 

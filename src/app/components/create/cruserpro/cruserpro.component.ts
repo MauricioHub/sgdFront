@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatSnackBar} from '@angular/material';
-import {Usuario} from "../../../interface/usuario";
+import {Userol} from "../../../interface/userol";
 
 
 @Component({
@@ -17,7 +17,7 @@ import {Usuario} from "../../../interface/usuario";
 export class CruserproComponent implements OnInit {
  public usersss;
  public usersop;
-  constructor(public router:Router,private creopc:ServcreatedService,private gtopcio:ServicesgetService,public snackBar: MatSnackBar,public dialogRef: MatDialogRef<CruserproComponent>,@Inject(MAT_DIALOG_DATA) public data:Usuario) {
+  constructor(public router:Router,private creopc:ServcreatedService,private gtopcio:ServicesgetService,public snackBar: MatSnackBar,public dialogRef: MatDialogRef<CruserproComponent>,@Inject(MAT_DIALOG_DATA) public data:Userol) {
   this.litstauser();
   this.listaidus();
   }
