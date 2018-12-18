@@ -1,3 +1,51 @@
-<p>
-  crpromod works!
-</p>
+<form (ngSubmit)="Nuevorolmod(formanvrolmod)" #formanvrolmod="ngForm" novalidate>
+  <h2 align="center">NUEVO VINCULO </h2>
+  <br>
+<div>
+  <mat-form-field appearance="outline">
+  <mat-label>ROL</mat-label>
+  <mat-select  placeholder="ROL"
+   name="profileId"
+    ngModel
+   #profileId=ngModel
+   required>
+    <mat-option value="" disabled selected>None</mat-option>
+    <mat-option *ngFor="let role of usersss" [value]="role.id">{{role.name}}</mat-option>
+  </mat-select>
+  <mat-error *ngIf="profileId.hasError('required')">
+ <strong>El rol es obligario</strong>
+</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+  <mat-label>MODULO</mat-label>
+  <mat-select placeholder="MODULO"
+   name="idModule"
+   maxlength="25"
+   minlength="2"
+   ngModel
+   #idModule=ngModel
+   required>
+    <mat-option value="" disabled selected>None</mat-option>
+    <mat-option *ngFor="let module of modules" [value]="module.moduleId">{{module.moduleName}}</mat-option>
+  </mat-select>
+  <mat-error *ngIf="idModule.hasError('required')">
+El modulo es <strong>obligario</strong>
+</mat-error>
+  </mat-form-field>
+
+</div>
+<br>
+<br>
+<br>
+
+<button type="submit" id="guardar" class="btn btn-outline-primary" data-toggle="modal" [disabled]="!formanvrolmod.valid" mat-button matTooltip ="GUARDAR NUEVO VINCULO"
+><mat-icon>save</mat-icon>
+</button>
+
+<button id="delete" type="reset" mat-dialog-close class="btn btn-outline-primary" mat-button matTooltip ="SALIR"
+><mat-icon>exit_to_app</mat-icon>
+</button>
+
+
+</form>

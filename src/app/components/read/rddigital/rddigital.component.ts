@@ -4,13 +4,14 @@ import { NgForm,FormControl,Validators } from "@angular/forms";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTableDataSource,MatPaginator,MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatSort} from '@angular/material';
 import {ResponseModule} from "../../../interface/response-module";
-import {Trazabilidad} from"../../../interface/Trazabilidad";
+import {Digital} from"../../../interface/digital";
 import {MatTableModule} from '@angular/material';
 import {DataSource} from '@angular/cdk/collections';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {Observable} from 'rxjs';
 import { Globals } from '../../../app.globals';
 import {SelectionModel} from '@angular/cdk/collections';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,9 +21,9 @@ import {SelectionModel} from '@angular/cdk/collections';
 })
 export class RddigitalComponent implements OnInit {
 
-  constructor() { }
 
-  ngOnInit() {
-  }
 
+constructor() {}
+ngOnInit() {
+}
 }

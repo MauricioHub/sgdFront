@@ -22,7 +22,7 @@ public opciones;
   this.litstauser()
 }
 
-  ngOnInit() {
+ngOnInit() {
   }
   openSnackBar(idusuario:string) {
     this.snackBar.open('ID:'+idusuario+' vinculado', 'SALIR', {

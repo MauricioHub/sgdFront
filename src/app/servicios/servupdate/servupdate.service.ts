@@ -152,10 +152,10 @@ editarrol(username:string,firstname:string,lastname:string,email:string,phonenum
    return this.http.post(API_DELETE_ROLMODULE,delrolmod);
    }
 
-   deleuserrol(profileId:string,userId:string){
+   deleuserrol(userId:string,profileId:string){
      let deluserpro ={
-       profileId:profileId,
-       userId:userId
+       userId:userId,
+        profileId:profileId,
      }
      return this.http.post(API_DELETE_USERROL,deluserpro);
      }

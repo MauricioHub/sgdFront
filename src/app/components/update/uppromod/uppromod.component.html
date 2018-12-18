@@ -1,3 +1,59 @@
-<p>
-  uppromod works!
-</p>
+<form (ngSubmit)="Deleterolmod(formadtrolmod)" #formadtrolmod="ngForm" novalidate>
+  <h2 align="center">ELIMINAR VINCULO </h2>
+  <br>
+<div>
+  <mat-form-field appearance="outline">
+  <mat-label>ID MODULÓ</mat-label>
+   <input matInput placeholder="USUARIO" disabled=true
+   name="moduleId"
+    value="data.moduleId"
+   ngModel="{{data.moduleId}}"
+   #moduleId="ngModel">
+   <mat-icon matSuffix>dehaze</mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+  <mat-label>MODULÓ</mat-label>
+   <input matInput placeholder="USUARIO" disabled=true
+   name="moduleName"
+    value="data.moduleName"
+   ngModel="{{data.moduleName}}"
+   #moduleName="ngModel">
+   <mat-icon matSuffix>dehaze</mat-icon>
+  </mat-form-field>
+
+
+<mat-form-field appearance="outline">
+<mat-label>ROL</mat-label>
+<input matInput placeholder="ROL" disabled=true
+name="authorityId"
+value="data.authorityId"
+ngModel="{{data.authorityId}}"
+#authorityId="ngModel">
+<mat-icon matSuffix>person</mat-icon>
+ </mat-form-field>
+
+ <mat-form-field appearance="outline">
+ <mat-label>ROL</mat-label>
+ <input matInput placeholder="ROL" disabled=true
+ name="authorityName"
+ value="data.authorityName"
+ ngModel="{{data.authorityName}}"
+ #authorityName="ngModel">
+ <mat-icon matSuffix>person</mat-icon>
+  </mat-form-field>
+</div>
+<br>
+   <mat-checkbox class="example-margin">CONFIRMAR</mat-checkbox>
+<br>
+
+<button type="submit" id="guardar" class="btn btn-outline-primary"   mat-button matTooltip ="ELIMINAR VINCULO"
+><mat-icon>delete</mat-icon>
+</button>
+
+<button id="delete" type="reset" mat-dialog-close class="btn btn-outline-primary" mat-button matTooltip ="SALIR"
+><mat-icon>exit_to_app</mat-icon>
+</button>
+
+
+</form>

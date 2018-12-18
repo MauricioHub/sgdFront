@@ -11,6 +11,9 @@ import {Observable} from 'rxjs';
 import { Globals } from '../../../app.globals';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import {Rolmod} from "../../../interface/rolmod";
+import { CrpromodComponent } from '../../create/crpromod/crpromod.component';
+import {UppromodComponent} from '../../update/uppromod/uppromod.component';
 
 @Component({
   selector: 'app-rolmodule',
@@ -18,7 +21,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./rolmodule.component.css']
 })
 export class RolmoduleComponent implements OnInit {
-displayedColumns: string[] = ['IDUSUARIO', 'USUARIO','IDROL','ROL'];
+displayedColumns: string[] = ['IDUSUARIO', 'USUARIO','IDROL','ROL','DELETE'];
 public rolmod= new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -59,6 +62,31 @@ public rolmod= new MatTableDataSource();
     }
     );
   }
+  openDialogcreate(element:Rolmod){
+    const dialogRef = this.dialog.open(CrpromodComponent, {
+       width: '500px',
+       disableClose:false,
+     });
+
+     dialogRef.afterClosed().subscribe(result => {
+       console.log('The dialog was closed');
+       this.listaids()
+     });
+   }
+
+   openDialogUpdate(element:Rolmod){
+     const dialogRef = this.dialog.open(UppromodComponent, {
+        width: '500px',
+        disableClose:false,
+        data: element
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        this.listaids()
+      });
+    }
+
   showAlert(message){
     if(window.confirm(message)){
       this.router.navigate(['/home']);

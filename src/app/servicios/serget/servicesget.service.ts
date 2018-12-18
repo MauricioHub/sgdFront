@@ -116,6 +116,7 @@ getrolmodule(authorityId:string,authorityName:string,moduleId:string,moduleName:
   }
   return this.http.get(API_GET_ROLMODULE);
 }
+
 gettracedigital(digitalStartDate:string,digitalEndDate:string,digitalStatus:string,digitalUserId:string,digitalOrderID:string){
 let digbody={
   digitalStartDate:digitalStartDate,
@@ -126,6 +127,7 @@ let digbody={
   }
   return this.http.post(API_GET_DIGITALTRACE,digbody);
 }
+
 getfilestore(storeStartDate:string,storeEndDate:string,storeStatus:string,storeUserId:string,storeOrderId:string){
   let filesto={
     storeStartDate:storeStartDate,
