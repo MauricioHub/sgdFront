@@ -62,7 +62,10 @@ export class HomeComponent implements OnInit {
               private httpService: HttpClient,
               private disableRt:Globals) {
     if(localStorage.getItem('disableRoot') == 'true')
-      this.disableRt.disableRoot = true;             
+      this.disableRt.disableRoot = true;
+      
+    let historySe = localStorage.getItem('historySession');
+    //window.name = 'Ventana1';
     this.loggedUsername = localStorage.getItem('logged_username');
     this.monthPieData = localStorage.getItem('monthPieData');
     this.pieDataJson = JSON.parse(localStorage.getItem('pieData'));
@@ -81,8 +84,20 @@ export class HomeComponent implements OnInit {
     this.disableRt.profileRoot[3] = JSON.parse(localStorage.getItem('profiles_module'));
 
     this.flagSession = localStorage.getItem('logged_');
-    console.log('soy-PRUEBITA-USUARIO: ');
-    console.log(this.loggedUsername);
+    /*console.log('soy-PRUEBITA-HISTORY: ');
+    console.log(window.history);
+    console.log(window.history.length);
+    console.log(window.history.state.navigationId);*/
+    this.checkHistory();
+    this.checkToken();
+
+    /*let today = new Date();
+    window.name = 'w' + today.getTime();
+    console.log('HOME-HISTORY-SESSION: ');
+    console.log(window.name);*/
+    //this.checkCookie();
+    //this.setCookie('serv','',30);
+
     if(localStorage.getItem('logged_username') != null){
       console.log('VARIABLE GLOBAL-TRUE: ');
       this.disableRt.refreshSession = true;
@@ -208,6 +223,129 @@ export class HomeComponent implements OnInit {
     } else{
     }
   }
+
+
+  /*public checkStorageCopy(){
+    if(localStorage.getItem('logged_username') != null){
+      //this.disableRt.disableRoot = false;
+      //this.router.navigate(['/login']);
+      console.log('SOY-CHECK-STORAGE-COPY');
+      console.log('ya-haY-SESION-INICIADA!!');
+    } else{
+    }
+  }
+
+  public setCookie(cname,cvalue,exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires=" + d.getDate();
+    document.cookie = cname + "=" + cvalue + ";" + expires;
+  }
+
+
+  public setCookieApp(cname,cvalue,exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires=" + d.getDate();
+    document.cookie = cname + "=" + cvalue + ";" + expires;
+  }
+
+
+  public checkCookie2() {
+    var user=this.getCookie("app");
+    if (user != "") {
+        console.log('SOY-HOME-COOKIE2-LLENO: ');
+        console.log(user);
+    } else {
+      console.log('SOY-HOME-COOKIE2-VACIO: ');
+      console.log(user);
+      //localStorage.removeItem('logged_username');
+      //this.disableRt.disableRoot = false;
+      //this.router.navigate(['/login']);
+      /* user = prompt("Please enter your name:","");
+       if (user != "" && user != null) {
+           setCookie("username", user, 30);
+       }*/
+  //  }
+ // }
+
+
+  /*public checkCookie() {
+    var user=this.getCookie("serv");
+    if (user != "") {
+        console.log('SOY-HOME-COOKIE-LLENO: ');
+        this.setCookieApp('app','w2',30);
+        console.log(user);
+    } else {
+      console.log('SOY-HOME-COOKIE-VACIO: ');
+      console.log(user);
+    } 
+  }*/
+
+  public checkHistory() {
+    if(window.history.state.navigationId == 1){      
+      //console.log('soy-HOMEckeck-HISTORY: ');
+      //console.log(window.history.state.navigationId);
+      //window.history.state.navigationId == 0;
+      this.disableRt.disableRoot = false;
+      this.router.navigate(['/login']);
+    } 
+  }
+
+
+  public checkToken(){
+    let homeToken = '';
+    let accessToken = '';
+    if(this.isEmpty(localStorage.getItem('home_token')))
+      localStorage.setItem('home_token','');
+    homeToken = localStorage.getItem('home_token');
+    accessToken = localStorage.getItem('access_token');
+    //console.log('soy-HOME-FUNCTION-TOKEN: ');
+    //console.log(homeToken);
+    //console.log(accessToken);
+    
+    if(homeToken != ''){
+      if((homeToken != accessToken)){
+        //console.log('soy-HOME-ckeck-TOKEN: ');
+        localStorage.setItem('access_token', localStorage.getItem('home_token'));
+        this.disableRt.disableRoot = false;
+        this.router.navigate(['/login']);
+      }
+
+    } else{
+      localStorage.setItem('home_token', accessToken);
+    }
+  }
+
+
+  /*public checkCookieApp() {
+    var user=this.getCookie("app");
+    if (user != "") {
+        console.log('SOY-HOME-app-COOKIE-LLENO: ');
+        //this.setCookieApp('app','w2',30);
+        console.log(user);
+    } else {
+      console.log('SOY-HOME-COOKIE-VACIO: ');
+      this.router.navigate(['/login']);
+    } 
+  }
+
+
+  public getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+  }*/
 
 
 }

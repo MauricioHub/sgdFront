@@ -93,7 +93,8 @@ export class SalesComponent implements OnInit {
         this.enableSaleConsult = this.disableRt.profileRoot[0].consultaPr;
       if(this.disableRt.profileRoot[0].creacionPr)
         this.enableSaleCreation = this.disableRt.profileRoot[0].creacionPr;
-
+      this.checkHistory();
+      this.checkToken();
       this.chargeChannels();
       this.chargeOffices(this.selectedChannel.channelId);
       if(!this.flagBatched)
@@ -887,6 +888,35 @@ export class SalesComponent implements OnInit {
       console.log(error);
     }
   }
+
+
+  public checkHistory() {
+    if(window.history.state.navigationId == 1){
+      this.disableRt.disableRoot = false;
+      this.router.navigate(['/login']);
+    } 
+  }
+
+
+  public checkToken(){
+    let salesToken = '';
+    let accessToken = '';
+    if(this.isEmpty(localStorage.getItem('sales_token')))
+      localStorage.setItem('sales_token','');
+    salesToken = localStorage.getItem('sales_token');
+    accessToken = localStorage.getItem('access_token');
+    
+    if(salesToken != ''){
+      if((salesToken != accessToken)){
+        localStorage.setItem('access_token', localStorage.getItem('sales_token'));
+        this.disableRt.disableRoot = false;
+        this.router.navigate(['/login']);
+      }
+
+    } else{
+      localStorage.setItem('sales_token', accessToken);
+    }
+  } 
 
 
 }

@@ -72,6 +72,7 @@ export class AuthService {
             this.userID = res.userID;
             this.sessionRoot = res;
             this.objIdRol = res.rolID;
+            window.name = 'Ventana2';
             localStorage.setItem('userID', res.userID);
             localStorage.setItem('rolID', '' + this.objIdRol);
             this.getUserProfile();
@@ -422,7 +423,7 @@ export class AuthService {
         localStorage.setItem('historySession', '' + historySession);
         this.disableRt.disableRoot = true;
         this.disableRt.refreshSession = true;
-      /*  this.setCookie('serv','w1',30); */ 
+      /*  this.setCookie('serv','w1',30); */
         console.log('SOY-AUTH-SERVICE:');
         console.log(historySession);
         this.router.navigate(['/home']);
@@ -516,6 +517,7 @@ export class AuthService {
       console.log(error);
     }
   }
+
 
 
 }
