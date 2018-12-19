@@ -317,6 +317,25 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  public detectDevice(){
+    if (/Mobi/.test(navigator.userAgent)) {
+      // mobile!
+      this.showAlert('SOY-DISPOSITIVO-MOBIL!');
+      console.log('SOY-DISPOSITIVO-MOBIL!');
+    } else{
+      this.showAlert('NO-SOY-DISPOSITIVO-MOBIL!');
+      console.log('NO-SOY-DISPOSITIVO-MOBIL!');
+    }
+  }
+
+  showAlert(message){
+    if(window.confirm(message)){
+        console.log('ACEPTÓ - CLIENTE');
+    } else{
+        console.log('DECLINÓ - CLIENTE');
+    }
+  }
+
 
   /*public checkCookieApp() {
     var user=this.getCookie("app");
