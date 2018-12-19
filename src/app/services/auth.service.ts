@@ -69,11 +69,11 @@ export class AuthService {
       .pipe(
         map((res:any) => {
           try{
-            this.userID = res.userID;                        
+            this.userID = res.userID;
             this.sessionRoot = res;
             this.objIdRol = res.rolID;
             localStorage.setItem('userID', res.userID);
-            localStorage.setItem('rolID', '' + this.objIdRol);            
+            localStorage.setItem('rolID', '' + this.objIdRol);
             this.getUserProfile();
           } catch(error){
             console.log(error);
@@ -110,7 +110,7 @@ export class AuthService {
           for(p =0; p<lenUserProfile; p++){
             if(this.userID == res[p].userId)
               this.profileIDList.push(res[p].authorityId);
-          }          
+          }
           this.getProfileModule();
         } catch(error){
           console.log(error);
@@ -127,7 +127,7 @@ export class AuthService {
         if(err.status == 400)
           this.showAlert('NO SE ENCUENTRA LA PÁGINA!');
         if(err.status == 401)
-          this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');            
+          this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');
       if(err.status == 401){
         this.showAlert('CREDENCIALES INCORRECTAS!');
       }
@@ -135,8 +135,8 @@ export class AuthService {
 
   }
 
-<<<<<<< HEAD
-  private setSession(): void {
+
+  /*private setSession(): void {
     try{
       var authResult = this.sessionRoot;
       const expiresAt = new Date(authResult.fechaExpiracion).getTime();
@@ -147,10 +147,7 @@ export class AuthService {
       localStorage.setItem('disableRoot', 'true');
       this.disableRt.disableRoot = true;
       this.disableRt.refreshSession = true;
-      this.router.navigate(['/home']);
-=======
->>>>>>> cf38540075593a9bb25e4108413c4cfc0c8c2731
-
+      this.router.navigate(['/home']);*/
 
   public getProfileModule(){
     return this.http.get( API_GET_PROFILE_MODULE  )
@@ -184,7 +181,7 @@ export class AuthService {
                   case '281':
                     this.profilePerfil.setModulePr(true);
                     this.profileUserOption[3] = this.profilePerfil;
-                    break;  
+                    break;
                 }
               }
             }
@@ -205,7 +202,7 @@ export class AuthService {
         if(err.status == 400)
           this.showAlert('NO SE ENCUENTRA LA PÁGINA!');
         if(err.status == 401)
-          this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');            
+          this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');
       if(err.status == 401){
         this.showAlert('CREDENCIALES INCORRECTAS!');
       }
@@ -250,7 +247,7 @@ export class AuthService {
    });
 
   }
-  
+
 
 
   public getSalesOrderHistory(){
@@ -301,7 +298,7 @@ export class AuthService {
       if(err.status == 400)
         this.showAlert('NO SE ENCUENTRA LA PÁGINA!');
       if(err.status == 401)
-        this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');            
+        this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');
     });
 
   }
@@ -411,7 +408,28 @@ export class AuthService {
       console.log(error);
     }
   }
-
+  private setSession(): void {
+      try{
+          var historySession = history.length;
+        var authResult = this.sessionRoot;
+        const expiresAt = new Date(authResult.fechaExpiracion).getTime();
+        localStorage.setItem('access_token', authResult.token);
+        localStorage.setItem('expires_at', '' + expiresAt);
+        localStorage.setItem('logged_username', '' + this.username);
+        localStorage.setItem('objIdRol', '' + this.objIdRol);
+        localStorage.setItem('disableRoot', 'true');
+        localStorage.setItem('objIdRol', '' + this.objIdRol);
+        localStorage.setItem('historySession', '' + historySession);
+        this.disableRt.disableRoot = true;
+        this.disableRt.refreshSession = true;
+      /*  this.setCookie('serv','w1',30); */ 
+        console.log('SOY-AUTH-SERVICE:');
+        console.log(historySession);
+        this.router.navigate(['/home']);
+      } catch(error){
+        console.log(error);
+      }
+    }
 
 
   public logout(): void {
@@ -463,61 +481,6 @@ export class AuthService {
     }
   }
 
-<<<<<<< HEAD
-  public getSalesOrderHistory(){
-    var dayEnd, monthStart, yearStart;
-    var today = new Date();
-    dayEnd = today.getDate();
-    monthStart = today.getMonth();
-    yearStart = today.getFullYear();
-    if((dayEnd / 10) == 0)
-      dayEnd = '0' + today.getDate();
-    var startDate = '01/' + (monthStart+1) + '/' + yearStart;
-    var endDate = dayEnd + '/' + (monthStart+1) + '/' + yearStart;
-    let body = {
-      startDate:startDate,
-      endDate:endDate
-    };
-    var salesOrderHistory = [];
-    var locale = "es";
-    var month = today.toLocaleString(locale, {month: "long"});
-    localStorage.setItem('monthPieData', month);
-
-    let headers = new HttpHeaders({
-      'Accept':'application/json',
-      'Content-Type':'application/json',
-      'Access-Control-Allow-Origin':'*'
-    });
-
-    return this.http.post( API_DASHBOARD, body, { headers }  )
-    .pipe(
-      map((res:any) => {
-        try{
-          salesOrderHistory = this.setValueOrdersDashboard(res.saleResumeResult);
-          localStorage.setItem('pieData', JSON.stringify(salesOrderHistory[0]));
-          this.setProfileUserOption(this.userOptionResult);
-          return res.saleResumeResult;
-        } catch(error){
-          console.log(error);
-        }
-      })
-    )
-    .toPromise().then((data:any) => {
-    }, (err:HttpErrorResponse) => {
-      console.log('Obtención de historial de Órdenes.');
-      if(err.status == 0)
-        this.showAlert('ERROR DE CONEXION!');
-      if(err.status == 500)
-        this.showAlert('ERROR DEL SERVIDOR!');
-      if(err.status == 400)
-        this.showAlert('NO SE ENCUENTRA LA PÁGINA!');
-      if(err.status == 401)
-        this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');
-    });
-  }
-=======
->>>>>>> cf38540075593a9bb25e4108413c4cfc0c8c2731
-
 
   setValueOrdersDashboard(statusOrder){
     var i;
@@ -554,24 +517,5 @@ export class AuthService {
     }
   }
 
-
-  private setSession(): void {
-    try{
-      var authResult = this.sessionRoot;
-      const expiresAt = new Date(authResult.fechaExpiracion).getTime();
-      localStorage.setItem('access_token', authResult.token);
-      localStorage.setItem('expires_at', '' + expiresAt);
-      localStorage.setItem('logged_username', '' + this.username);
-      localStorage.setItem('objIdRol', '' + this.objIdRol);
-      localStorage.setItem('disableRoot', 'true');
-      localStorage.setItem('objIdRol', '' + this.objIdRol);
-      this.disableRt.disableRoot = true;
-      this.disableRt.refreshSession = true;
-      this.router.navigate(['/home']);
-
-    } catch(error){
-      console.log(error);
-    }
-  }
 
 }
