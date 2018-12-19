@@ -1,7 +1,7 @@
 h2{
   background-color:#D6DBDF;
-  font-family: Century Gothic, sans-serif;
   color: #17202A;
+  font-family: Century Gothic, sans-serif;
   height: 40px;
 
 }
@@ -66,7 +66,7 @@ table {
 }
 
 td, th {
-  width: 10%;
+  width: 20%;
   font-size: 75%;
   font-family: Century Gothic, sans-serif;
 }

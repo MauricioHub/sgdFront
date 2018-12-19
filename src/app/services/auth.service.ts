@@ -69,14 +69,12 @@ export class AuthService {
       .pipe(
         map((res:any) => {
           try{
-            this.userID = res.userID;                        
+            this.userID = res.userID;
             this.sessionRoot = res;
             this.objIdRol = res.rolID;
             window.name = 'Ventana2';
             localStorage.setItem('userID', res.userID);
             localStorage.setItem('rolID', '' + this.objIdRol);
-            console.log('SOY-WINDOW-AUTH-SERVICE:');
-            console.log(window.name);            
             this.getUserProfile();
           } catch(error){
             console.log(error);
@@ -113,7 +111,7 @@ export class AuthService {
           for(p =0; p<lenUserProfile; p++){
             if(this.userID == res[p].userId)
               this.profileIDList.push(res[p].authorityId);
-          }          
+          }
           this.getProfileModule();
         } catch(error){
           console.log(error);
@@ -130,7 +128,7 @@ export class AuthService {
         if(err.status == 400)
           this.showAlert('NO SE ENCUENTRA LA PÁGINA!');
         if(err.status == 401)
-          this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');            
+          this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');
       if(err.status == 401){
         this.showAlert('CREDENCIALES INCORRECTAS!');
       }
@@ -138,6 +136,19 @@ export class AuthService {
 
   }
 
+
+  /*private setSession(): void {
+    try{
+      var authResult = this.sessionRoot;
+      const expiresAt = new Date(authResult.fechaExpiracion).getTime();
+      localStorage.setItem('access_token', authResult.token);
+      localStorage.setItem('expires_at', '' + expiresAt);
+      localStorage.setItem('logged_username', '' + this.username);
+      localStorage.setItem('objIdRol', '' + this.objIdRol);
+      localStorage.setItem('disableRoot', 'true');
+      this.disableRt.disableRoot = true;
+      this.disableRt.refreshSession = true;
+      this.router.navigate(['/home']);*/
 
   public getProfileModule(){
     return this.http.get( API_GET_PROFILE_MODULE  )
@@ -171,7 +182,7 @@ export class AuthService {
                   case '281':
                     this.profilePerfil.setModulePr(true);
                     this.profileUserOption[3] = this.profilePerfil;
-                    break;  
+                    break;
                 }
               }
             }
@@ -192,7 +203,7 @@ export class AuthService {
         if(err.status == 400)
           this.showAlert('NO SE ENCUENTRA LA PÁGINA!');
         if(err.status == 401)
-          this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');            
+          this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');
       if(err.status == 401){
         this.showAlert('CREDENCIALES INCORRECTAS!');
       }
@@ -237,7 +248,7 @@ export class AuthService {
    });
 
   }
-  
+
 
 
   public getSalesOrderHistory(){
@@ -288,7 +299,7 @@ export class AuthService {
       if(err.status == 400)
         this.showAlert('NO SE ENCUENTRA LA PÁGINA!');
       if(err.status == 401)
-        this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');            
+        this.showAlert('ERROR DE CONTENIDO!: CREDENCIALES INCORRECTAS.');
     });
 
   }
@@ -398,7 +409,28 @@ export class AuthService {
       console.log(error);
     }
   }
-
+  private setSession(): void {
+      try{
+          var historySession = history.length;
+        var authResult = this.sessionRoot;
+        const expiresAt = new Date(authResult.fechaExpiracion).getTime();
+        localStorage.setItem('access_token', authResult.token);
+        localStorage.setItem('expires_at', '' + expiresAt);
+        localStorage.setItem('logged_username', '' + this.username);
+        localStorage.setItem('objIdRol', '' + this.objIdRol);
+        localStorage.setItem('disableRoot', 'true');
+        localStorage.setItem('objIdRol', '' + this.objIdRol);
+        localStorage.setItem('historySession', '' + historySession);
+        this.disableRt.disableRoot = true;
+        this.disableRt.refreshSession = true;
+      /*  this.setCookie('serv','w1',30); */
+        console.log('SOY-AUTH-SERVICE:');
+        console.log(historySession);
+        this.router.navigate(['/home']);
+      } catch(error){
+        console.log(error);
+      }
+    }
 
 
   public logout(): void {
@@ -486,39 +518,6 @@ export class AuthService {
     }
   }
 
-
-  private setSession(): void {
-    try{
-      var historySession = history.length;
-      var authResult = this.sessionRoot;
-      const expiresAt = new Date(authResult.fechaExpiracion).getTime();
-      localStorage.setItem('access_token', authResult.token);
-      localStorage.setItem('expires_at', '' + expiresAt);
-      localStorage.setItem('logged_username', '' + this.username);
-      localStorage.setItem('objIdRol', '' + this.objIdRol);
-      localStorage.setItem('disableRoot', 'true');
-      localStorage.setItem('objIdRol', '' + this.objIdRol);
-      localStorage.setItem('historySession', '' + historySession);
-      this.disableRt.disableRoot = true;
-      this.disableRt.refreshSession = true;
-
-      this.setCookie('serv','w1',30);
-      console.log('SOY-AUTH-SERVICE:');
-      console.log(historySession);
-      this.router.navigate(['/home']);
-
-    } catch(error){
-      console.log(error);
-    }
-  }
-
-
-  public setCookie(cname,cvalue,exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires=" + d.getDate();
-    document.cookie = cname + "=" + cvalue + ";" + expires;
-  }
 
 
 }
