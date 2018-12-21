@@ -94,7 +94,7 @@ export class HomeComponent implements OnInit {
     console.log(window.history.state.navigationId);*/
     this.checkHistory();
     this.checkToken();
-    this.validateSessionDevice();
+    //this.validateSessionDevice();
 
     /*let today = new Date();
     window.name = 'w' + today.getTime();
@@ -363,7 +363,9 @@ export class HomeComponent implements OnInit {
           this.ipPCMachine = this.detectIPClient();
           localStorage.setItem('ipPCMachine', this.ipPCMachine);
         } else{
-          if(this.detectDevice() == 0){
+          let ipPCMachineOld = localStorage.getItem('ipPCMachine');
+          let ipPCMachineNew = this.detectIPClient();
+          if((this.detectDevice() == 0) && (ipPCMachineNew != ipPCMachineOld)){
             this.disableRt.disableRoot = false;
             this.router.navigate(['/login']);
           }
@@ -374,7 +376,9 @@ export class HomeComponent implements OnInit {
           this.ipCellPhone = this.detectIPClient();
           localStorage.setItem('ipCellPhone', this.ipCellPhone);
         } else{
-          if(this.detectDevice() == 1){
+          let ipCellPhoneOld = localStorage.getItem('ipPCMachine');
+          let ipCellPhoneNew = this.detectIPClient();
+          if((this.detectDevice() == 1) && (ipCellPhoneNew != ipCellPhoneOld)){
             this.disableRt.disableRoot = false;
             this.router.navigate(['/login']);
           }
