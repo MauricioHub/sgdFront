@@ -349,8 +349,6 @@ export class HeroesService {
       'Access-Control-Allow-Origin':'*'
     });
 
-    console.log('NUEVO REGULAR: ');
-    console.log(objRegular);
     return this.http.post( API_REGULAR, body, { headers }  )
       .pipe(
         map( (res:any)=>{
@@ -359,9 +357,7 @@ export class HeroesService {
             //console.log(res);
           }
           return res;
-          //console.log(res);
         })
-      //  HACE EL PROCESO DE REGULARAXION
       );
   }
 

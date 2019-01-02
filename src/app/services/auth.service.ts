@@ -102,6 +102,7 @@ export class AuthService {
 
 
   public getUserProfile(){
+    let dataUserProfile;
     return this.http.get( API_GET_USER_PROFILE  )
     .pipe(
       map((res:any) => {
@@ -110,8 +111,12 @@ export class AuthService {
           let lenUserProfile = res.length;
           for(p =0; p<lenUserProfile; p++){
             if(this.userID == res[p].userId)
-              this.profileIDList.push(res[p].authorityId);
+              this.profileIDList.push(res[p].authorityId);              
           }
+          dataUserProfile = {
+            'data':this.profileIDList
+          }
+          localStorage.setItem('dataUserProfile', '' + dataUserProfile);
           this.getProfileModule();
         } catch(error){
           console.log(error);

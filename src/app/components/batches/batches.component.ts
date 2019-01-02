@@ -51,6 +51,7 @@ export class BatchesComponent implements OnInit {
   selectedLote:any[] = [{id: "" , name: ""}];
   selectedReason:any[] = [{idReason: "", description: ""}];
   selectedLoteCopy:any[] = [{id: "" , name: ""}];
+  selectedReasonCopy:any[] = [{idReason: "", description: ""}];
 
   batchIdentifier:string = "";
   orderIdentifier:string = "";  
@@ -77,8 +78,10 @@ export class BatchesComponent implements OnInit {
   batches: any[] = [];
   batchRegular: Batch[] = [];
   batchObservation: string[] = [];
+  batchObservationCopy: string[] = [];
   radioActAr: boolean[] = [];
   selectReasonEn:boolean[] = [];
+  selectObservationEn:boolean[] = [];
   flagUserEnable:boolean[] = [];
   batchReason: any[] = [];
   rows: any[] = [];
@@ -139,6 +142,7 @@ export class BatchesComponent implements OnInit {
     this.chargePayments();
     
     this.enableSelectReason(true);
+    //this.enableSelectObservation(true);
     if(this.batches.length == 0)
         this.v_records = '0';
 
@@ -194,6 +198,7 @@ export class BatchesComponent implements OnInit {
             if(data){
                 this.batches = data;
                 this.enableSelectReason(true);
+                this.enableSelectObservation(false);
                 this.chargeReasons('');
                 this.loadBatchesText();
                 this.loadBatchesStatus();
@@ -306,11 +311,13 @@ export class BatchesComponent implements OnInit {
             if(data){
                 this.batches = data;
                 this.enableSelectReason(true);
+                this.enableSelectObservation(false);
                 this.chargeReasons('');
                 this.loadBatchesText();
                 this.loadBatchesStatus();
                 this.enableFlagVariable(false);
                 this.loadBatchesStatusCopy();
+                this.loadBatchesObservationCopy();
                 if(this.flagUser)
                     this.enableFlagUser(true);                    
                 
@@ -329,12 +336,18 @@ export class BatchesComponent implements OnInit {
         if(this.selectedLote[i].name == 'RECHAZADO'){
             this.selectReasonEn[i] = false;
             this.selectedReason[i] = this.batchReason[0];
+            this.batchObservation[i] = this.batchObservationCopy[i];
+            this.selectObservationEn[i] = false; 
         } else if(this.selectedLote[i].name == 'REGULARIZADO'){
             this.selectedReason[i] = {idReason: "", description: ""};
-            this.selectReasonEn[i] = true; 
+            this.selectReasonEn[i] = true;
+            this.batchObservation[i] = '';
+            this.selectObservationEn[i] = true;
         } else if(this.selectedLote[i].name == 'PENDIENTE'){
             this.selectedReason[i] = {idReason: "", description: ""};
-            this.selectReasonEn[i] = true; 
+            this.selectReasonEn[i] = true;
+            this.batchObservation[i] = this.batchObservationCopy[i];
+            this.selectObservationEn[i] = false; 
         }
     }
 
@@ -343,18 +356,29 @@ export class BatchesComponent implements OnInit {
     
         if(this.radioActAr[index]){
             this.selectedLote[index] = this.loteEstado[1];
+            this.batchObservation[index] = '';
+            this.selectObservationEn[index] = true;
+            this.selectedReason[index] = {idReason: "", description: ""};
+            this.selectReasonEn[index] = true;
             let batchNew = new Batch(
             '' + lote.id.orderId,
             '' + this.selectedLote[index].name,
             '' + this.selectedReason[index].description,
             index,
-            '' + this.batchObservation[index],
+            '',
             '' + lote.id.lotId
             );
             this.batchRegular.push(batchNew);
         } else{
             let indexReal = this.indexOfBatch(this.batchRegular,lote.orderId);
             this.selectedLote[index] = this.selectedLoteCopy[index];
+            this.batchObservation[index] = this.batchObservationCopy[index];
+            if(this.selectedLoteCopy[index].name != 'REGULARIZADO')
+                this.selectObservationEn[index] = false;
+            if(this.selectedLoteCopy[index].name == 'RECHAZADO'){
+                this.selectedReason[index] = this.selectedReasonCopy[index];
+                this.selectReasonEn[index] = false;
+            }
             if (indexReal !== -1)
                 this.batchRegular.splice(indexReal, 1);
             else
@@ -385,6 +409,13 @@ export class BatchesComponent implements OnInit {
                 for(t=0; t<lenOrigin; t++){
                     this.radioActAr[t] = false;
                     this.selectedLote[t] = this.selectedLoteCopy[t];
+                    this.batchObservation[t] = this.batchObservationCopy[t];
+                    if(this.selectedLoteCopy[t] != 'REGULARIZADO')
+                        this.selectObservationEn[t] = false;
+                    if(this.selectedLoteCopy[t].name == 'RECHAZADO'){
+                        this.selectedReason[t] = this.selectedReasonCopy[t];
+                        this.selectReasonEn[t] = false;
+                    }    
                 }
                 this.batchRegular.splice(0, lenArray);
             }      
@@ -413,7 +444,7 @@ export class BatchesComponent implements OnInit {
                 indexReg = this.batchRegular[p].indexOld;
                 this.batchRegular[p].status = this.selectedLote[indexReg].name;
                 this.batchRegular[p].reason = this.selectedReason[indexReg].description;
-                this.batchRegular[p].observation = this.batchObservation[indexReg];
+                this.batchRegular[p].status!='REGULARIZADO'?(this.batchRegular[p].observation = (this.batchObservation[indexReg]=='')?this.batchObservationCopy[indexReg]:this.batchObservation[indexReg]):this.batchRegular[p].observation = '';
             }
         }
         this.objRegular.regularized_user = lotIdent;
@@ -430,6 +461,7 @@ export class BatchesComponent implements OnInit {
         },
         error=> console.error(error));
     }
+
 
     loadBatchesStatus(){
         let len = this.batches.length; 
@@ -515,6 +547,19 @@ export class BatchesComponent implements OnInit {
         }
     }
 
+    enableSelectObservation(enableVal:boolean){
+        let len = this.batches.length;
+        if(len>=1){
+            let p;
+            for(p=0; p<len; p++){
+                this.selectObservationEn[p] = enableVal;
+                if(this.batches[p].status == 'REGULARIZADO')
+                    this.selectObservationEn[p] = !enableVal;
+            }
+        }
+    }    
+
+
     enableFlagVariable(enableVal:boolean){
         let len = this.batches.length;
         if(len>=1){
@@ -596,6 +641,7 @@ export class BatchesComponent implements OnInit {
             this.openModalOK();
             this.loadBatchesStatus();
             this.enableSelectReason(true);
+            this.enableSelectObservation(false);
             this.loadBatchesReason();
             this.enableFlagVariable(false);
             this.v_records = localStorage.getItem('v_records');
@@ -613,6 +659,7 @@ export class BatchesComponent implements OnInit {
             if(data.code == 200){
                 this.batchReason = data.reasonsResults;
                 this.loadBatchesReason();
+                this.loadBatchesReasonCopy();
             }
         });
     }
@@ -701,6 +748,7 @@ export class BatchesComponent implements OnInit {
             if(data){
                 this.batches = data;
                 this.enableSelectReason(true);
+                this.enableSelectObservation(false);
                 this.chargeReasons('');
                 this.loadBatchesText();
                 this.loadBatchesStatus();
@@ -862,6 +910,26 @@ export class BatchesComponent implements OnInit {
         for(p=0; p<len; p++)
             this.selectedLoteCopy[p] = this.selectedLote[p];
       }
+
+
+      loadBatchesObservationCopy(){
+        let len = this.batches.length;
+        let p;
+        for(p=0; p<len; p++){
+            if(!this.isEmpty(this.batches[p].observation))
+                this.batchObservationCopy[p] = this.batches[p].observation;
+            else
+                this.batchObservationCopy[p] = '';
+            }
+      }
+
+      
+      loadBatchesReasonCopy(){
+        let len = this.batches.length;
+        let p;
+        for(p=0; p<len; p++)
+            this.selectedReasonCopy[p] = this.selectedReason[p];
+      }      
 
 
       public checkHistory() {
