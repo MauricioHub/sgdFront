@@ -24,6 +24,10 @@ export class HomeComponent implements OnInit {
   pendingCard:string = '';
   pendingLenCard:string = '';
   flagSession:string = '';
+  ipPCMachine:string = '';
+  ipCellPhone:string = '';
+  //0:pcMachine, 1:cellPhone, 2:tablet
+  typeDevice:number = 0;
 
   // ADD CHART OPTIONS. 
   pieChartOptions = {
@@ -90,6 +94,7 @@ export class HomeComponent implements OnInit {
     console.log(window.history.state.navigationId);*/
     this.checkHistory();
     this.checkToken();
+    //this.validateSessionDevice();
 
     /*let today = new Date();
     window.name = 'w' + today.getTime();
@@ -316,6 +321,85 @@ export class HomeComponent implements OnInit {
       localStorage.setItem('home_token', accessToken);
     }
   }
+
+  public detectDevice(){
+    let typeDev = 0; 
+    if (/Mobi/.test(navigator.userAgent)) {
+      // mobile!
+      typeDev = this.typeDevice = 1;
+      //this.showAlert('SOY-DISPOSITIVO-MOBIL!');
+      //console.log('SOY-DISPOSITIVO-MOBIL!');
+    } else{
+      typeDev = this.typeDevice = 0;
+      //this.showAlert('NO-SOY-DISPOSITIVO-MOBIL!');
+      //console.log('NO-SOY-DISPOSITIVO-MOBIL!');
+    }
+    return typeDev;
+  }
+
+  showAlert(message){
+    if(window.confirm(message)){
+        console.log('ACEPTÓ - CLIENTE');
+    } else{
+        console.log('DECLINÓ - CLIENTE');
+    }
+  }
+
+  public detectIPClient(){
+    console.log('SOY-DETECT-FU9NCTION:');
+    console.log(window['ip_local']);
+    return window['ip_local'];
+  }
+
+
+
+  public validateSessionDevice(){
+    if(this.isEmpty(localStorage.getItem('logged_username'))){
+
+    } else {
+
+      if(this.detectDevice() == 0){
+        if(this.isEmpty(localStorage.getItem('ipPCMachine'))){
+          this.ipPCMachine = this.detectIPClient();
+          localStorage.setItem('ipPCMachine', this.ipPCMachine);
+        } else{
+          let ipPCMachineOld = localStorage.getItem('ipPCMachine');
+          let ipPCMachineNew = this.detectIPClient();
+          if((this.detectDevice() == 0) && (ipPCMachineNew != ipPCMachineOld)){
+            this.disableRt.disableRoot = false;
+            this.router.navigate(['/login']);
+          }
+        }
+
+      } else{
+        if(this.isEmpty(localStorage.getItem('ipCellPhone'))){
+          this.ipCellPhone = this.detectIPClient();
+          localStorage.setItem('ipCellPhone', this.ipCellPhone);
+        } else{
+          let ipCellPhoneOld = localStorage.getItem('ipPCMachine');
+          let ipCellPhoneNew = this.detectIPClient();
+          if((this.detectDevice() == 1) && (ipCellPhoneNew != ipCellPhoneOld)){
+            this.disableRt.disableRoot = false;
+            this.router.navigate(['/login']);
+          }
+        }
+
+      }
+    }
+  }
+
+  /*detectIPClient(){
+    window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;   //compatibility for firefox and chrome
+    var pc = new RTCPeerConnection({iceServers:[]}), noop = function(){};      
+    pc.createDataChannel("");    //create a bogus data channel
+    pc.createOffer(pc.setLocalDescription.bind(pc), noop);    // create offer and set local description
+    pc.onicecandidate = function(ice){  //listen for candidate events
+        if(!ice || !ice.candidate || !ice.candidate.candidate)  return;
+        var myIP = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
+        document.write('IP: ', myIP);   
+        pc.onicecandidate = noop;
+    };
+  }*/
 
 
   /*public checkCookieApp() {
