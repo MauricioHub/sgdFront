@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./rdusersopc.component.css']
 })
 export class RdusersopcComponent implements OnInit {
-  displayedColumns: string[] = ['name','weight','estado','tipo','opcestado','modu','modestado', 'editar']
+  displayedColumns: string[] = ['name','weight','estado','tipo','opcestado','modu', 'editar']
   @ViewChild(MatPaginator) paginator:MatPaginator;
   public usersopclist= new MatTableDataSource();
 public valid:boolean=false;

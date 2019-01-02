@@ -52,7 +52,7 @@ th{
 /
 .mat-form-field {
   font-size: 20px;
-  width: 100%;
+  width: 200%;
   color: #FA5858;
 }
 input{
@@ -66,6 +66,7 @@ table {
 }
 
 td, th {
+  align:"center";
   width: 10%;
   font-size: 75%;
   font-family: Century Gothic, sans-serif;

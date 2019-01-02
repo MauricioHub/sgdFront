@@ -1,0 +1,12 @@
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-size: cover;
+}
+#delete{
+  margin-right: 8px;
+  background-color:#3498DB;
+  color: #17202A;
+}

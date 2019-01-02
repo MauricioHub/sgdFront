@@ -116,6 +116,7 @@ import { CrpromodComponent } from './components/create/crpromod/crpromod.compone
 import { CruserproComponent } from './components/create/cruserpro/cruserpro.component';
 import { UppromodComponent } from './components/update/uppromod/uppromod.component';
 import { UpuserproComponent } from './components/update/upuserpro/upuserpro.component';
+import { CarduserComponent } from './components/read/carduser/carduser.component';
 //import { BrowseComponentd } from './components/home/browse.component';
 
 @NgModule({
@@ -166,7 +167,8 @@ import { UpuserproComponent } from './components/update/upuserpro/upuserpro.comp
     CrpromodComponent,
     CruserproComponent,
     UppromodComponent,
-    UpuserproComponent
+    UpuserproComponent,
+    CarduserComponent
 
   ],
   imports: [
