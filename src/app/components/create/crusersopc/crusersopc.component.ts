@@ -7,6 +7,9 @@ import {Opcionusuario} from "../../../interface/opcionusuario";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {ServicesgetService, } from '../../../servicios/serget/servicesget.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatSnackBar} from '@angular/material';
+import {map, startWith} from 'rxjs/operators';
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-crusersopc',
@@ -16,6 +19,8 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatSnackBar} from '@angular/mat
 export class CrusersopcComponent implements OnInit {
 public usersop;
 public opciones;
+myControl = new FormControl();
+filteredOptions: Observable<string[]>;
 
   constructor(public router: Router,private cruopcusu: ServcreatedService,private getopcus: ServicesgetService,  public snackBar: MatSnackBar,public dialogRef: MatDialogRef<CrusersopcComponent>,@Inject(MAT_DIALOG_DATA) public data: Opcionusuario) {
   this.litstaidopcup()
@@ -23,7 +28,19 @@ public opciones;
 }
 
 ngOnInit() {
+  this.filteredOptions = this.myControl.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
   }
+
+  private _filter(value: string): string[] {
+      const filterValue = value.toLowerCase();
+
+      return this.opciones.filter(option => option.toLowerCase().includes(filterValue));
+    }
+
   openSnackBar(idusuario:string) {
     this.snackBar.open('ID:'+idusuario+' vinculado', 'SALIR', {
         duration: 5000,

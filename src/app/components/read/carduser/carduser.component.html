@@ -1,0 +1,18 @@
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{data.username}}</mat-card-title>
+    <mat-card-subtitle>{{data.enabled}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    Nombre: {{data.firstname}}<br>
+    Apellido: {{data.lastname}}<br>
+    Telefono: {{data.phonenumber}}<br>
+    Correo: {{data.email}}<br>
+  </mat-card-content>
+  <mat-card-actions>
+    <button id="delete" type="reset" mat-dialog-close class="btn btn-outline-primary" mat-button matTooltip ="SALIR"
+    ><mat-icon>exit_to_app</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>

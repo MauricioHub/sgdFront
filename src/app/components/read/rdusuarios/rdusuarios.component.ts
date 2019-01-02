@@ -17,6 +17,7 @@ import { Globals } from '../../../app.globals';
 import {UpdaterolComponent} from '../../update/updaterol/updaterol.component';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { CarduserComponent } from '../../read/carduser/carduser.component';
 
 
 
@@ -28,6 +29,7 @@ import { Router } from '@angular/router';
 })
 export class RdusuariosComponent implements OnInit {
   displayedColumns: string[] = ['name','nombre','cell','estado','telefono','email','editar','editar2','editar3','editar4']
+
   @ViewChild(MatPaginator) paginator:MatPaginator;
   public userslist = new MatTableDataSource();
   public perfs;
@@ -129,6 +131,18 @@ listaiduss(){
            this.listaiduss()
          });
        }
+       openDialogUpdate5(element:Usuario){
+         const dialogReff = this.dialog.open(CarduserComponent, {
+            width: '500px',
+            disableClose:false,
+            data: element
+          });
+
+          dialogReff.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.listaiduss()
+          });
+        }
        showAlert(message){
          if(window.confirm(message)){
            this.router.navigate(['/home']);

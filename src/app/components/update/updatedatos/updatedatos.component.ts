@@ -60,7 +60,7 @@ this.dialogRef.close();
        );
 
    }
-   listusuario(){
+listusuario(){
 this.creusu.getUsiarios('','').subscribe((usuario:any)=>{
 console.log(usuario);
 this.users=usuario;

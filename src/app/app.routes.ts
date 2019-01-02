@@ -38,6 +38,7 @@ import { RdarchivosComponent } from './components/read/rdarchivos/rdarchivos.com
 import { RddigitalComponent } from './components/read/rddigital/rddigital.component';
 import { UserrolComponent } from './components/read/userrol/userrol.component';
 import { RolmoduleComponent } from './components/read/rolmodule/rolmodule.component';
+import { CarduserComponent } from './components/read/carduser/carduser.component';
 
 
 
@@ -139,6 +140,9 @@ const APP_ROUTES: Routes = [
         { path: 'roldomule', component: RolmoduleComponent,	canActivate: [RoleguardService],data:{
           rol:'42',
          } },
+         { path: 'carduser', component: CarduserComponent,	canActivate: [RoleguardService],data:{
+           rol:'42',
+          } },
        //////////////////////////////////
       ///////NUEVOS INGRESOS////////////
       /////////////////////////////////
