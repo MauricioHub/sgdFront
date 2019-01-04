@@ -297,10 +297,7 @@ export class BatchesComponent implements OnInit {
         if(this.endDate.day === '')
           lastDate = '';
         else
-          lastDate = '' + this.endDate.day + '/' + this.endDate.month + '/' + this.endDate.year;
-
-        console.log('SOY-LOTE-ID:');
-        console.log(this.lotId);  
+          lastDate = '' + this.endDate.day + '/' + this.endDate.month + '/' + this.endDate.year;  
     
         this._heroesService.browseBatch( firstDate,
                                          lastDate,
