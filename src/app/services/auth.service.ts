@@ -378,6 +378,11 @@ export class AuthService {
                     this.profileLote.setModificacionCompletaPr(true);
                   }
                   break;
+                case 'ACTUALIZACION-R':
+                  if(userOptionResult[p].optionStatus == 'A'){
+                    this.profileLote.setModificacionRestringidaPr(true);
+                  }
+                  break;  
               }
               this.profileUserOption[2] = this.profileLote;
             break;

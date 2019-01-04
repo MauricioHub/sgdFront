@@ -31,7 +31,7 @@ export class BatchesComponent implements OnInit {
   batchSequence:number = 0;
   lotSequence = '';
 
-  lotId;
+  lotId:string = '';
   v_lotId:string = "";
   v_lotDate:string = "";
   v_records:string = "0";
@@ -298,10 +298,13 @@ export class BatchesComponent implements OnInit {
           lastDate = '';
         else
           lastDate = '' + this.endDate.day + '/' + this.endDate.month + '/' + this.endDate.year;
+
+        console.log('SOY-LOTE-ID:');
+        console.log(this.lotId);  
     
         this._heroesService.browseBatch( firstDate,
                                          lastDate,
-                                         this.batchIdentifier,
+                                         this.lotId,
                                          this.orderIdentifier,
                                          this.selectedOficina.officeId,
                                          this.selectedPaymentType.description,
