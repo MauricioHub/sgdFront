@@ -773,9 +773,6 @@ export class BatchesComponent implements OnInit {
     public downloadPDF(){
         let lenBatches = this.batches.length;
         let p;
-        console.log('BATCHES-PDF: ');
-        console.log(lenBatches + ', batCHES: ');
-        console.log(this.batches);
     
         this.columns = [
           'Signat ?', '1ra. Vez', 
@@ -795,16 +792,16 @@ export class BatchesComponent implements OnInit {
               this.batches[p].signatureFirstTime === ''? '': (this.batches[p].signatureFirstTime === 'S'? 'SI': 'NO'),    
               this.batches[p].orderId,
               this.batches[p].customerId,
-              this.v_lotDate,
+              this.isEmpty(this.v_lotDate)==true?'':this.v_lotDate,
               this.batches[p].loggedUser,
               this.batches[p].paymentType,
               this.batches[p].financialInstitution,
               this.batches[p].officceId,
               this.batches[p].officce,
-              this.batches[p].days,
+              this.isEmpty(this.batches[p].days)==true?'':this.batches[p].days,
               this.batches[p].lotId,
               this.selectedLote[p].name,
-              this.batches[p].observation,
+              this.isEmpty(this.batches[p].observation)==true?'':this.batches[p].observation,
               this.selectedReason[p].description
             ];
             this.rows[p] = records;
@@ -822,7 +819,7 @@ export class BatchesComponent implements OnInit {
               doc.text("Reporte Lotes Ordenes Venta", 40, 30);
             }
         }); // typescript compile time error
-        doc.save('LotesJSPDF.pdf');
+        doc.save('LotesJSPDF.pdf'); 
       }
       
       private setHeaderBatchesExcel(){
