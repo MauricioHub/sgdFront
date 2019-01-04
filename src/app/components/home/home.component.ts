@@ -67,6 +67,9 @@ export class HomeComponent implements OnInit {
               private disableRt:Globals) {
     if(localStorage.getItem('disableRoot') == 'true')
       this.disableRt.disableRoot = true;
+
+    console.log('SOY-HOME: ');
+    console.log(window.history);  
       
     let historySe = localStorage.getItem('historySession');
     //window.name = 'Ventana1';
@@ -92,6 +95,7 @@ export class HomeComponent implements OnInit {
     console.log(window.history);
     console.log(window.history.length);
     console.log(window.history.state.navigationId);*/
+    //this.checkHistory();
     
     /* FUNCIONES VALIDADORAS DE SEWSIÓN */
     //this.checkHistory();

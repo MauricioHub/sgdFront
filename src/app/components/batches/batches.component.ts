@@ -109,8 +109,8 @@ export class BatchesComponent implements OnInit {
               private disableRt:Globals) {
     if(localStorage.getItem('disableRoot') == 'true')
         this.disableRt.disableRoot = true;
-    this.checkHistory();
-    this.checkToken();
+    //this.checkHistory();
+    //this.checkToken();
 
     this.disableRt.profileRoot[0] = JSON.parse(localStorage.getItem('sales_module'));
     this.disableRt.profileRoot[1] = JSON.parse(localStorage.getItem('fees_module'));
@@ -790,7 +790,7 @@ export class BatchesComponent implements OnInit {
             let records = [
               this.batches[p].claroSignature === ''? '': (this.batches[p].claroSignature === 'S'? 'SI': 'NO'),
               this.batches[p].signatureFirstTime === ''? '': (this.batches[p].signatureFirstTime === 'S'? 'SI': 'NO'),    
-              this.batches[p].orderId,
+              this.batches[p].id.orderId,
               this.batches[p].customerId,
               this.isEmpty(this.v_lotDate)==true?'':this.v_lotDate,
               this.batches[p].loggedUser,
@@ -799,7 +799,7 @@ export class BatchesComponent implements OnInit {
               this.batches[p].officceId,
               this.batches[p].officce,
               this.isEmpty(this.batches[p].days)==true?'':this.batches[p].days,
-              this.batches[p].lotId,
+              this.batches[p].id.lotId,
               this.selectedLote[p].name,
               this.isEmpty(this.batches[p].observation)==true?'':this.batches[p].observation,
               this.selectedReason[p].description
@@ -819,7 +819,7 @@ export class BatchesComponent implements OnInit {
               doc.text("Reporte Lotes Ordenes Venta", 40, 30);
             }
         }); // typescript compile time error
-        doc.save('LotesJSPDF.pdf'); 
+        doc.save('LotesJSPDF.pdf');
       }
       
       private setHeaderBatchesExcel(){
@@ -832,7 +832,7 @@ export class BatchesComponent implements OnInit {
                 let objBatchesNew = {
                   'Signature ??':this.batches[p].claroSignature === ''? '': (this.batches[p].claroSignature === 'S'? 'SI': 'NO'),
                   '1era. Vez ??':this.batches[p].signatureFirstTime === ''? '': (this.batches[p].signatureFirstTime === 'S'? 'SI': 'NO'),
-                  'Número Orden':this.batches[p].orderId,
+                  'Número Orden':this.batches[p].id.orderId,
                   'Identificación Cliente':this.batches[p].customerId,
                   'Fecha Creación':this.batches[p].lotDate,
                   'Usuario Ingreso':this.batches[p].loggedUser,
@@ -841,7 +841,7 @@ export class BatchesComponent implements OnInit {
                   'Código Oficina':this.batches[p].officceId,
                   'Nombre Oficina':this.batches[p].officce,
                   'Número Dias':this.batches[p].days,
-                  'Número Lote':this.batches[p].lotId,
+                  'Número Lote':this.batches[p].id.lotId,
                   'Estado':this.batches[p].status,
                   'Observación':this.batches[p].observation,
                   'Motivo':this.batches[p].reason

@@ -67,8 +67,8 @@ export class FeesComponent implements OnInit {
               private disableRt:Globals) {
     if(localStorage.getItem('disableRoot') == 'true')
       this.disableRt.disableRoot = true;
-    this.checkHistory();
-    this.checkToken();  
+    //this.checkHistory();
+    //this.checkToken();  
       
     this.disableRt.profileRoot[0] = JSON.parse(localStorage.getItem('sales_module'));
     this.disableRt.profileRoot[1] = JSON.parse(localStorage.getItem('fees_module'));
