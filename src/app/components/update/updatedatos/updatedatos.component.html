@@ -19,8 +19,9 @@
   <input matInput placeholder="NOMBRE DEL USUARIO"
    name="nombre"
   ngModel="{{data.firstname}}"
-   maxlength="25"
+   maxlength="15"
    minlength="3"
+    pattern="[A-Za-z]+$"
    required
    #nombre="ngModel">
    <mat-error *ngIf="nombre.hasError('minlength')">
@@ -29,51 +30,58 @@
  <mat-error *ngIf="nombre.hasError('required')">
 <strong>El nombre es requerido</strong>
 </mat-error>
+<mat-error *ngIf="nombre.hasError('pattern')">
+  <strong>Solo valida letras</strong>
+ </mat-error>
    <mat-icon matSuffix>person</mat-icon>
      </mat-form-field>
 
 
-     <mat-form-field appearance="outline">
-     <mat-label>APELLIDO DEL USUARIO</mat-label>
-     <input matInput placeholder="APELLIDO DEL USUARIO"
-      name="apellido"
-      ngModel="{{data.lastname}}"
-      maxlength="25"
-      minlength="4"
-      required
-      #apellido="ngModel">
-      <mat-error *ngIf="apellido.hasError('minlength')">
-     <strong>Minimo 5 caracteres</strong>
-    </mat-error>
-    <mat-error *ngIf="apellido.hasError('required')">
+ <mat-form-field appearance="outline">
+   <mat-label>APELLIDO DEL USUARIO</mat-label>
+ <input matInput placeholder="APELLIDO DEL USUARIO"
+  name="apellido"
+  ngModel="{{data.lastname}}"
+  maxlength="15"
+  minlength="4"
+  pattern="[A-Za-z]+$"
+    required
+  #apellido="ngModel">
+  <mat-error *ngIf="apellido.hasError('minlength')">
+   <strong>Minimo 5 caracteres</strong>
+  </mat-error>
+  <mat-error *ngIf="apellido.hasError('required')">
    <strong>El nombre es requerido</strong>
    </mat-error>
+   <mat-error *ngIf="apellido.hasError('pattern')">
+     <strong>Solo valida letras</strong>
+    </mat-error>
      <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
 
 
-        <mat-form-field appearance="outline">
-        <mat-label>TELEFONO DEL USUARIO</mat-label>
-        <input matInput placeholder="TELEFONO DEL USUARIO"
-         name="cell"
-         type="text"
-         maxlength="15"
-         minlength="10"
-         pattern="[0-9]+"
-         ngModel="{{data.phonenumber}}"
-         required
-         #cell="ngModel">
-         <mat-error *ngIf="cell.hasError('required')">
-         <strong>El número de telefono es requerido</strong>
-         </mat-error>
-         <mat-error *ngIf="cell.hasError('minlength')">
-         <strong>Minimo 10 digitos</strong>
-         </mat-error>
-         <mat-error *ngIf="cell.hasError('pattern')">
-         <strong>Solo valida digitos</strong>
-         </mat-error>
-        <mat-icon matSuffix>local_phone</mat-icon>
-           </mat-form-field>
+  <mat-form-field appearance="outline">
+  <mat-label>TELEFONO DEL USUARIO</mat-label>
+  <input matInput placeholder="TELEFONO DEL USUARIO"
+  name="cell"
+   type="text"
+     maxlength="15"
+   minlength="10"
+   pattern="[0-9]+"
+ ngModel="{{data.phonenumber}}"
+   required
+   #cell="ngModel">
+ <mat-error *ngIf="cell.hasError('required')">
+     <strong>El número de telefono es requerido</strong>
+   </mat-error>
+   <mat-error *ngIf="cell.hasError('minlength')">
+   <strong>Minimo 10 digitos</strong>
+     </mat-error>
+   <mat-error *ngIf="cell.hasError('pattern')">
+     <strong>Solo valida digitos</strong>
+     </mat-error>
+  <mat-icon matSuffix>local_phone</mat-icon>
+     </mat-form-field>
 
            <br>
          <mat-form-field appearance="outline">

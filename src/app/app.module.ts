@@ -117,6 +117,7 @@ import { CruserproComponent } from './components/create/cruserpro/cruserpro.comp
 import { UppromodComponent } from './components/update/uppromod/uppromod.component';
 import { UpuserproComponent } from './components/update/upuserpro/upuserpro.component';
 import { CarduserComponent } from './components/read/carduser/carduser.component';
+import { NewpasswordComponent } from './components/newpassword/newpassword.component';
 //import { BrowseComponentd } from './components/home/browse.component';
 
 @NgModule({
@@ -168,7 +169,8 @@ import { CarduserComponent } from './components/read/carduser/carduser.component
     CruserproComponent,
     UppromodComponent,
     UpuserproComponent,
-    CarduserComponent
+    CarduserComponent,
+    NewpasswordComponent
 
   ],
   imports: [

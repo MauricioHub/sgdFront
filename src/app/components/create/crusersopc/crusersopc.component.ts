@@ -19,28 +19,13 @@ import {Observable} from 'rxjs';
 export class CrusersopcComponent implements OnInit {
 public usersop;
 public opciones;
-myControl = new FormControl();
-filteredOptions: Observable<string[]>;
-
   constructor(public router: Router,private cruopcusu: ServcreatedService,private getopcus: ServicesgetService,  public snackBar: MatSnackBar,public dialogRef: MatDialogRef<CrusersopcComponent>,@Inject(MAT_DIALOG_DATA) public data: Opcionusuario) {
-  this.litstaidopcup()
-  this.litstauser()
+  this.litstaidopcup();
+  this.litstauser();
 }
 
 ngOnInit() {
-  this.filteredOptions = this.myControl.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
-  }
-
-  private _filter(value: string): string[] {
-      const filterValue = value.toLowerCase();
-
-      return this.opciones.filter(option => option.toLowerCase().includes(filterValue));
-    }
-
+}
   openSnackBar(idusuario:string) {
     this.snackBar.open('ID:'+idusuario+' vinculado', 'SALIR', {
         duration: 5000,
@@ -88,17 +73,16 @@ litstauser(){
   err=>console.log(err))
 }
 showAlert(message){
-
 if(window.confirm(message)){
-
 this.router.navigate(['/rdusersopc']);
-
 } else{
-
 this.router.navigate(['/rdusersopc']);
+}}
 
-}
+private _filter(value: string): string[] {
+   const filterValue = value.toLowerCase();
 
-}
+   return this.usersop.filter(option => option.toLowerCase().includes(filterValue));
+ }
 
 }

@@ -13,6 +13,7 @@
        ngModel
        maxlength="25"
        minlength="3"
+       pattern="[A-Za-z0-9]+$"
        required
        #nombre="ngModel">
        <mat-error *ngIf="nombre.hasError('minlength')">
@@ -21,6 +22,9 @@
      <mat-error *ngIf="nombre.hasError('required')">
     <strong>El nombre es requerido</strong>
    </mat-error>
+   <mat-error *ngIf="nombre.hasError('pattern')">
+  <strong>Solo valida letras y números</strong>
+ </mat-error>
       <mat-icon matSuffix>person</mat-icon>
 </mat-form-field>
 

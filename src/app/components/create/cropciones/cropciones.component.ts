@@ -37,6 +37,7 @@ opciones:opcion[]=[
   {value: 'CONSULTA', viewValue: 'CONSULTA'},
   {value: 'CREACION', viewValue: 'CREACION'},
   {value: 'ACTUALIZACION', viewValue: 'ACTUALIZACION'},
+  {value: 'ACTUALIZACION-R', viewValue: 'ACTUALIZACION-R'}
 ];
 
 

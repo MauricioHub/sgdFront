@@ -1,15 +1,69 @@
+<form (ngSubmit)="Readigital(formandig)" #formandig="ngForm" novalidate>
 <br/>
 
 <h2 align="center">DIGITALIZACIÓN DE DOCUMENTOS </h2>
 <hr>
 
 <mat-form-field appearance="outline" id="buscar">
-  <mat-label>BUSCAR DOCUMENTO</mat-label>
+  <mat-label>BUSQUEDA GLOBAL</mat-label>
   <input matInput   (keyup)="applyFilter($event.target.value)" placeholder="BUSCAR" maxlength="25">
   <mat-icon matSuffix>search</mat-icon>
 </mat-form-field>
 
+<hr>
+<mat-form-field appearance="outline" id="buscaror">
+  <mat-label>BUSCAR POR ORDEN</mat-label>
+  <input matInput   placeholder="BUSCAR ORDEN"
+     name="orden"
+     ngModel
+     #orden="ngModel">
+  <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>
 
+<mat-form-field appearance="outline" id="buscaror">
+  <mat-label>BUSCAR POR USUARIO</mat-label>
+  <input matInput   placeholder="BUSCAR POR USUARIO"
+     name="users"
+     ngModel
+     #users="ngModel">
+  <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>
+
+<mat-form-field appearance="outline" id="buscaror">
+  <mat-label>BUSCAR POR ESTADO</mat-label>
+  <input matInput   placeholder="BUSCAR POR ESTADO"
+     name="estado"
+     ngModel
+     #estado="ngModel">
+  <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>
+<hr>
+<mat-form-field appearance="outline" id="buscaror">
+  <mat-label>FECHA INICIAL</mat-label>
+  <input matInput   placeholder="FECHA INICIAL"
+     name="datestart"
+     type="date"
+     ngModel
+     #datestart="ngModel">
+  <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>
+
+<mat-form-field appearance="outline" id="buscaror">
+  <mat-label>FECHA FINAL</mat-label>
+  <input matInput   placeholder="FECHA FINAL"
+     type="date"
+     name="dateend"
+     ngModel
+     #dateend="ngModel">
+  <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>
+<br>
+<button type="submit" id="guardar" class="btn btn-outline-primary"  mat-button matTooltip ="CONSULTAR FILTRO"
+><mat-icon>save</mat-icon>
+</button>
+
+<hr>
+<br>
 <table mat-table [dataSource]="digital" class="mat-elevation-z8">
 
   <ng-container matColumnDef="select">
@@ -56,4 +110,8 @@
       (click)="selection.toggle(row)">
   </tr>
 </table>
-<mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100, 500]" showFirstLastButtons></mat-paginator>
+<mat-paginator [pageSizeOptions]="[1,5, 10, 20, 50, 100, 500]" showFirstLastButtons></mat-paginator>
+
+<br>
+
+</form>
