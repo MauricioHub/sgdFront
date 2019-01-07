@@ -67,8 +67,8 @@ export class FeesComponent implements OnInit {
               private disableRt:Globals) {
     if(localStorage.getItem('disableRoot') == 'true')
       this.disableRt.disableRoot = true;
-    this.checkHistory();
-    this.checkToken();  
+    //this.checkHistory();
+    //this.checkToken();  
       
     this.disableRt.profileRoot[0] = JSON.parse(localStorage.getItem('sales_module'));
     this.disableRt.profileRoot[1] = JSON.parse(localStorage.getItem('fees_module'));
@@ -298,13 +298,13 @@ export class FeesComponent implements OnInit {
           this.fees[p].customerId,
           this.fees[p].plan,
           this.fees[p].account,
-          this.formatDate(this.fees[p].registerDate),
-          this.formatDate(this.fees[p].regularizationDate),
+          this.isEmpty(this.fees[p].registerDate)==true?'':this.formatDate(this.fees[p].registerDate),
+          this.isEmpty(this.fees[p].regularizationDate)==true?'':this.formatDate(this.fees[p].regularizationDate),
           this.fees[p].regularizationUser,
           this.fees[p].device,
           this.fees[p].quantity,
-          this.formatDate(this.fees[p].activationDate),
-          this.formatDate(this.fees[p].inconsistencyDate),
+          this.isEmpty(this.fees[p].activationDate)==true?'':this.formatDate(this.fees[p].activationDate),
+          this.isEmpty(this.fees[p].inconsistencyDate)==true?'':this.formatDate(this.fees[p].inconsistencyDate),
           this.fees[p].inconsistencyUser,
           this.fees[p].penalty,
           this.fees[p].penaltyValue,

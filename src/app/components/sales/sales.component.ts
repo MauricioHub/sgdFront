@@ -93,8 +93,8 @@ export class SalesComponent implements OnInit {
         this.enableSaleConsult = this.disableRt.profileRoot[0].consultaPr;
       if(this.disableRt.profileRoot[0].creacionPr)
         this.enableSaleCreation = this.disableRt.profileRoot[0].creacionPr;
-      this.checkHistory();
-      this.checkToken();
+    //  this.checkHistory();
+    //  this.checkToken();
       this.chargeChannels();
       this.chargeOffices(this.selectedChannel.channelId);
       if(!this.flagBatched)
